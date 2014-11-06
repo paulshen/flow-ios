@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 PaulShen. All rights reserved.
 //
 
-import UIKit
 import Parse
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,8 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     Parse.setApplicationId("***REMOVED***", clientKey: "***REMOVED***")
     
     self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-    let vc = ViewController()
-    self.window!.rootViewController = vc;
+    let rootVC = UINavigationController()
+    let transactionsVC = TransactionsViewController()
+    rootVC.viewControllers = [transactionsVC]
+    self.window!.rootViewController = rootVC;
     self.window!.makeKeyAndVisible()
     return true
   }

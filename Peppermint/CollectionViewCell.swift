@@ -17,7 +17,6 @@ class CollectionViewCell: UICollectionViewCell {
     super.init(frame: frame)
     
     body.numberOfLines = 0
-    body.layoutMargins = UIEdgeInsetsMake(-20, 0, -20, 0)
     body.setTranslatesAutoresizingMaskIntoConstraints(false)
     border.backgroundColor = UIColor.blackColor()
     border.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -36,7 +35,7 @@ class CollectionViewCell: UICollectionViewCell {
     let borderHConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[border]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
     contentView.addConstraints(borderHConstraints)
     
-    let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-20-[body]-20-[border(1)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
+    let vConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-120-[body]-120-[border(1)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
     contentView.addConstraints(vConstraints)
   }
   
@@ -45,9 +44,10 @@ class CollectionViewCell: UICollectionViewCell {
   }
   
   override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes! {
+    super.preferredLayoutAttributesFittingAttributes(layoutAttributes)
     let attr = layoutAttributes.copy() as UICollectionViewLayoutAttributes
     let size = body.sizeThatFits(CGSize(width: attr.frame.size.width, height: CGFloat.max))
-    attr.frame = CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(attr.frame), height: size.height + 41.0)
+    attr.frame = CGRect(x: 0.0, y: 0.0, width: CGRectGetWidth(attr.frame), height: size.height + 241.0)
     return attr
   }
 }

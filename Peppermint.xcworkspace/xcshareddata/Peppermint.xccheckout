@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>090325AE-7586-45E1-955C-98B862E9C4B7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Peppermint</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>81194B582C137AE9606CF99841A41654E241A0E0</key>
+		<string>bitbucket.org:paulshen/peppermint.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Peppermint.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>81194B582C137AE9606CF99841A41654E241A0E0</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>bitbucket.org:paulshen/peppermint.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>81194B582C137AE9606CF99841A41654E241A0E0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>81194B582C137AE9606CF99841A41654E241A0E0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Peppermint</string>
+		</dict>
+	</array>
+</dict>
+</plist>
