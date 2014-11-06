@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PF_MBProgressHUD.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PF_MBProgressHUD.h

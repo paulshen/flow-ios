@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFImageView.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFImageView.h

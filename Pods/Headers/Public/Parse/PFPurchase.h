@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFPurchase.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFPurchase.h

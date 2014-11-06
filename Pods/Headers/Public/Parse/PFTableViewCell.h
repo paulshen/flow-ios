@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFTableViewCell.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFTableViewCell.h

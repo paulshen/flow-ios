@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFPurchaseTableViewCell.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFPurchaseTableViewCell.h

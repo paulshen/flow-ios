@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFQueryTableViewController.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFQueryTableViewController.h

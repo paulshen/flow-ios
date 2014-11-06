@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFGeoPoint.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFGeoPoint.h

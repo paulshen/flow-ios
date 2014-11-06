@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFSignUpView.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFSignUpView.h

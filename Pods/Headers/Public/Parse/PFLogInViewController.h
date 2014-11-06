@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFLogInViewController.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFLogInViewController.h

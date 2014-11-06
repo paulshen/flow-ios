@@ -1,1 +1,1 @@
-../../../Parse/Parse.framework/Versions/A/Headers/PFProductTableViewController.h
+../../../Parse/Parse.framework/Versions/Current/Headers/PFProductTableViewController.h
