@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9C0A313C1A0AEFBE00A94D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A313B1A0AEFBE00A94D9F /* AppDelegate.swift */; };
 		9C0A313E1A0AEFBE00A94D9F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A313D1A0AEFBE00A94D9F /* ViewController.swift */; };
-		9C0A31411A0AEFBE00A94D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C0A313F1A0AEFBE00A94D9F /* Main.storyboard */; };
 		9C0A31431A0AEFBE00A94D9F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C0A31421A0AEFBE00A94D9F /* Images.xcassets */; };
 		9C0A31461A0AEFBE00A94D9F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0A31441A0AEFBE00A94D9F /* LaunchScreen.xib */; };
 		9C0A31521A0AEFBE00A94D9F /* PeppermintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */; };
@@ -30,7 +29,6 @@
 		9C0A313A1A0AEFBE00A94D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C0A313B1A0AEFBE00A94D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C0A313D1A0AEFBE00A94D9F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9C0A31401A0AEFBE00A94D9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9C0A31421A0AEFBE00A94D9F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9C0A31451A0AEFBE00A94D9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9C0A314B1A0AEFBE00A94D9F /* PeppermintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeppermintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +77,6 @@
 			children = (
 				9C0A313B1A0AEFBE00A94D9F /* AppDelegate.swift */,
 				9C0A313D1A0AEFBE00A94D9F /* ViewController.swift */,
-				9C0A313F1A0AEFBE00A94D9F /* Main.storyboard */,
 				9C0A31421A0AEFBE00A94D9F /* Images.xcassets */,
 				9C0A31441A0AEFBE00A94D9F /* LaunchScreen.xib */,
 				9C0A31391A0AEFBE00A94D9F /* Supporting Files */,
@@ -192,7 +189,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C0A31411A0AEFBE00A94D9F /* Main.storyboard in Resources */,
 				9C0A31461A0AEFBE00A94D9F /* LaunchScreen.xib in Resources */,
 				9C0A31431A0AEFBE00A94D9F /* Images.xcassets in Resources */,
 			);
@@ -236,14 +232,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9C0A313F1A0AEFBE00A94D9F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9C0A31401A0AEFBE00A94D9F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9C0A31441A0AEFBE00A94D9F /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -405,6 +393,7 @@
 				9C0A31571A0AEFBE00A94D9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9C0A31581A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "PeppermintTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +402,7 @@
 				9C0A315A1A0AEFBE00A94D9F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

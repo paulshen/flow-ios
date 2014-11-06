@@ -10,9 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
+  override func loadView() {
+    let screenRect = UIScreen.mainScreen().bounds
+    let screenWidth = screenRect.size.width;
+    let screenHeight = screenRect.size.height;
+    view = UIView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    view.backgroundColor = UIColor.brownColor()
   }
 
   override func didReceiveMemoryWarning() {
@@ -22,4 +30,3 @@ class ViewController: UIViewController {
 
 
 }
-
