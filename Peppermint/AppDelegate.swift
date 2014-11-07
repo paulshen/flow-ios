@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let rootVC = UINavigationController()
     let transactionsVC = TransactionsViewController()
     rootVC.viewControllers = [transactionsVC]
+    rootVC.navigationBarHidden = true
     self.window!.rootViewController = rootVC;
     self.window!.makeKeyAndVisible()
     return true

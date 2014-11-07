@@ -10,6 +10,10 @@ import Parse
 import UIKit
 
 class TransactionsViewController: UIViewController {
+  
+  var headerViewOwner = TransactionsHeaderViewOwner()
+  var headerView: UIView!
+  
   var collectionView: UICollectionView!
   var collectionViewLayout: UICollectionViewFlowLayout!
   let kCellIdentifier = "CollectionCell"
@@ -19,6 +23,15 @@ class TransactionsViewController: UIViewController {
     NSLog("viewDidLoad")
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    
+    NSBundle.mainBundle().loadNibNamed("TransactionsHeaderView", owner: headerViewOwner, options: nil)
+    headerView = headerViewOwner.root
+    headerView.backgroundColor = UIColor.orangeColor()
+    headerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.addSubview(headerView)
+    
+    let headerAddButton = headerViewOwner.addButton
+    headerAddButton.addTarget(self, action: "addButtonTapped:", forControlEvents: .TouchUpInside)
     
     collectionViewLayout = UICollectionViewFlowLayout()
     collectionViewLayout.minimumInteritemSpacing = 0.0
@@ -34,11 +47,12 @@ class TransactionsViewController: UIViewController {
     
     view.addSubview(collectionView)
     
-    let views = ["collection": collectionView]
+    let views = ["header": headerView, "collection": collectionView]
     
-    let hConstraint = NSLayoutConstraint.constraintsWithVisualFormat("H:|[collection]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
-    view.addConstraints(hConstraint)
-    let vConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|[collection]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[header]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[collection]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
+    
+    let vConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|[header(70)][collection]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
     view.addConstraints(vConstraint)
 
     view.backgroundColor = UIColor.brownColor()
@@ -59,6 +73,11 @@ class TransactionsViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+  
+  func addButtonTapped(sender:UIButton!) {
+    NSLog("tapped")
+    NSLog("%@", sender)
+  }
 }
 
 extension TransactionsViewController: UICollectionViewDataSource {
@@ -75,4 +94,7 @@ extension TransactionsViewController: UICollectionViewDataSource {
 }
 
 extension TransactionsViewController: UICollectionViewDelegate {
+  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    headerViewOwner.labelView.text = String(indexPath.row)
+  }
 }
