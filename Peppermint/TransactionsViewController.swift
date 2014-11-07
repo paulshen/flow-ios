@@ -19,10 +19,8 @@ class TransactionsViewController: UIViewController {
   let kCellIdentifier = "CollectionCell"
   var transactions: [PFObject]?
   
-  override func viewDidLoad() {
-    NSLog("viewDidLoad")
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+  override func loadView() {
+    super.loadView()
     
     NSBundle.mainBundle().loadNibNamed("TransactionsHeaderView", owner: headerViewOwner, options: nil)
     headerView = headerViewOwner.root
