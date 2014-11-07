@@ -75,6 +75,9 @@ class TransactionsViewController: UIViewController {
   func addButtonTapped(sender:UIButton!) {
     NSLog("tapped")
     NSLog("%@", sender)
+    
+    let newVC = NewTransactionViewController()
+    navigationController?.presentViewController(newVC, animated: true, completion: nil)
   }
 }
 

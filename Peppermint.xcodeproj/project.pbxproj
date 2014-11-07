@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9C0055211A0C3738004E751A /* TransactionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0055201A0C3738004E751A /* TransactionsHeaderView.swift */; };
 		9C0055231A0C3CDC004E751A /* TransactionsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0055221A0C3CDC004E751A /* TransactionsHeaderView.xib */; };
+		9C0055251A0C4BB4004E751A /* NewTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0055241A0C4BB4004E751A /* NewTransactionViewController.swift */; };
 		9C0A313C1A0AEFBE00A94D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A313B1A0AEFBE00A94D9F /* AppDelegate.swift */; };
 		9C0A313E1A0AEFBE00A94D9F /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A313D1A0AEFBE00A94D9F /* TransactionsViewController.swift */; };
 		9C0A31431A0AEFBE00A94D9F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C0A31421A0AEFBE00A94D9F /* Images.xcassets */; };
@@ -34,6 +35,7 @@
 		6934E30E4A819EBA7CFF81D5 /* libPods-Peppermint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Peppermint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0055201A0C3738004E751A /* TransactionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsHeaderView.swift; sourceTree = "<group>"; };
 		9C0055221A0C3CDC004E751A /* TransactionsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionsHeaderView.xib; sourceTree = "<group>"; };
+		9C0055241A0C4BB4004E751A /* NewTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTransactionViewController.swift; sourceTree = "<group>"; };
 		9C0A31361A0AEFBE00A94D9F /* Peppermint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peppermint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0A313A1A0AEFBE00A94D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C0A313B1A0AEFBE00A94D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				9C0A31391A0AEFBE00A94D9F /* Supporting Files */,
 				9C0055201A0C3738004E751A /* TransactionsHeaderView.swift */,
 				9C0055221A0C3CDC004E751A /* TransactionsHeaderView.xib */,
+				9C0055241A0C4BB4004E751A /* NewTransactionViewController.swift */,
 			);
 			path = Peppermint;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				9C0A313E1A0AEFBE00A94D9F /* TransactionsViewController.swift in Sources */,
 				9C0A313C1A0AEFBE00A94D9F /* AppDelegate.swift in Sources */,
 				9C56F9F11A0B0C4F00FF0F99 /* CollectionViewCell.swift in Sources */,
+				9C0055251A0C4BB4004E751A /* NewTransactionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
