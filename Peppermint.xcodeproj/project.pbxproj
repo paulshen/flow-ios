@@ -16,6 +16,7 @@
 		9C0A31431A0AEFBE00A94D9F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C0A31421A0AEFBE00A94D9F /* Images.xcassets */; };
 		9C0A31461A0AEFBE00A94D9F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0A31441A0AEFBE00A94D9F /* LaunchScreen.xib */; };
 		9C0A31521A0AEFBE00A94D9F /* PeppermintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */; };
+		9CDF119E1A11901A005F6567 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDF119D1A11901A005F6567 /* DashboardViewController.swift */; };
 		ECF494F42F004761A35C743C /* libPods-Peppermint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6934E30E4A819EBA7CFF81D5 /* libPods-Peppermint.a */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		9C0A314B1A0AEFBE00A94D9F /* PeppermintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeppermintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0A31501A0AEFBE00A94D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeppermintTests.swift; sourceTree = "<group>"; };
+		9CDF119D1A11901A005F6567 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				9C0055221A0C3CDC004E751A /* TransactionsHeaderView.xib */,
 				9C0055241A0C4BB4004E751A /* NewTransactionViewController.swift */,
 				9C0055261A0C8999004E751A /* TransactionTableViewCell.swift */,
+				9CDF119D1A11901A005F6567 /* DashboardViewController.swift */,
 			);
 			path = Peppermint;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C0055211A0C3738004E751A /* TransactionsHeaderView.swift in Sources */,
+				9CDF119E1A11901A005F6567 /* DashboardViewController.swift in Sources */,
 				9C0A313E1A0AEFBE00A94D9F /* TransactionsViewController.swift in Sources */,
 				9C0A313C1A0AEFBE00A94D9F /* AppDelegate.swift in Sources */,
 				9C0055271A0C8999004E751A /* TransactionTableViewCell.swift in Sources */,

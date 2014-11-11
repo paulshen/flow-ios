@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
     let rootVC = UINavigationController()
-    let transactionsVC = TransactionsViewController()
-    rootVC.viewControllers = [transactionsVC]
+    let dashboardVC = DashboardViewController()
+    rootVC.viewControllers = [dashboardVC]
     rootVC.navigationBarHidden = true
     self.window!.rootViewController = rootVC;
     self.window!.makeKeyAndVisible()
