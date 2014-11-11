@@ -11,8 +11,7 @@ import UIKit
 
 class TransactionsViewController: UIViewController {
   
-  var headerViewOwner = TransactionsHeaderViewOwner()
-  var headerView: UIView!
+  var headerView: TransactionsHeaderView!
   
   var tableView: UITableView!
   let kCellIdentifier = "TransactionCell"
@@ -21,13 +20,10 @@ class TransactionsViewController: UIViewController {
   override func loadView() {
     super.loadView()
     
-    NSBundle.mainBundle().loadNibNamed("TransactionsHeaderView", owner: headerViewOwner, options: nil)
-    headerView = headerViewOwner.root
-    headerView.backgroundColor = UIColor.orangeColor()
-    headerView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    headerView = TransactionsHeaderView(frame: CGRectMake(0, 0, view.bounds.width, 70.0))
     view.addSubview(headerView)
     
-    let headerAddButton = headerViewOwner.addButton
+    let headerAddButton = headerView.addButton
     headerAddButton.addTarget(self, action: "addButtonTapped:", forControlEvents: .TouchUpInside)
     
     tableView = UITableView(frame: CGRectZero, style: .Plain)
@@ -88,6 +84,6 @@ extension TransactionsViewController: UITableViewDataSource {
 
 extension TransactionsViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    headerViewOwner.labelView.text = String(indexPath.row)
+    headerView.labelView.text = String(indexPath.row)
   }
 }
