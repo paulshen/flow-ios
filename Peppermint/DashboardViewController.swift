@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class DashboardViewController: UIViewController {
+  var addTransactionHeader: UILabel!
+  
   override func loadView() {
     super.loadView()
     
@@ -29,7 +31,7 @@ class DashboardViewController: UIViewController {
     let addTransactionSection = UIView()
     addTransactionSection.setTranslatesAutoresizingMaskIntoConstraints(false)
     
-    let addTransactionHeader = UILabel()
+    addTransactionHeader = UILabel()
     addTransactionHeader.text = "ADD TRANSACTION"
     addTransactionHeader.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
     addTransactionHeader.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
@@ -85,11 +87,17 @@ class DashboardViewController: UIViewController {
 
 extension DashboardViewController: UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return Animator()
+    return Animator(headerLabel: addTransactionHeader)
   }
 }
 
 class Animator: NSObject, UIViewControllerAnimatedTransitioning {
+  var headerLabel: UILabel
+  
+  init(headerLabel: UILabel) {
+    self.headerLabel = headerLabel
+  }
+  
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
     return 0.5
   }
@@ -97,18 +105,48 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     let container = transitionContext.containerView()
     let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-    let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+    let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)! as AddTransactionViewController
+    let toView = toVC.view
     
+    container.backgroundColor = UIColor.whiteColor()
     toView.alpha = 0
     container.addSubview(fromView)
     container.addSubview(toView)
     
+    headerLabel.alpha = 0
+    let headerClone = UILabel()
+    headerClone.text = "ADD TRANSACTION"
+    headerClone.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+    headerClone.textColor = UIColor.blackColor()
+    var headerCloneFrame = headerLabel.frame
+    headerCloneFrame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
+    headerClone.frame = headerCloneFrame
+    let headerTarget = toVC.headerLabel.convertPoint(CGPointZero, toView: nil)
+    
+    container.addSubview(headerClone)
+    
     let duration = transitionDuration(transitionContext)
     
-    UIView.animateWithDuration(duration, animations: {
-      toView.alpha = 1
-      }, completion: { finished in
+    UIView.animateWithDuration(duration / 3.0, animations: {
+      fromView.alpha = 0
+      }
+    )
+    
+    UIView.animateWithDuration(duration / 2.0, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+      headerClone.frame.origin = headerTarget
+      }, completion: { (finished) in
+      }
+    )
+    
+    UIView.animateWithDuration(duration / 2.0, delay: duration / 2.0, options: UIViewAnimationOptions(0), animations: {
+        toView.alpha = 1
+      }, completion: { (finished) in
+        fromView.alpha = 1
+        self.headerLabel.alpha = 1
+        headerClone.removeFromSuperview()
+        toVC.descriptionInput.becomeFirstResponder()
         transitionContext.completeTransition(true)
-    })
+      }
+    )
   }
 }
