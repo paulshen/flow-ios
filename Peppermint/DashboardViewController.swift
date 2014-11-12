@@ -77,7 +77,7 @@ class DashboardViewController: UIViewController {
   }
   
   func addButtonTapped(sender: UIControl!) {
-    let newVC = NewTransactionViewController()
-    navigationController?.presentViewController(newVC, animated: true, completion: nil)
+    let addVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
+    navigationController?.presentViewController(addVC, animated: true, completion: nil)
   }
 }

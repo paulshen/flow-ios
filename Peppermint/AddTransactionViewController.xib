@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddTransactionViewController" customModule="Peppermint" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="IF2-w2-89O" id="qiy-tq-Q4f"/>
+                <outlet property="descriptionInput" destination="WdS-z7-lTe" id="Djr-r0-5sr"/>
+                <outlet property="headerLabel" destination="AEV-n6-3BT" id="fQM-4q-hBR"/>
+                <outlet property="priceInput" destination="gWL-8I-bE0" id="qUo-JQ-8B0"/>
+                <outlet property="saveButton" destination="iTE-CM-iwR" id="LQu-v2-Ymi"/>
+                <outlet property="view" destination="0Y8-87-MDQ" id="Ggd-bX-n10"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="0Y8-87-MDQ">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADD TRANSACTION" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AEV-n6-3BT">
+                    <rect key="frame" x="20" y="30" width="195" height="24"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="DESCRIPTION" translatesAutoresizingMaskIntoConstraints="NO" id="WdS-z7-lTe">
+                    <rect key="frame" x="20" y="114" width="335" height="60"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IF2-w2-89O">
+                    <rect key="frame" x="20" y="613" width="335" height="34"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                    <state key="normal" title="CANCEL">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gWL-8I-bE0">
+                    <rect key="frame" x="20" y="304" width="335" height="77"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="64"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTE-CM-iwR">
+                    <rect key="frame" x="20" y="559" width="335" height="34"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                    <state key="normal" title="SAVE">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="IF2-w2-89O" secondAttribute="bottom" constant="20" id="09r-dX-VHL"/>
+                <constraint firstItem="iTE-CM-iwR" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="1AB-E8-OBB"/>
+                <constraint firstAttribute="trailing" secondItem="gWL-8I-bE0" secondAttribute="trailing" constant="20" id="4ol-uu-k6i"/>
+                <constraint firstItem="WdS-z7-lTe" firstAttribute="top" secondItem="AEV-n6-3BT" secondAttribute="bottom" constant="60" id="99T-0s-dj1"/>
+                <constraint firstAttribute="trailing" secondItem="IF2-w2-89O" secondAttribute="trailing" constant="20" id="A1b-Uz-gkZ"/>
+                <constraint firstItem="WdS-z7-lTe" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="Ewx-R3-cWz"/>
+                <constraint firstAttribute="trailing" secondItem="WdS-z7-lTe" secondAttribute="trailing" constant="20" id="Fhb-R0-3Gk"/>
+                <constraint firstItem="IF2-w2-89O" firstAttribute="top" secondItem="iTE-CM-iwR" secondAttribute="bottom" constant="20" id="PG4-xt-Qws"/>
+                <constraint firstItem="gWL-8I-bE0" firstAttribute="top" secondItem="WdS-z7-lTe" secondAttribute="bottom" constant="130" id="QnG-Kl-ToJ"/>
+                <constraint firstItem="AEV-n6-3BT" firstAttribute="top" secondItem="0Y8-87-MDQ" secondAttribute="top" constant="30" id="Tao-vN-R6J"/>
+                <constraint firstAttribute="trailing" secondItem="iTE-CM-iwR" secondAttribute="trailing" constant="20" id="TmS-lz-KGi"/>
+                <constraint firstItem="gWL-8I-bE0" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="Zrb-Me-tWd"/>
+                <constraint firstItem="IF2-w2-89O" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="g6F-iZ-lXY"/>
+                <constraint firstItem="AEV-n6-3BT" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="hWk-YJ-t5m"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <point key="canvasLocation" x="430.5" y="399.5"/>
+        </view>
+    </objects>
+</document>

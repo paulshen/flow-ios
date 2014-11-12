@@ -64,8 +64,8 @@ class TransactionsViewController: UIViewController {
     NSLog("tapped")
     NSLog("%@", sender)
     
-    let newVC = NewTransactionViewController()
-    navigationController?.presentViewController(newVC, animated: true, completion: nil)
+    let addVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
+    navigationController?.presentViewController(addVC, animated: true, completion: nil)
   }
 }
 
