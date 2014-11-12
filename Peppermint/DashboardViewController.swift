@@ -78,6 +78,37 @@ class DashboardViewController: UIViewController {
   
   func addButtonTapped(sender: UIControl!) {
     let addVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
+    addVC.transitioningDelegate = self
     navigationController?.presentViewController(addVC, animated: true, completion: nil)
+  }
+}
+
+extension DashboardViewController: UIViewControllerTransitioningDelegate {
+  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return Animator()
+  }
+}
+
+class Animator: NSObject, UIViewControllerAnimatedTransitioning {
+  func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    return 0.5
+  }
+  
+  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    let container = transitionContext.containerView()
+    let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
+    let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+    
+    toView.alpha = 0
+    container.addSubview(fromView)
+    container.addSubview(toView)
+    
+    let duration = transitionDuration(transitionContext)
+    
+    UIView.animateWithDuration(duration, animations: {
+      toView.alpha = 1
+      }, completion: { finished in
+        transitionContext.completeTransition(true)
+    })
   }
 }
