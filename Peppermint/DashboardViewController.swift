@@ -119,14 +119,9 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     container.addSubview(fromView)
     container.addSubview(toView)
     
+    let headerClone = headerLabel.snapshotViewAfterScreenUpdates(false)
     headerLabel.alpha = 0
-    let headerClone = UILabel()
-    headerClone.text = "ADD TRANSACTION"
-    headerClone.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-    headerClone.textColor = UIColor.blackColor()
-    var headerCloneFrame = headerLabel.frame
-    headerCloneFrame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
-    headerClone.frame = headerCloneFrame
+    headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
     let headerTarget = toVC.headerLabel.convertPoint(CGPointZero, toView: nil)
     
     container.addSubview(headerClone)
