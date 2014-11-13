@@ -18,6 +18,7 @@ class AddTransactionViewController: UIViewController {
   @IBOutlet weak var saveButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
 
+  var wrapperScrollView: UIScrollView!
   var tapRecognizer: UITapGestureRecognizer!
   
   override func viewDidLoad() {
@@ -33,6 +34,30 @@ class AddTransactionViewController: UIViewController {
     
     tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
     view.addGestureRecognizer(tapRecognizer)
+    
+    wrapperScrollView = UIScrollView(frame: view.frame)
+    wrapperScrollView.addSubview(view)
+    view = wrapperScrollView
+    
+    registerForKeyboardNotifications()
+  }
+  
+  func registerForKeyboardNotifications() {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown:"), name: UIKeyboardDidShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden:"), name: UIKeyboardWillHideNotification, object: nil)
+  }
+  
+  func keyboardWasShown(notification: NSNotification) {
+    let info = notification.userInfo!
+    let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue().size
+    
+    let contentInsets = UIEdgeInsetsMake(0, 0, kbSize.height, 0)
+    wrapperScrollView.contentInset = contentInsets
+  }
+  
+  func keyboardWillBeHidden(notification: NSNotification) {
+    wrapperScrollView.contentInset = UIEdgeInsetsZero
+    wrapperScrollView.scrollIndicatorInsets = UIEdgeInsetsZero
   }
   
   func onTap(sender: UITapGestureRecognizer) {
@@ -80,5 +105,11 @@ extension AddTransactionViewController: UITextViewDelegate, UITextFieldDelegate 
       textField.resignFirstResponder()
     }
     return false
+  }
+  
+  func textFieldDidBeginEditing(textField: UITextField) {
+    if textField == priceInput {
+      wrapperScrollView.setContentOffset(priceInput.frame.origin, animated: true)
+    }
   }
 }
