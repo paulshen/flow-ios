@@ -33,6 +33,7 @@ class RecentTransactionsTableView: UIView {
     tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
     
     let query = PFQuery(className: "Transaction")
+    query.orderByDescending("date")
     query.findObjectsInBackgroundWithBlock {
       (objects: [AnyObject]!, error: NSError!) -> Void in
       if error == nil {
