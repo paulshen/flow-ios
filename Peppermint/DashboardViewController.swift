@@ -95,6 +95,34 @@ extension DashboardViewController: UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return Animator(headerLabel: addTransactionHeader)
   }
+  
+  func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return DismissAnimator()
+  }
+}
+
+class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+  func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    return 0.5
+  }
+  
+  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    let container = transitionContext.containerView()
+    let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
+    let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+    
+    toView.alpha = 0
+    container.addSubview(fromView)
+    container.addSubview(toView)
+    
+    let duration = self.transitionDuration(transitionContext)
+    
+    UIView.animateWithDuration(duration, animations: { () -> Void in
+      toView.alpha = 1
+    }) { (finished) -> Void in
+      transitionContext.completeTransition(true)
+    }
+  }
 }
 
 class Animator: NSObject, UIViewControllerAnimatedTransitioning {

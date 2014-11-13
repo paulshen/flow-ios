@@ -18,7 +18,6 @@ class AddTransactionViewController: UIViewController {
   @IBOutlet weak var saveButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
 
-  var swipeDownRecognizer: UISwipeGestureRecognizer!
   var tapRecognizer: UITapGestureRecognizer!
   
   override func viewDidLoad() {
@@ -32,16 +31,8 @@ class AddTransactionViewController: UIViewController {
     saveButton.addTarget(self, action: Selector("onSaveButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
     cancelButton.addTarget(self, action: Selector("onCancelButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
     
-    swipeDownRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("onSwipeDown:"))
-    swipeDownRecognizer.direction = .Down
-    view.addGestureRecognizer(swipeDownRecognizer)
-    
     tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
     view.addGestureRecognizer(tapRecognizer)
-  }
-  
-  func onSwipeDown(sender: UISwipeGestureRecognizer) {
-    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
   }
   
   func onTap(sender: UITapGestureRecognizer) {
