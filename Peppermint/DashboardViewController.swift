@@ -28,6 +28,12 @@ class DashboardViewController: UIViewController {
       NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20.0)
     ])
     
+    let recentTransactionsView = RecentTransactionsTableView(frame: CGRectZero)
+    recentTransactionsView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.addSubview(recentTransactionsView)
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": recentTransactionsView]))
+    view.addConstraint(NSLayoutConstraint(item: recentTransactionsView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: imageView, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 50.0))
+    
     let addTransactionSection = UIView()
     addTransactionSection.setTranslatesAutoresizingMaskIntoConstraints(false)
     

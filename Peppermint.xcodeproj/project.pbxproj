@@ -17,6 +17,7 @@
 		9C0A31521A0AEFBE00A94D9F /* PeppermintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */; };
 		9C5796041A13E0750089097A /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5796031A13E0750089097A /* AddTransactionViewController.swift */; };
 		9C5796061A13E0F50089097A /* AddTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C5796051A13E0F50089097A /* AddTransactionViewController.xib */; };
+		9C57960E1A142A750089097A /* RecentTransactionsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C57960D1A142A750089097A /* RecentTransactionsTableView.swift */; };
 		9CDF119E1A11901A005F6567 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDF119D1A11901A005F6567 /* DashboardViewController.swift */; };
 		ECF494F42F004761A35C743C /* libPods-Peppermint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6934E30E4A819EBA7CFF81D5 /* libPods-Peppermint.a */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeppermintTests.swift; sourceTree = "<group>"; };
 		9C5796031A13E0750089097A /* AddTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
 		9C5796051A13E0F50089097A /* AddTransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTransactionViewController.xib; sourceTree = "<group>"; };
+		9C57960D1A142A750089097A /* RecentTransactionsTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentTransactionsTableView.swift; sourceTree = "<group>"; };
 		9CDF119D1A11901A005F6567 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +115,7 @@
 				9CDF119D1A11901A005F6567 /* DashboardViewController.swift */,
 				9C5796031A13E0750089097A /* AddTransactionViewController.swift */,
 				9C5796051A13E0F50089097A /* AddTransactionViewController.xib */,
+				9C57960D1A142A750089097A /* RecentTransactionsTableView.swift */,
 			);
 			path = Peppermint;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			files = (
 				9C0055211A0C3738004E751A /* TransactionsHeaderView.swift in Sources */,
 				9CDF119E1A11901A005F6567 /* DashboardViewController.swift in Sources */,
+				9C57960E1A142A750089097A /* RecentTransactionsTableView.swift in Sources */,
 				9C0A313E1A0AEFBE00A94D9F /* TransactionsViewController.swift in Sources */,
 				9C0A313C1A0AEFBE00A94D9F /* AppDelegate.swift in Sources */,
 				9C0055271A0C8999004E751A /* TransactionTableViewCell.swift in Sources */,

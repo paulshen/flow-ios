@@ -17,20 +17,21 @@ class TransactionTableViewCell: UITableViewCell {
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
-    body.numberOfLines = 0
+    body.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+    body.numberOfLines = 1
     body.setTranslatesAutoresizingMaskIntoConstraints(false)
     contentView.addSubview(body)
     
-    border.backgroundColor = UIColor.grayColor()
+    border.backgroundColor = UIColor.blackColor()
     border.setTranslatesAutoresizingMaskIntoConstraints(false)
     contentView.addSubview(border)
     
     let views = ["body": body, "border": border]
     
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[body]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
+    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[body]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
     contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[border]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
     
-    let vConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-[body]-[border(1)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
+    let vConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[body]-10-[border(1)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
     contentView.addConstraints(vConstraint)
   }
   
