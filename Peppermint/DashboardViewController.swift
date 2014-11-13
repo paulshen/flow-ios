@@ -26,14 +26,42 @@ class DashboardViewController: UIViewController {
       NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0),
       NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 30),
       NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20.0)
-    ])
+      ])
     
-    let recentTransactionsView = RecentTransactionsTableView(frame: CGRectZero)
-    recentTransactionsView.setTranslatesAutoresizingMaskIntoConstraints(false)
-    view.addSubview(recentTransactionsView)
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": recentTransactionsView]))
-    view.addConstraint(NSLayoutConstraint(item: recentTransactionsView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: imageView, attribute: NSLayoutAttribute.Bottom, multiplier: 1.0, constant: 50.0))
+    let recentTransactionsSection = loadRecentTransactionsSection()
+    view.addSubview(recentTransactionsSection)
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[recentTransactions]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["recentTransactions": recentTransactionsSection]))
+    view.addConstraint(NSLayoutConstraint(item: recentTransactionsSection, attribute: .Top, relatedBy: .Equal, toItem: imageView, attribute: .Bottom, multiplier: 1.0, constant: 100))
     
+    let addTransactionSection = loadAddTransactionSection()
+    view.addSubview(addTransactionSection)
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[addTransaction]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["addTransaction": addTransactionSection]))
+    view.addConstraint(NSLayoutConstraint(item: view, attribute: .Bottom, relatedBy: .Equal, toItem: addTransactionSection, attribute: .Bottom, multiplier: 1.0, constant: 20))
+  }
+  
+  func loadRecentTransactionsSection() -> UIView {
+    let recentTransactionsSection = UIView()
+    recentTransactionsSection.setTranslatesAutoresizingMaskIntoConstraints(false)
+    
+    let recentTransactionsHeader = UILabel()
+    recentTransactionsHeader.text = "RECENT TRANSACTIONS"
+    recentTransactionsHeader.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+    recentTransactionsHeader.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+    recentTransactionsHeader.setTranslatesAutoresizingMaskIntoConstraints(false)
+    recentTransactionsSection.addSubview(recentTransactionsHeader)
+    
+    recentTransactionsSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[header]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader]))
+    
+    let recentTransactionsTableView = RecentTransactionsTableView(frame: CGRectZero)
+    recentTransactionsTableView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    recentTransactionsSection.addSubview(recentTransactionsTableView)
+    recentTransactionsSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": recentTransactionsTableView]))
+    recentTransactionsSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": recentTransactionsTableView]))
+    
+    return recentTransactionsSection
+  }
+  
+  func loadAddTransactionSection() -> UIView {
     let addTransactionSection = UIView()
     addTransactionSection.setTranslatesAutoresizingMaskIntoConstraints(false)
     
@@ -58,7 +86,7 @@ class DashboardViewController: UIViewController {
     addButton.addConstraints([
       NSLayoutConstraint(item: buttonLabel, attribute: .CenterX, relatedBy: .Equal, toItem: addButton, attribute: .CenterX, multiplier: 1.0, constant: 0),
       NSLayoutConstraint(item: buttonLabel, attribute: .CenterY, relatedBy: .Equal, toItem: addButton, attribute: .CenterY, multiplier: 1.0, constant: 0)
-    ])
+      ])
     
     addTransactionSection.addSubview(addButton)
     addTransactionSection.userInteractionEnabled = true
@@ -73,10 +101,7 @@ class DashboardViewController: UIViewController {
     
     addButton.addTarget(self, action: "addButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
     
-    view.addSubview(addTransactionSection)
-
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[addTransaction]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["addTransaction": addTransactionSection]))
-    view.addConstraint(NSLayoutConstraint(item: view, attribute: .Bottom, relatedBy: .Equal, toItem: addTransactionSection, attribute: .Bottom, multiplier: 1.0, constant: 20))
+    return addTransactionSection
   }
   
   override func didReceiveMemoryWarning() {
@@ -119,8 +144,8 @@ class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     UIView.animateWithDuration(duration, animations: { () -> Void in
       toView.alpha = 1
-    }) { (finished) -> Void in
-      transitionContext.completeTransition(true)
+      }) { (finished) -> Void in
+        transitionContext.completeTransition(true)
     }
   }
 }
@@ -168,7 +193,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     )
     
     UIView.animateWithDuration(duration / 2.0, delay: duration / 2.0, options: UIViewAnimationOptions(0), animations: {
-        toView.alpha = 1
+      toView.alpha = 1
       }, completion: { (finished) in
         fromView.alpha = 1
         self.headerLabel.alpha = 1
