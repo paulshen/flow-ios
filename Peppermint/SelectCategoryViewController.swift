@@ -62,14 +62,13 @@ class SelectCategoryViewController: UIViewController {
 
 extension SelectCategoryViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    // Set searchController.active before callback for animation
-    let searchControllerActive = searchController.active
-    searchController.active = false
-    if (searchControllerActive) {
-      categoryChangeCallback(filteredCategories[indexPath.row])
-    } else {
-      categoryChangeCallback(categories![indexPath.row])
+    var selectedCategory = categories![indexPath.row]
+    if (searchController.active) {
+      selectedCategory = filteredCategories[indexPath.row]
     }
+    categoryChangeCallback(selectedCategory)
+    // Set searchController.active before callback for animation
+    searchController.active = false
   }
 }
 
