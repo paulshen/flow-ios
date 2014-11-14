@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddTransactionViewController" customModule="Peppermint" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="IF2-w2-89O" id="qiy-tq-Q4f"/>
+                <outlet property="categoryButton" destination="sQn-Je-LFD" id="jfr-dF-66p"/>
                 <outlet property="descriptionInput" destination="WdS-z7-lTe" id="Djr-r0-5sr"/>
                 <outlet property="headerLabel" destination="AEV-n6-3BT" id="fQM-4q-hBR"/>
                 <outlet property="priceInput" destination="gWL-8I-bE0" id="qUo-JQ-8B0"/>
@@ -33,7 +34,7 @@
                     </state>
                 </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gWL-8I-bE0">
-                    <rect key="frame" x="20" y="304" width="335" height="101"/>
+                    <rect key="frame" x="20" y="314" width="335" height="101"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="84"/>
                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                 </textField>
@@ -50,6 +51,12 @@
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sQn-Je-LFD">
+                    <rect key="frame" x="20" y="204" width="63" height="30"/>
+                    <state key="normal" title="Category">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -60,15 +67,23 @@
                 <constraint firstAttribute="trailing" secondItem="IF2-w2-89O" secondAttribute="trailing" constant="20" id="A1b-Uz-gkZ"/>
                 <constraint firstItem="WdS-z7-lTe" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="Ewx-R3-cWz"/>
                 <constraint firstAttribute="trailing" secondItem="WdS-z7-lTe" secondAttribute="trailing" constant="20" id="Fhb-R0-3Gk"/>
+                <constraint firstItem="gWL-8I-bE0" firstAttribute="top" secondItem="sQn-Je-LFD" secondAttribute="bottom" constant="80" id="NpO-8P-fyD"/>
                 <constraint firstItem="IF2-w2-89O" firstAttribute="top" secondItem="iTE-CM-iwR" secondAttribute="bottom" constant="20" id="PG4-xt-Qws"/>
+                <constraint firstItem="sQn-Je-LFD" firstAttribute="top" secondItem="WdS-z7-lTe" secondAttribute="bottom" constant="30" id="PGs-u1-pxW"/>
                 <constraint firstItem="gWL-8I-bE0" firstAttribute="top" secondItem="WdS-z7-lTe" secondAttribute="bottom" constant="130" id="QnG-Kl-ToJ"/>
                 <constraint firstItem="AEV-n6-3BT" firstAttribute="top" secondItem="0Y8-87-MDQ" secondAttribute="top" constant="30" id="Tao-vN-R6J"/>
                 <constraint firstAttribute="trailing" secondItem="iTE-CM-iwR" secondAttribute="trailing" constant="20" id="TmS-lz-KGi"/>
                 <constraint firstItem="gWL-8I-bE0" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="Zrb-Me-tWd"/>
                 <constraint firstItem="IF2-w2-89O" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="g6F-iZ-lXY"/>
                 <constraint firstItem="AEV-n6-3BT" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="hWk-YJ-t5m"/>
+                <constraint firstItem="sQn-Je-LFD" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="o2B-mc-Umd"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="QnG-Kl-ToJ"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="430.5" y="399.5"/>
         </view>
     </objects>

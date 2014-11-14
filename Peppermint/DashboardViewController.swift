@@ -110,9 +110,14 @@ class DashboardViewController: UIViewController {
   }
   
   func addButtonTapped(sender: UIControl!) {
+    let navigationVC = UINavigationController()
     let addVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
-    addVC.transitioningDelegate = self
-    navigationController?.presentViewController(addVC, animated: true, completion: nil)
+    
+    navigationVC.navigationBarHidden = true
+    navigationVC.viewControllers = [addVC]
+    navigationVC.transitioningDelegate = self
+    addVC.automaticallyAdjustsScrollViewInsets = false
+    navigationController?.presentViewController(navigationVC, animated: true, completion: nil)
   }
 }
 
@@ -164,7 +169,8 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     let container = transitionContext.containerView()
     let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-    let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)! as AddTransactionViewController
+    let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)! as UINavigationController
+    let toAddVC = toVC.viewControllers[0] as AddTransactionViewController
     let toView = toVC.view
     
     container.backgroundColor = UIColor.whiteColor()
@@ -175,7 +181,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     let headerClone = headerLabel.snapshotViewAfterScreenUpdates(false)
     headerLabel.alpha = 0
     headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
-    let headerTarget = toVC.headerLabel.convertPoint(CGPointZero, toView: nil)
+    let headerTarget = toAddVC.headerLabel.convertPoint(CGPointZero, toView: nil)
     
     container.addSubview(headerClone)
     
@@ -198,7 +204,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
         fromView.alpha = 1
         self.headerLabel.alpha = 1
         headerClone.removeFromSuperview()
-        toVC.descriptionInput.becomeFirstResponder()
+        toAddVC.descriptionInput.becomeFirstResponder()
         transitionContext.completeTransition(true)
       }
     )

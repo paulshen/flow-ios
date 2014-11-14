@@ -14,9 +14,16 @@ class AddTransactionViewController: UIViewController {
   
   @IBOutlet weak var headerLabel: UILabel!
   @IBOutlet weak var descriptionInput: UITextView!
+  @IBOutlet weak var categoryButton: UIButton!
   @IBOutlet weak var priceInput: UITextField!
   @IBOutlet weak var saveButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
+  
+  var categoryName: String = "Category" {
+    didSet {
+      categoryButton.setTitle(categoryName, forState: UIControlState.Normal)
+    }
+  }
 
   var wrapperScrollView: UIScrollView!
   var tapRecognizer: UITapGestureRecognizer!
@@ -29,6 +36,7 @@ class AddTransactionViewController: UIViewController {
     descriptionInput.delegate = self
     priceInput.delegate = self
     
+    categoryButton.addTarget(self, action: Selector("onCategoryButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
     saveButton.addTarget(self, action: Selector("onSaveButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
     cancelButton.addTarget(self, action: Selector("onCancelButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
     
@@ -63,6 +71,15 @@ class AddTransactionViewController: UIViewController {
   
   func onTap(sender: UITapGestureRecognizer) {
     view.endEditing(true)
+  }
+  
+  func onCategoryButtonPressed(sender: UIButton!) {
+    let categoryVC = SelectCategoryViewController(categoryChangeCallback: {
+      (categoryName: String) in
+      self.categoryName = categoryName
+      self.navigationController?.popViewControllerAnimated(true)
+    })
+    navigationController?.pushViewController(categoryVC, animated: true)
   }
   
   func onSaveButtonPressed(sender: UIButton!) {
