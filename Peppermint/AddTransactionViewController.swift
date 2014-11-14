@@ -19,9 +19,13 @@ class AddTransactionViewController: UIViewController {
   @IBOutlet weak var saveButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
   
-  var categoryName: String = "Category" {
+  var category: PFObject? {
     didSet {
-      categoryButton.setTitle(categoryName, forState: UIControlState.Normal)
+      if let category = category {
+        categoryButton.setTitle((category["name"] as String), forState: UIControlState.Normal)
+      } else {
+        categoryButton.setTitle("Category", forState: UIControlState.Normal)
+      }
     }
   }
 
@@ -75,8 +79,8 @@ class AddTransactionViewController: UIViewController {
   
   func onCategoryButtonPressed(sender: UIButton!) {
     let categoryVC = SelectCategoryViewController(categoryChangeCallback: {
-      (categoryName: String) in
-      self.categoryName = categoryName
+      (category: PFObject) in
+      self.category = category
       self.navigationController?.popViewControllerAnimated(true)
     })
     navigationController?.pushViewController(categoryVC, animated: true)
@@ -85,7 +89,15 @@ class AddTransactionViewController: UIViewController {
   func onSaveButtonPressed(sender: UIButton!) {
     let transaction = PFObject(className: "Transaction")
     transaction["description"] = descriptionInput.text
-    transaction["amount"] = NSString(string: priceInput.text).doubleValue
+    transaction["amount"] = NSString(string: priceInput.text.stringByReplacingOccurrencesOfString("$", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)).doubleValue
+    let dateFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
+    let calendar = NSCalendar.currentCalendar()
+    let dateComponents = calendar.components(dateFlags, fromDate: NSDate())
+    dateComponents.timeZone = NSTimeZone(abbreviation: "UTC")
+    transaction["date"] = calendar.dateFromComponents(dateComponents)
+    if let category = category {
+      transaction["category"] = PFObject(withoutDataWithClassName: "Category", objectId: category.objectId)
+    }
     transaction.saveInBackgroundWithBlock {
       (success: Bool, error: NSError!) -> Void in
       self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)

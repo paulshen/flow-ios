@@ -18,9 +18,9 @@ class SelectCategoryViewController: UIViewController {
   var categories: [PFObject]?
   var filteredCategories: [PFObject]!
   
-  var categoryChangeCallback: (String) -> Void
+  var categoryChangeCallback: (PFObject) -> Void
   
-  init(categoryChangeCallback: (String) -> Void) {
+  init(categoryChangeCallback: (PFObject) -> Void) {
     self.categoryChangeCallback = categoryChangeCallback
     super.init(nibName: nil, bundle: nil)
   }
@@ -66,9 +66,9 @@ extension SelectCategoryViewController: UITableViewDelegate {
     let searchControllerActive = searchController.active
     searchController.active = false
     if (searchControllerActive) {
-      categoryChangeCallback(filteredCategories[indexPath.row]["name"] as String)
+      categoryChangeCallback(filteredCategories[indexPath.row])
     } else {
-      categoryChangeCallback(categories![indexPath.row]["name"] as String)
+      categoryChangeCallback(categories![indexPath.row])
     }
   }
 }
