@@ -12,8 +12,12 @@ import UIKit
 
 class SelectCategoryViewController: UIViewController {
   let kCellIdentifier = "Cell"
+  
+  var searchController: UISearchController!
   var tableView: UITableView!
   var categories: [PFObject]?
+  var filteredCategories: [PFObject]!
+  
   var categoryChangeCallback: (String) -> Void
   
   init(categoryChangeCallback: (String) -> Void) {
@@ -28,7 +32,13 @@ class SelectCategoryViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView = UITableView(frame: view.bounds, style: .Plain)
+    searchController = UISearchController(searchResultsController: nil)
+    searchController.searchResultsUpdater = self
+    searchController.searchBar.frame = CGRectMake(0, 0, view.bounds.width, 44)
+    searchController.dimsBackgroundDuringPresentation = false
+    view.addSubview(searchController.searchBar)
+    
+    tableView = UITableView(frame: CGRectMake(0, 44, view.bounds.width, view.bounds.height - 44), style: .Plain)
     tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: kCellIdentifier)
     tableView.delegate = self
     tableView.dataSource = self
@@ -44,24 +54,56 @@ class SelectCategoryViewController: UIViewController {
       }
     }
   }
+  
+  override func prefersStatusBarHidden() -> Bool {
+    return true
+  }
 }
 
 extension SelectCategoryViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    let category = categories![indexPath.row]
-    categoryChangeCallback(category["name"] as String)
+    // Set searchController.active before callback for animation
+    let searchControllerActive = searchController.active
+    searchController.active = false
+    if (searchControllerActive) {
+      categoryChangeCallback(filteredCategories[indexPath.row]["name"] as String)
+    } else {
+      categoryChangeCallback(categories![indexPath.row]["name"] as String)
+    }
   }
 }
 
 extension SelectCategoryViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return categories?.count ?? 0
+    if (searchController.active) {
+      return filteredCategories.count
+    } else {
+      return categories?.count ?? 0
+    }
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as UITableViewCell
     
-    cell.textLabel.text = (categories![indexPath.row]["name"] as String)
+    if (searchController.active) {
+      cell.textLabel.text = (filteredCategories[indexPath.row]["name"] as String)
+    } else {
+      cell.textLabel.text = (categories![indexPath.row]["name"] as String)
+    }
     return cell
+  }
+}
+
+extension SelectCategoryViewController: UISearchResultsUpdating {
+  func updateSearchResultsForSearchController(searchController: UISearchController) {
+    if (searchController.searchBar.text == "") {
+      filteredCategories = categories
+    } else {
+      filteredCategories = categories?.filter({ (category) -> Bool in
+        let categoryName = NSString(string: category["name"] as String)
+        return categoryName.containsString(self.searchController.searchBar.text)
+      })
+    }
+    tableView.reloadData()
   }
 }
