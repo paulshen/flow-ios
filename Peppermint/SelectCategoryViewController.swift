@@ -44,14 +44,10 @@ class SelectCategoryViewController: UIViewController {
     tableView.dataSource = self
     view.addSubview(tableView)
     
-    let query = PFQuery(className: "Category")
-    query.findObjectsInBackgroundWithBlock {
-      (objects: [AnyObject]!, error: NSError!) -> Void in
-      if error == nil {
-        NSLog("Retrieved \(objects.count) items")
-        self.categories = (objects as [PFObject])
-        self.tableView.reloadData()
-      }
+    Categories.sharedInstance.fetchCategoriesWithCallback {
+      (categories) in
+      self.categories = categories
+      self.tableView.reloadData()
     }
   }
   

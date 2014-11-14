@@ -24,11 +24,7 @@ class Transactions {
   
   var transactions: [PFObject]?
   var callbacks: [Token: [PFObject] -> Void] = [:]
-  
-  
-  private struct NextToken {
-    static var value = 1
-  }
+  var nextToken = 1
   
   class var sharedInstance: Transactions {
     struct Static {
@@ -38,7 +34,7 @@ class Transactions {
   }
   
   func fetchTransactionsWithCallback(callback: [PFObject] -> Void) -> Token {
-    let token = Token(value: NextToken.value++)
+    let token = Token(value: nextToken++)
     callbacks[token] = callback
     
     if let transactions = transactions {
