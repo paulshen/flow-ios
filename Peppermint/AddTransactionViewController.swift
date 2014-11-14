@@ -29,6 +29,7 @@ class AddTransactionViewController: UIViewController {
     }
   }
 
+  var mainView: UIView!
   var wrapperScrollView: UIScrollView!
   var tapRecognizer: UITapGestureRecognizer!
   
@@ -47,12 +48,17 @@ class AddTransactionViewController: UIViewController {
     tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
     view.addGestureRecognizer(tapRecognizer)
     
+    mainView = view
     wrapperScrollView = UIScrollView(frame: view.frame)
-    wrapperScrollView.addSubview(view)
-    wrapperScrollView.contentSize = view.bounds.size
+    wrapperScrollView.addSubview(mainView)
     view = wrapperScrollView
     
     registerForKeyboardNotifications()
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    wrapperScrollView.contentSize = view.bounds.size
+    mainView.frame = view.bounds
   }
   
   func registerForKeyboardNotifications() {
