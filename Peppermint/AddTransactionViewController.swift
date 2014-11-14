@@ -100,6 +100,7 @@ class AddTransactionViewController: UIViewController {
     }
     transaction.saveInBackgroundWithBlock {
       (success: Bool, error: NSError!) -> Void in
+      Transactions.sharedInstance.reloadData()
       self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
       return
     }
