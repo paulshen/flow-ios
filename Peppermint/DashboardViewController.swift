@@ -123,7 +123,7 @@ class DashboardViewController: UIViewController {
 
 extension DashboardViewController: UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return Animator(headerLabel: addTransactionHeader)
+    return Animator()
   }
   
   func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -131,44 +131,15 @@ extension DashboardViewController: UIViewControllerTransitioningDelegate {
   }
 }
 
-class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-    return 0.5
-  }
-  
-  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-    let container = transitionContext.containerView()
-    let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-    let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-    
-    toView.alpha = 0
-    container.addSubview(fromView)
-    container.addSubview(toView)
-    
-    let duration = self.transitionDuration(transitionContext)
-    
-    UIView.animateWithDuration(duration, animations: { () -> Void in
-      toView.alpha = 1
-      }) { (finished) -> Void in
-        transitionContext.completeTransition(true)
-    }
-  }
-}
-
 class Animator: NSObject, UIViewControllerAnimatedTransitioning {
-  var headerLabel: UILabel
-  
-  init(headerLabel: UILabel) {
-    self.headerLabel = headerLabel
-  }
-  
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
     return 0.5
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     let container = transitionContext.containerView()
-    let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
+    let fromVC = (transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)! as UINavigationController).viewControllers[0] as DashboardViewController
+    let fromView = fromVC.view
     let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)! as UINavigationController
     let toAddVC = toVC.viewControllers[0] as AddTransactionViewController
     let toView = toVC.view
@@ -178,6 +149,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     container.addSubview(fromView)
     container.addSubview(toView)
     
+    let headerLabel = fromVC.addTransactionHeader
     let headerClone = headerLabel.snapshotViewAfterScreenUpdates(false)
     headerLabel.alpha = 0
     headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
@@ -202,9 +174,61 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
       toView.alpha = 1
       }, completion: { (finished) in
         fromView.alpha = 1
-        self.headerLabel.alpha = 1
+        headerLabel.alpha = 1
         headerClone.removeFromSuperview()
         toAddVC.descriptionInput.becomeFirstResponder()
+        transitionContext.completeTransition(true)
+      }
+    )
+  }
+}
+
+class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+  func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    return 0.5
+  }
+  
+  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    let container = transitionContext.containerView()
+    let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)! as UINavigationController
+    let fromView = fromVC.view
+    let fromAddVC = fromVC.viewControllers[0] as AddTransactionViewController
+    let toVC = (transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)! as UINavigationController).viewControllers[0] as DashboardViewController
+    let toView = toVC.view
+    
+    fromView.endEditing(true)
+    container.backgroundColor = UIColor.whiteColor()
+    toView.alpha = 0
+    container.addSubview(fromView)
+    container.addSubview(toView)
+    
+    let headerLabel = fromAddVC.headerLabel
+    let headerClone = headerLabel.snapshotViewAfterScreenUpdates(false)
+    headerLabel.alpha = 0
+    headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
+    let headerTarget = toVC.addTransactionHeader.convertPoint(CGPointZero, toView: nil)
+    
+    container.addSubview(headerClone)
+    
+    let duration = transitionDuration(transitionContext)
+    
+    UIView.animateWithDuration(duration / 3.0, animations: {
+      fromView.alpha = 0
+      }
+    )
+    
+    UIView.animateWithDuration(duration / 2.0, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+      headerClone.frame.origin = headerTarget
+      }, completion: { (finished) in
+      }
+    )
+    
+    UIView.animateWithDuration(duration / 2.0, delay: duration / 2.0, options: UIViewAnimationOptions(0), animations: {
+      toView.alpha = 1
+      }, completion: { (finished) in
+        fromView.alpha = 1
+        headerLabel.alpha = 1
+        headerClone.removeFromSuperview()
         transitionContext.completeTransition(true)
       }
     )
