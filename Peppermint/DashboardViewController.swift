@@ -128,7 +128,7 @@ extension DashboardViewController: UIViewControllerTransitioningDelegate {
 
 class Animator: NSObject, UIViewControllerAnimatedTransitioning {
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-    return 0.8
+    return 0.5
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -139,37 +139,41 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     let toAddVC = toVC.viewControllers[0] as AddTransactionViewController
     let toView = toVC.view
     
+    let headerLabel = fromVC.addTransactionSection
+//    let headerClone = headerLabel.snapshotViewAfterScreenUpdates(false)
+//    headerLabel.alpha = 0
+//    headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
+//    let headerTarget = toAddVC.headerLabel.convertPoint(CGPointZero, toView: nil)
+    
     container.backgroundColor = UIColor.whiteColor()
     toView.alpha = 0
+    toView.frame.origin.y = headerLabel.convertPoint(CGPointZero, toView: nil).y - 30
     container.addSubview(fromView)
     container.addSubview(toView)
     
-    let headerLabel = fromVC.addTransactionSection
-    let headerClone = headerLabel.snapshotViewAfterScreenUpdates(false)
-    headerLabel.alpha = 0
-    headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
-    let headerTarget = toAddVC.headerLabel.convertPoint(CGPointZero, toView: nil)
+//    let headerDelta = headerTarget.y - headerClone.frame.origin.y
     
-    let headerDelta = headerTarget.y - headerClone.frame.origin.y
-    
-    container.addSubview(headerClone)
+//    container.addSubview(headerClone)
     
     let duration = transitionDuration(transitionContext)
     
-    UIView.animateWithDuration(duration / 2.0, animations: {
-      fromView.frame.origin.y += headerDelta
+    UIView.animateWithDuration(duration, animations: {
+      fromView.frame.origin.y -= headerLabel.convertPoint(CGPointZero, toView: nil).y - 30
       fromView.alpha = 0
-      headerClone.frame.origin = headerTarget
-      }
-    )
-    
-    UIView.animateWithDuration(duration / 2.0, delay: duration / 2.0, options: UIViewAnimationOptions(0), animations: {
+//      headerClone.frame.origin = headerTarget
+      
       toView.alpha = 1
+      toView.frame.origin.y = 0
+//      }
+//    )
+//    
+//    UIView.animateWithDuration(duration / 2.0, delay: duration / 2.0, options: UIViewAnimationOptions(0), animations: {
+//      toView.alpha = 1
       }, completion: { (finished) in
         fromView.frame.origin.y = 0
         fromView.alpha = 1
-        headerLabel.alpha = 1
-        headerClone.removeFromSuperview()
+//        headerLabel.alpha = 1
+//        headerClone.removeFromSuperview()
         toAddVC.descriptionInput.becomeFirstResponder()
         transitionContext.completeTransition(true)
       }
