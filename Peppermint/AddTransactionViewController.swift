@@ -28,6 +28,14 @@ class AddTransactionViewController: UIViewController {
       }
     }
   }
+  
+  var userInteractionEnabled: Bool = true {
+    didSet {
+      mainView?.userInteractionEnabled = userInteractionEnabled
+    }
+  }
+  
+  var dismissCallback: (() -> Void)?
 
   var mainView: UIView!
   var wrapperScrollView: UIScrollView!
@@ -49,6 +57,9 @@ class AddTransactionViewController: UIViewController {
     view.addGestureRecognizer(tapRecognizer)
     
     mainView = view
+    mainView.userInteractionEnabled = userInteractionEnabled
+    
+    automaticallyAdjustsScrollViewInsets = false
     wrapperScrollView = UIScrollView(frame: view.frame)
     wrapperScrollView.addSubview(mainView)
     view = wrapperScrollView
@@ -107,13 +118,13 @@ class AddTransactionViewController: UIViewController {
     transaction.saveInBackgroundWithBlock {
       (success: Bool, error: NSError!) -> Void in
       Transactions.sharedInstance.reloadData()
-      self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+      self.dismissCallback?()
       return
     }
   }
   
   func onCancelButtonPressed(sender: UIButton!) {
-    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    dismissCallback?()
   }
 }
 
