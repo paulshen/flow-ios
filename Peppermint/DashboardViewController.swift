@@ -39,6 +39,10 @@ class DashboardViewController: UIViewController {
     view.addSubview(addTransactionSection)
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[addTransaction]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["addTransaction": addTransactionSection]))
     view.addConstraint(NSLayoutConstraint(item: view, attribute: .Bottom, relatedBy: .Equal, toItem: addTransactionSection, attribute: .Bottom, multiplier: 1.0, constant: 20))
+    
+    let swipeUpRecognizer = UISwipeGestureRecognizer(target: self, action: Selector("onSwipeUp:"))
+    swipeUpRecognizer.direction = UISwipeGestureRecognizerDirection.Up
+    view.addGestureRecognizer(swipeUpRecognizer)
   }
   
   func loadRecentTransactionsSection() -> UIView {
@@ -104,7 +108,7 @@ class DashboardViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  func addButtonTapped(sender: UITapGestureRecognizer!) {
+  func addButtonTapped(sender: UIGestureRecognizer!) {
     let navigationVC = UINavigationController()
     let addVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
     
@@ -113,6 +117,10 @@ class DashboardViewController: UIViewController {
     navigationVC.transitioningDelegate = self
     addVC.automaticallyAdjustsScrollViewInsets = false
     navigationController?.presentViewController(navigationVC, animated: true, completion: nil)
+  }
+  
+  func onSwipeUp(sender: UISwipeGestureRecognizer!) {
+    addButtonTapped(sender)
   }
 }
 
