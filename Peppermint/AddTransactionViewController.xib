@@ -27,7 +27,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$0.00" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gWL-8I-bE0">
-                    <rect key="frame" x="20" y="319" width="335" height="101"/>
+                    <rect key="frame" x="20" y="299" width="335" height="101"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="84"/>
                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                 </textField>
@@ -39,13 +39,13 @@
                     </state>
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" text="Description" translatesAutoresizingMaskIntoConstraints="NO" id="WdS-z7-lTe">
-                    <rect key="frame" x="20" y="114" width="335" height="60"/>
+                    <rect key="frame" x="20" y="94" width="335" height="60"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sQn-Je-LFD">
-                    <rect key="frame" x="20" y="184" width="142" height="55"/>
+                    <rect key="frame" x="20" y="164" width="142" height="55"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
                     <state key="normal" title="Category">
                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -65,7 +65,7 @@
                 <constraint firstAttribute="bottom" secondItem="IF2-w2-89O" secondAttribute="bottom" constant="20" id="09r-dX-VHL"/>
                 <constraint firstItem="iTE-CM-iwR" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="1AB-E8-OBB"/>
                 <constraint firstAttribute="trailing" secondItem="gWL-8I-bE0" secondAttribute="trailing" constant="20" id="4ol-uu-k6i"/>
-                <constraint firstItem="WdS-z7-lTe" firstAttribute="top" secondItem="AEV-n6-3BT" secondAttribute="bottom" constant="60" id="99T-0s-dj1"/>
+                <constraint firstItem="WdS-z7-lTe" firstAttribute="top" secondItem="AEV-n6-3BT" secondAttribute="bottom" constant="40" id="99T-0s-dj1"/>
                 <constraint firstAttribute="trailing" secondItem="IF2-w2-89O" secondAttribute="trailing" constant="20" id="A1b-Uz-gkZ"/>
                 <constraint firstAttribute="bottom" secondItem="iTE-CM-iwR" secondAttribute="bottom" constant="20" id="Awn-hW-Kha"/>
                 <constraint firstItem="IF2-w2-89O" firstAttribute="top" secondItem="0Y8-87-MDQ" secondAttribute="top" constant="25" id="CBl-fT-rBx"/>

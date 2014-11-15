@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 class DashboardViewController: UIViewController {
+  var addTransactionSection: UIView!
   var addTransactionHeader: UILabel!
+  var descriptionButton: UITextView!
   
   override func loadView() {
     super.loadView()
@@ -62,7 +64,7 @@ class DashboardViewController: UIViewController {
   }
   
   func loadAddTransactionSection() -> UIView {
-    let addTransactionSection = UIView()
+    addTransactionSection = UIView()
     addTransactionSection.setTranslatesAutoresizingMaskIntoConstraints(false)
     
     addTransactionHeader = UILabel()
@@ -72,34 +74,27 @@ class DashboardViewController: UIViewController {
     addTransactionHeader.setTranslatesAutoresizingMaskIntoConstraints(false)
     addTransactionSection.addSubview(addTransactionHeader)
     
-    let buttonLabel = UILabel()
-    buttonLabel.text = "+"
-    buttonLabel.textColor = UIColor.whiteColor()
-    buttonLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 120.0)
-    buttonLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+    descriptionButton = UITextView()
+    descriptionButton.text = "Description"
+    descriptionButton.textColor = UIColor.blackColor()
+    descriptionButton.font = UIFont(name: "HelveticaNeue-Light", size: 36)
+        descriptionButton.scrollEnabled = false
+    descriptionButton.textContainerInset = UIEdgeInsetsZero
+    descriptionButton.textContainer.lineFragmentPadding = 0
+    descriptionButton.setTranslatesAutoresizingMaskIntoConstraints(false)
     
-    let addButton = UIControl()
-    addButton.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
-    addButton.setTranslatesAutoresizingMaskIntoConstraints(false)
-    addButton.addSubview(buttonLabel)
-    
-    addButton.addConstraints([
-      NSLayoutConstraint(item: buttonLabel, attribute: .CenterX, relatedBy: .Equal, toItem: addButton, attribute: .CenterX, multiplier: 1.0, constant: 0),
-      NSLayoutConstraint(item: buttonLabel, attribute: .CenterY, relatedBy: .Equal, toItem: addButton, attribute: .CenterY, multiplier: 1.0, constant: 0)
-      ])
-    
-    addTransactionSection.addSubview(addButton)
-    addTransactionSection.userInteractionEnabled = true
+    addTransactionSection.addSubview(descriptionButton)
     
     let addTransactionViews = [
-      "button": addButton,
+      "button": descriptionButton,
       "header": addTransactionHeader
     ]
     addTransactionSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[button]|", options: NSLayoutFormatOptions(0), metrics: nil, views: addTransactionViews))
     addTransactionSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[header]|", options: NSLayoutFormatOptions(0), metrics: nil, views: addTransactionViews))
-    addTransactionSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[header]-10-[button(140)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: addTransactionViews))
+    addTransactionSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[header]-40-[button]-40-|", options: NSLayoutFormatOptions(0), metrics: nil, views: addTransactionViews))
     
-    addButton.addTarget(self, action: "addButtonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+    let descriptionButtonTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("addButtonTapped:"))
+    descriptionButton.addGestureRecognizer(descriptionButtonTapRecognizer)
     
     return addTransactionSection
   }
@@ -109,7 +104,7 @@ class DashboardViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  func addButtonTapped(sender: UIControl!) {
+  func addButtonTapped(sender: UITapGestureRecognizer!) {
     let navigationVC = UINavigationController()
     let addVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
     
@@ -149,7 +144,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     container.addSubview(fromView)
     container.addSubview(toView)
     
-    let headerLabel = fromVC.addTransactionHeader
+    let headerLabel = fromVC.addTransactionSection
     let headerClone = headerLabel.snapshotViewAfterScreenUpdates(false)
     headerLabel.alpha = 0
     headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
@@ -205,7 +200,7 @@ class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     let headerClone = headerLabel.snapshotViewAfterScreenUpdates(false)
     headerLabel.alpha = 0
     headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
-    let headerTarget = toVC.addTransactionHeader.convertPoint(CGPointZero, toView: nil)
+    let headerTarget = toVC.addTransactionSection.convertPoint(CGPointZero, toView: nil)
     
     let headerDelta = headerTarget.y - headerClone.frame.origin.y
     
