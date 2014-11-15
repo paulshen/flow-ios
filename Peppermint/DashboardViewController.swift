@@ -133,7 +133,7 @@ extension DashboardViewController: UIViewControllerTransitioningDelegate {
 
 class Animator: NSObject, UIViewControllerAnimatedTransitioning {
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-    return 0.5
+    return 0.8
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -155,24 +155,23 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
     let headerTarget = toAddVC.headerLabel.convertPoint(CGPointZero, toView: nil)
     
+    let headerDelta = headerTarget.y - headerClone.frame.origin.y
+    
     container.addSubview(headerClone)
     
     let duration = transitionDuration(transitionContext)
     
-    UIView.animateWithDuration(duration / 3.0, animations: {
+    UIView.animateWithDuration(duration / 2.0, animations: {
+      fromView.frame.origin.y += headerDelta
       fromView.alpha = 0
-      }
-    )
-    
-    UIView.animateWithDuration(duration / 2.0, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
       headerClone.frame.origin = headerTarget
-      }, completion: { (finished) in
       }
     )
     
     UIView.animateWithDuration(duration / 2.0, delay: duration / 2.0, options: UIViewAnimationOptions(0), animations: {
       toView.alpha = 1
       }, completion: { (finished) in
+        fromView.frame.origin.y = 0
         fromView.alpha = 1
         headerLabel.alpha = 1
         headerClone.removeFromSuperview()
@@ -185,7 +184,7 @@ class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
 class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-    return 0.5
+    return 0.8
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -208,18 +207,16 @@ class DismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     headerClone.frame.origin = headerLabel.convertPoint(CGPointZero, toView: nil)
     let headerTarget = toVC.addTransactionHeader.convertPoint(CGPointZero, toView: nil)
     
+    let headerDelta = headerTarget.y - headerClone.frame.origin.y
+    
     container.addSubview(headerClone)
     
     let duration = transitionDuration(transitionContext)
     
-    UIView.animateWithDuration(duration / 3.0, animations: {
+    UIView.animateWithDuration(duration / 2.0, animations: {
+      fromView.frame.origin.y += headerDelta
       fromView.alpha = 0
-      }
-    )
-    
-    UIView.animateWithDuration(duration / 2.0, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
       headerClone.frame.origin = headerTarget
-      }, completion: { (finished) in
       }
     )
     
