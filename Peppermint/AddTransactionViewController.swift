@@ -20,6 +20,8 @@ class AddTransactionViewController: UIViewController {
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var descriptionPlaceholder: UILabel!
   
+  var priceInputFocused = false
+  
   var category: PFObject? {
     didSet {
       if let category = category {
@@ -178,6 +180,11 @@ extension AddTransactionViewController: UITextViewDelegate, UITextFieldDelegate 
   
   func textFieldDidBeginEditing(textField: UITextField) {
     if textField == priceInput {
+      if !priceInputFocused {
+        priceInput.text = "$"
+        priceInputFocused = true
+      }
+      
       // Defer so wrapperScrollView.contentInset is set
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
         self.wrapperScrollView.setContentOffset(CGPointMake(0, self.wrapperScrollView.contentInset.bottom), animated: true)
