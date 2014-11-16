@@ -20,6 +20,7 @@ class AddTransactionViewController: UIViewController {
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var descriptionPlaceholder: UILabel!
   
+  var kbSize: CGSize!
   var priceInputFocused = false
   
   var category: PFObject? {
@@ -57,6 +58,11 @@ class AddTransactionViewController: UIViewController {
     categoryButton.addTarget(self, action: Selector("onCategoryButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
     saveButton.addTarget(self, action: Selector("onSaveButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
     cancelButton.addTarget(self, action: Selector("onCancelButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
+    
+    saveButton.contentEdgeInsets = UIEdgeInsetsMake(12, 0, 12, 0)
+    saveButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+    saveButton.layer.borderColor = UIColor.blackColor().CGColor
+    saveButton.layer.borderWidth = 2
     
     tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
     view.addGestureRecognizer(tapRecognizer)
@@ -98,7 +104,7 @@ class AddTransactionViewController: UIViewController {
   
   func keyboardWillShow(notification: NSNotification) {
     let info = notification.userInfo!
-    let kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue().size
+    kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue().size
     
     let contentInsets = UIEdgeInsetsMake(0, 0, kbSize.height, 0)
     wrapperScrollView.contentInset = contentInsets
@@ -143,6 +149,8 @@ class AddTransactionViewController: UIViewController {
   }
   
   func onCancelButtonPressed(sender: UIButton!) {
+    descriptionInput.text = ""
+    descriptionPlaceholder.hidden = false
     dismissCallback?()
   }
 }
@@ -185,10 +193,8 @@ extension AddTransactionViewController: UITextViewDelegate, UITextFieldDelegate 
         priceInputFocused = true
       }
       
-      // Defer so wrapperScrollView.contentInset is set
-      dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        self.wrapperScrollView.setContentOffset(CGPointMake(0, self.wrapperScrollView.contentInset.bottom), animated: true)
-      })
+      // Scroll so that the save button is visible
+      self.wrapperScrollView.setContentOffset(CGPointMake(0, CGRectGetMaxY(saveButton.frame) - (view.bounds.height - kbSize.height) + 20), animated: true)
     }
   }
 }

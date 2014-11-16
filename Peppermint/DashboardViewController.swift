@@ -53,7 +53,7 @@ class DashboardViewController: UIViewController {
     addTransactionView = addTransactionNavVC.view
     wrapperView.addSubview(addTransactionView)
     
-    addTransactionView.frame = CGRectMake(0, view.bounds.height - 200, view.bounds.width, view.bounds.height)
+    addTransactionView.frame = CGRectMake(0, view.bounds.height - 180, view.bounds.width, view.bounds.height)
     addTransactionView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
     addTransactionNavVC.didMoveToParentViewController(self)
     addTransactionVC.userInteractionEnabled = false
