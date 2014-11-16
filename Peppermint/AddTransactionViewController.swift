@@ -18,6 +18,7 @@ class AddTransactionViewController: UIViewController {
   @IBOutlet weak var priceInput: UITextField!
   @IBOutlet weak var saveButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
+  @IBOutlet weak var descriptionPlaceholder: UILabel!
   
   var category: PFObject? {
     didSet {
@@ -45,7 +46,6 @@ class AddTransactionViewController: UIViewController {
     categoryButton.alpha = 0
     cancelButton.alpha = 0
     
-    descriptionInput.textContainer.lineFragmentPadding = 0
     descriptionInput.textContainerInset = UIEdgeInsetsZero
     descriptionInput.tag = 1
     priceInput.tag = 2
@@ -146,6 +146,10 @@ class AddTransactionViewController: UIViewController {
 }
 
 extension AddTransactionViewController: UITextViewDelegate, UITextFieldDelegate {
+  func textViewDidChange(textView: UITextView) {
+    descriptionPlaceholder.hidden = textView.text != ""
+  }
+  
   func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
     if NSString(string: text).rangeOfCharacterFromSet(NSCharacterSet.newlineCharacterSet()).location == NSNotFound {
       return true
