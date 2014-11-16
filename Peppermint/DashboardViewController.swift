@@ -102,6 +102,7 @@ class DashboardViewController: UIViewController {
   }
   
   func onAddTransactionTap(sender: UIGestureRecognizer!) {
+    addTransactionVC.showHiddenElementsWithDuration(0.5)
     UIView.animateWithDuration(0.5, animations: { () -> Void in
       let delta = self.addTransactionView.frame.origin.y
       self.wrapperView.frame.origin.y -= delta
@@ -109,6 +110,8 @@ class DashboardViewController: UIViewController {
       self.addTransactionTapRecognizer.enabled = false
       self.addTransactionSwipeRecognizer.enabled = false
       self.addTransactionVC.userInteractionEnabled = true
+      
+      self.addTransactionVC.descriptionInput.becomeFirstResponder()
     }
   }
   
@@ -117,6 +120,8 @@ class DashboardViewController: UIViewController {
   }
   
   func closeAddTransactionView() {
+    view.endEditing(true)
+    addTransactionVC.hideHiddenElementsWithDuration(0.5)
     UIView.animateWithDuration(0.5, animations: { () -> Void in
       self.wrapperView.frame.origin.y = 0
       }) { (finished) -> Void in

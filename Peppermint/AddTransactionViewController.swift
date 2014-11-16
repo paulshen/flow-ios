@@ -42,6 +42,9 @@ class AddTransactionViewController: UIViewController {
   var tapRecognizer: UITapGestureRecognizer!
   
   override func viewDidLoad() {
+    categoryButton.alpha = 0
+    cancelButton.alpha = 0
+    
     descriptionInput.textContainer.lineFragmentPadding = 0
     descriptionInput.textContainerInset = UIEdgeInsetsZero
     descriptionInput.tag = 1
@@ -70,6 +73,20 @@ class AddTransactionViewController: UIViewController {
   override func viewWillAppear(animated: Bool) {
     wrapperScrollView.contentSize = view.bounds.size
     mainView.frame = view.bounds
+  }
+  
+  func showHiddenElementsWithDuration(duration: NSTimeInterval) {
+    UIView.animateWithDuration(duration, animations: { () -> Void in
+      self.categoryButton.alpha = 1
+      self.cancelButton.alpha = 1
+    })
+  }
+  
+  func hideHiddenElementsWithDuration(duration: NSTimeInterval) {
+    UIView.animateWithDuration(duration, animations: { () -> Void in
+      self.categoryButton.alpha = 0
+      self.cancelButton.alpha = 0
+    })
   }
   
   func registerForKeyboardNotifications() {
