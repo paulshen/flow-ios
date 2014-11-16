@@ -39,10 +39,13 @@ class DashboardViewController: UIViewController {
       NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20.0)
       ])
     
-    let recentTransactionsSection = loadRecentTransactionsSection()
+    let recentTransactionVC = RecentTransactionsViewController()
+    addChildViewController(recentTransactionVC)
+    let recentTransactionsSection = recentTransactionVC.view
     wrapperView.addSubview(recentTransactionsSection)
     wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[recentTransactions]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["recentTransactions": recentTransactionsSection]))
     wrapperView.addConstraint(NSLayoutConstraint(item: recentTransactionsSection, attribute: .Top, relatedBy: .Equal, toItem: imageView, attribute: .Bottom, multiplier: 1.0, constant: 100))
+    recentTransactionVC.didMoveToParentViewController(self)
     
     addTransactionVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
     let addTransactionNavVC = UINavigationController()
@@ -72,28 +75,6 @@ class DashboardViewController: UIViewController {
     
     wrapperView.frame.size.height = CGRectGetMaxY(addTransactionView.frame)
     view.addSubview(wrapperView)
-  }
-  
-  func loadRecentTransactionsSection() -> UIView {
-    let recentTransactionsSection = UIView()
-    recentTransactionsSection.setTranslatesAutoresizingMaskIntoConstraints(false)
-    
-    let recentTransactionsHeader = UILabel()
-    recentTransactionsHeader.text = "RECENT TRANSACTIONS"
-    recentTransactionsHeader.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-    recentTransactionsHeader.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
-    recentTransactionsHeader.setTranslatesAutoresizingMaskIntoConstraints(false)
-    recentTransactionsSection.addSubview(recentTransactionsHeader)
-    
-    recentTransactionsSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[header]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader]))
-    
-    let recentTransactionsTableView = RecentTransactionsTableView(frame: CGRectZero)
-    recentTransactionsTableView.setTranslatesAutoresizingMaskIntoConstraints(false)
-    recentTransactionsSection.addSubview(recentTransactionsTableView)
-    recentTransactionsSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": recentTransactionsTableView]))
-    recentTransactionsSection.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": recentTransactionsTableView]))
-    
-    return recentTransactionsSection
   }
   
   override func didReceiveMemoryWarning() {

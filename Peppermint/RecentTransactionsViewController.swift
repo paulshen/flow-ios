@@ -10,27 +10,43 @@ import Foundation
 import Parse
 import UIKit
 
-class RecentTransactionsTableView: UIView {
+class RecentTransactionsViewController: UIViewController {
   var tableView: UITableView!
   let kCellIdentifier = "TransactionCell"
   var transactions: [PFObject]?
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  var tableViewHeightConstraint: NSLayoutConstraint!
+  
+  override func loadView() {
+    super.loadView()
     
-    self.backgroundColor = UIColor.redColor()
+    view.setTranslatesAutoresizingMaskIntoConstraints(false)
     
-    tableView = UITableView(frame: frame, style: UITableViewStyle.Plain)
+    let recentTransactionsHeader = UILabel()
+    recentTransactionsHeader.text = "RECENT TRANSACTIONS"
+    recentTransactionsHeader.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+    recentTransactionsHeader.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+    recentTransactionsHeader.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.addSubview(recentTransactionsHeader)
+    
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[header]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader]))
+    
+    tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
+    tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
     tableView.registerClass(TransactionTableViewCell.self, forCellReuseIdentifier: kCellIdentifier)
     tableView.delegate = self
     tableView.dataSource = self
     tableView.estimatedRowHeight = 40.0
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.separatorColor = UIColor.clearColor()
-    tableView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
-    self.addSubview(tableView)
+    
+    view.addSubview(tableView)
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView]))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": tableView]))
     
     tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+    tableViewHeightConstraint = NSLayoutConstraint(item: tableView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0)
+    view.addConstraint(tableViewHeightConstraint)
     
     Transactions.sharedInstance.fetchTransactionsWithCallback {
       transactions in
@@ -39,22 +55,14 @@ class RecentTransactionsTableView: UIView {
     }
   }
 
-  required init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-  }
-  
-  override func intrinsicContentSize() -> CGSize {
-    return tableView.contentSize
-  }
-  
   override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
     if keyPath == "contentSize" && object as? UITableView == tableView {
-      self.invalidateIntrinsicContentSize()
+      tableViewHeightConstraint.constant = tableView.contentSize.height
     }
   }
 }
 
-extension RecentTransactionsTableView: UITableViewDataSource {
+extension RecentTransactionsViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let numTransactions = self.transactions?.count {
       return min(numTransactions, 2)
@@ -70,7 +78,7 @@ extension RecentTransactionsTableView: UITableViewDataSource {
   }
 }
 
-extension RecentTransactionsTableView: UITableViewDelegate {
+extension RecentTransactionsViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
   }
   
