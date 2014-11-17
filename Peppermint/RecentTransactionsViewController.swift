@@ -17,7 +17,7 @@ class RecentTransactionsViewController: UIViewController {
   
   var inMiniMode: Bool
   var tableViewHeightConstraint: NSLayoutConstraint!
-  var rectToAnimate: CGRect?
+  var viewMoreButton: UIButton?
 
   init(inMiniMode: Bool) {
     self.inMiniMode = inMiniMode
@@ -54,23 +54,36 @@ class RecentTransactionsViewController: UIViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.separatorColor = UIColor.clearColor()
     
-    let metrics = [
-      "topMargin": inMiniMode ? 0 : 30
-    ]
-    
     view.addSubview(tableView)
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView]))
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-topMargin-[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: metrics, views: ["header": recentTransactionsHeader, "table": tableView]))
-    view.layoutIfNeeded()
     
     if inMiniMode {
+      viewMoreButton = UIButton()
+      if let viewMoreButton = viewMoreButton {
+        viewMoreButton.setTitle("VIEW MORE", forState: UIControlState.Normal)
+        viewMoreButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        viewMoreButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        viewMoreButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        viewMoreButton.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 20)
+        viewMoreButton.setTranslatesAutoresizingMaskIntoConstraints(false)
+        viewMoreButton.addTarget(self, action: Selector("onViewMoreTap:"), forControlEvents: UIControlEvents.TouchUpInside)
+        view.addSubview(viewMoreButton)
+        
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[button]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["button": viewMoreButton]))
+        view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[header]-10-[table]-10-[button]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": tableView, "button": viewMoreButton]))
+      }
+      
       tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
       tableViewHeightConstraint = NSLayoutConstraint(item: tableView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0)
       view.addConstraint(tableViewHeightConstraint)
     } else {
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": tableView]))
+      
       let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTapClose:"))
       view.addGestureRecognizer(tapRecognizer)
     }
+    
+    view.layoutIfNeeded()
     
     Transactions.sharedInstance.fetchTransactionsWithCallback {
       transactions in
@@ -85,9 +98,14 @@ class RecentTransactionsViewController: UIViewController {
     }
   }
   
+  func onViewMoreTap(sender: UIButton!) {
+    let fullRecentVC = RecentTransactionsViewController(inMiniMode: false)
+    fullRecentVC.transitioningDelegate = self
+    presentViewController(fullRecentVC, animated: true, completion: nil)
+  }
+  
   func onTapClose(sender: UISwipeGestureRecognizer!) {
-    presentingViewController?.dismissViewControllerAnimated(true, completion: { () -> Void in
-    })
+    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
   }
 }
 
@@ -95,7 +113,7 @@ extension RecentTransactionsViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let numTransactions = self.transactions?.count {
       if inMiniMode {
-        return min(numTransactions, 2) + 1
+        return min(numTransactions, 2)
       }
       return numTransactions
     }
@@ -104,13 +122,7 @@ extension RecentTransactionsViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as TransactionTableViewCell
-    
-    if inMiniMode && indexPath.row == self.tableView(tableView, numberOfRowsInSection: 0) - 1 {
-      cell.body.text = "View More"
-    } else {
-      cell.body.text = (transactions![indexPath.row]["description"] as String)
-    }
-    
+    cell.body.text = (transactions![indexPath.row]["description"] as String)
     cell.updateConstraintsIfNeeded()
     return cell
   }
@@ -118,24 +130,16 @@ extension RecentTransactionsViewController: UITableViewDataSource {
 
 extension RecentTransactionsViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if inMiniMode && indexPath.row == self.tableView(tableView, numberOfRowsInSection: 0) - 1  {
-      let fullRecentVC = RecentTransactionsViewController(inMiniMode: false)
-      fullRecentVC.transitioningDelegate = self
-      rectToAnimate = tableView.rectForRowAtIndexPath(indexPath)
-      presentViewController(fullRecentVC, animated: true) { () -> Void in
-        
-      }
-    }
   }
 }
 
 extension RecentTransactionsViewController: UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return self
+    return ViewMoreRecentTransactionsAnimator()
   }
 }
 
-extension RecentTransactionsViewController: UIViewControllerAnimatedTransitioning {
+class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTransitioning {
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
     return 0.5
   }
@@ -149,14 +153,14 @@ extension RecentTransactionsViewController: UIViewControllerAnimatedTransitionin
     let container = transitionContext.containerView()
     container.backgroundColor = UIColor.whiteColor()
     
-    let tableViewOffset = tableView.convertPoint(CGPointZero, toView: nil)
+    let rectToExpand = fromRecentTransactionVC.viewMoreButton!.convertRect(fromRecentTransactionVC.viewMoreButton!.bounds, toView: container)
     
-    let topExpanderHeight = tableViewOffset.y + rectToAnimate!.origin.y
+    let topExpanderHeight = rectToExpand.origin.y
     let topExpander = UIView(frame: CGRectMake(0, 0, container.bounds.size.width, topExpanderHeight))
     topExpander.clipsToBounds = true
     topExpander.addSubview(fromVC.view.snapshotViewAfterScreenUpdates(false))
     
-    let bottomExpanderTop = tableViewOffset.y + rectToAnimate!.origin.y + rectToAnimate!.size.height
+    let bottomExpanderTop = CGRectGetMaxY(rectToExpand)
     let bottomExpanderHeight = container.bounds.size.height - bottomExpanderTop
     let bottomExpander = UIView(frame: CGRectMake(0, bottomExpanderTop, container.bounds.size.width, bottomExpanderHeight))
     let bottomExpanderSnapshot = fromVC.view.snapshotViewAfterScreenUpdates(false)
@@ -168,8 +172,9 @@ extension RecentTransactionsViewController: UIViewControllerAnimatedTransitionin
     toView.alpha = 0
     container.addSubview(toView)
     
-    let targetTableViewOffset = toVC.tableView.convertPoint(CGPointZero, toView: nil)
-    let tableViewDelta = tableViewOffset.y - targetTableViewOffset.y
+    let fromTableViewOffset = fromRecentTransactionVC.tableView.convertPoint(CGPointZero, toView: container)
+    let targetTableViewOffset = toVC.tableView.convertPoint(CGPointZero, toView: container)
+    let tableViewDelta = fromTableViewOffset.y - targetTableViewOffset.y
     
     toView.frame.origin.y = tableViewDelta
     
