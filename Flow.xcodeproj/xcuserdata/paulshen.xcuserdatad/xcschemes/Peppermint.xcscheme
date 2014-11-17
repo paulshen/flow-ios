@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9C0A31351A0AEFBE00A94D9F"
-               BuildableName = "Peppermint.app"
-               BlueprintName = "Peppermint"
-               ReferencedContainer = "container:Peppermint.xcodeproj">
+               BuildableName = "Flow.app"
+               BlueprintName = "Flow"
+               ReferencedContainer = "container:Flow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9C0A314A1A0AEFBE00A94D9F"
-               BuildableName = "PeppermintTests.xctest"
-               BlueprintName = "PeppermintTests"
-               ReferencedContainer = "container:Peppermint.xcodeproj">
+               BuildableName = "FlowTests.xctest"
+               BlueprintName = "FlowTests"
+               ReferencedContainer = "container:Flow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9C0A314A1A0AEFBE00A94D9F"
-               BuildableName = "PeppermintTests.xctest"
-               BlueprintName = "PeppermintTests"
-               ReferencedContainer = "container:Peppermint.xcodeproj">
+               BuildableName = "FlowTests.xctest"
+               BlueprintName = "FlowTests"
+               ReferencedContainer = "container:Flow.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9C0A31351A0AEFBE00A94D9F"
-            BuildableName = "Peppermint.app"
-            BlueprintName = "Peppermint"
-            ReferencedContainer = "container:Peppermint.xcodeproj">
+            BuildableName = "Flow.app"
+            BlueprintName = "Flow"
+            ReferencedContainer = "container:Flow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9C0A31351A0AEFBE00A94D9F"
-            BuildableName = "Peppermint.app"
-            BlueprintName = "Peppermint"
-            ReferencedContainer = "container:Peppermint.xcodeproj">
+            BuildableName = "Flow.app"
+            BlueprintName = "Flow"
+            ReferencedContainer = "container:Flow.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9C0A31351A0AEFBE00A94D9F"
-            BuildableName = "Peppermint.app"
-            BlueprintName = "Peppermint"
-            ReferencedContainer = "container:Peppermint.xcodeproj">
+            BuildableName = "Flow.app"
+            BlueprintName = "Flow"
+            ReferencedContainer = "container:Flow.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

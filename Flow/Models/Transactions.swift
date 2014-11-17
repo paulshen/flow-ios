@@ -1,6 +1,6 @@
 //
 //  Transactions.swift
-//  Peppermint
+//  Flow
 //
 //  Created by Paul Shen on 11/14/14.
 //  Copyright (c) 2014 PaulShen. All rights reserved.

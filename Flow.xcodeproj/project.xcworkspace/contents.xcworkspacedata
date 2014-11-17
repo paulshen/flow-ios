@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Peppermint.xcodeproj">
+      location = "self:Flow.xcodeproj">
    </FileRef>
 </Workspace>

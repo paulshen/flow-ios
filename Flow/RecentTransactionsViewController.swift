@@ -1,6 +1,6 @@
 //
 //  RecentTransactionsTableView.swift
-//  Peppermint
+//  Flow
 //
 //  Created by Paul Shen on 11/12/14.
 //  Copyright (c) 2014 PaulShen. All rights reserved.

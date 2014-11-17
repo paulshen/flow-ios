@@ -1,6 +1,6 @@
 //
-//  PeppermintTests.swift
-//  PeppermintTests
+//  FlowTests.swift
+//  FlowTests
 //
 //  Created by Paul Shen on 11/5/14.
 //  Copyright (c) 2014 PaulShen. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 import XCTest
 
-class PeppermintTests: XCTestCase {
+class FlowTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

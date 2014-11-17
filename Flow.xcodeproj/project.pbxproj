@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9C0055211A0C3738004E751A /* TransactionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0055201A0C3738004E751A /* TransactionsHeaderView.swift */; };
-		9C0055231A0C3CDC004E751A /* TransactionsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0055221A0C3CDC004E751A /* TransactionsHeaderView.xib */; };
-		9C0055271A0C8999004E751A /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0055261A0C8999004E751A /* TransactionTableViewCell.swift */; };
 		9C0963EA1A1A79D1003287B4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0963E61A1A79D1003287B4 /* Bolts.framework */; };
 		9C0963EB1A1A79D1003287B4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0963E71A1A79D1003287B4 /* Parse.framework */; };
 		9C0963EC1A1A79D1003287B4 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0963E81A1A79D1003287B4 /* ParseFacebookUtils.framework */; };
@@ -24,19 +21,21 @@
 		9C0963FD1A1A7A06003287B4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0963FC1A1A7A06003287B4 /* Security.framework */; };
 		9C0963FF1A1A7A0B003287B4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0963FE1A1A7A0B003287B4 /* StoreKit.framework */; };
 		9C0964011A1A7A10003287B4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0964001A1A7A10003287B4 /* SystemConfiguration.framework */; };
-		9C0A313C1A0AEFBE00A94D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A313B1A0AEFBE00A94D9F /* AppDelegate.swift */; };
-		9C0A313E1A0AEFBE00A94D9F /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A313D1A0AEFBE00A94D9F /* TransactionsViewController.swift */; };
-		9C0A31431A0AEFBE00A94D9F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C0A31421A0AEFBE00A94D9F /* Images.xcassets */; };
-		9C0A31461A0AEFBE00A94D9F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0A31441A0AEFBE00A94D9F /* LaunchScreen.xib */; };
-		9C0A31521A0AEFBE00A94D9F /* PeppermintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */; };
-		9C31DE851A157BD7004A1120 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C31DE841A157BD7004A1120 /* SelectCategoryViewController.swift */; };
-		9C46BABE1A16ACC3008CDCF7 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C46BABD1A16ACC3008CDCF7 /* Categories.swift */; };
-		9C46BAC01A16ACE2008CDCF7 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C46BABF1A16ACE2008CDCF7 /* Transactions.swift */; };
-		9C5796041A13E0750089097A /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5796031A13E0750089097A /* AddTransactionViewController.swift */; };
-		9C5796061A13E0F50089097A /* AddTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C5796051A13E0F50089097A /* AddTransactionViewController.xib */; };
-		9C57960E1A142A750089097A /* RecentTransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C57960D1A142A750089097A /* RecentTransactionsViewController.swift */; };
-		9CA701CF1A1AB61800AC2521 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA701CE1A1AB61800AC2521 /* Config.swift */; };
-		9CDF119E1A11901A005F6567 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDF119D1A11901A005F6567 /* DashboardViewController.swift */; };
+		9C3CC5BD1A1ABADD00801889 /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5A91A1ABADD00801889 /* AddTransactionViewController.swift */; };
+		9C3CC5BE1A1ABADD00801889 /* AddTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3CC5AA1A1ABADD00801889 /* AddTransactionViewController.xib */; };
+		9C3CC5BF1A1ABADD00801889 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5AB1A1ABADD00801889 /* AppDelegate.swift */; };
+		9C3CC5C01A1ABADD00801889 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3CC5AD1A1ABADD00801889 /* LaunchScreen.xib */; };
+		9C3CC5C21A1ABADD00801889 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B01A1ABADD00801889 /* DashboardViewController.swift */; };
+		9C3CC5C31A1ABADD00801889 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B11A1ABADD00801889 /* Images.xcassets */; };
+		9C3CC5C51A1ABADD00801889 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B41A1ABADD00801889 /* Categories.swift */; };
+		9C3CC5C61A1ABADD00801889 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B51A1ABADD00801889 /* Transactions.swift */; };
+		9C3CC5C71A1ABADD00801889 /* RecentTransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B71A1ABADD00801889 /* RecentTransactionsViewController.swift */; };
+		9C3CC5C81A1ABADD00801889 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B81A1ABADD00801889 /* SelectCategoryViewController.swift */; };
+		9C3CC5C91A1ABADD00801889 /* TransactionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B91A1ABADD00801889 /* TransactionsHeaderView.swift */; };
+		9C3CC5CA1A1ABADD00801889 /* TransactionsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3CC5BA1A1ABADD00801889 /* TransactionsHeaderView.xib */; };
+		9C3CC5CB1A1ABADD00801889 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5BB1A1ABADD00801889 /* TransactionsViewController.swift */; };
+		9C3CC5CC1A1ABADD00801889 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5BC1A1ABADD00801889 /* TransactionTableViewCell.swift */; };
+		9C3CC5D21A1ABB8600801889 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5D11A1ABB8600801889 /* Config.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +49,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9C0055201A0C3738004E751A /* TransactionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsHeaderView.swift; sourceTree = "<group>"; };
-		9C0055221A0C3CDC004E751A /* TransactionsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionsHeaderView.xib; sourceTree = "<group>"; };
-		9C0055261A0C8999004E751A /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		9C0963E61A1A79D1003287B4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		9C0963E71A1A79D1003287B4 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		9C0963E81A1A79D1003287B4 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -67,24 +63,26 @@
 		9C0963FC1A1A7A06003287B4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9C0963FE1A1A7A0B003287B4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		9C0964001A1A7A10003287B4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		9C0A31361A0AEFBE00A94D9F /* Peppermint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Peppermint.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C0A313A1A0AEFBE00A94D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C0A313B1A0AEFBE00A94D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9C0A313D1A0AEFBE00A94D9F /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
-		9C0A31421A0AEFBE00A94D9F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9C0A31451A0AEFBE00A94D9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9C0A314B1A0AEFBE00A94D9F /* PeppermintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeppermintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C0A31501A0AEFBE00A94D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeppermintTests.swift; sourceTree = "<group>"; };
-		9C1B501D1A1A854500EF346D /* Peppermint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Peppermint.h; sourceTree = "<group>"; };
-		9C31DE841A157BD7004A1120 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
-		9C46BABD1A16ACC3008CDCF7 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Categories.swift; path = Models/Categories.swift; sourceTree = "<group>"; };
-		9C46BABF1A16ACE2008CDCF7 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transactions.swift; path = Models/Transactions.swift; sourceTree = "<group>"; };
-		9C5796031A13E0750089097A /* AddTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
-		9C5796051A13E0F50089097A /* AddTransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTransactionViewController.xib; sourceTree = "<group>"; };
-		9C57960D1A142A750089097A /* RecentTransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentTransactionsViewController.swift; sourceTree = "<group>"; };
-		9CA701CE1A1AB61800AC2521 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		9CDF119D1A11901A005F6567 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
+		9C0A31361A0AEFBE00A94D9F /* Flow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C0A314B1A0AEFBE00A94D9F /* FlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C3CC5A91A1ABADD00801889 /* AddTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AddTransactionViewController.swift; path = Flow/AddTransactionViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5AA1A1ABADD00801889 /* AddTransactionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddTransactionViewController.xib; path = Flow/AddTransactionViewController.xib; sourceTree = SOURCE_ROOT; };
+		9C3CC5AB1A1ABADD00801889 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = AppDelegate.swift; path = Flow/AppDelegate.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5AE1A1ABADD00801889 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		9C3CC5B01A1ABADD00801889 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DashboardViewController.swift; path = Flow/DashboardViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5B11A1ABADD00801889 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Flow/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		9C3CC5B21A1ABADD00801889 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Flow/Info.plist; sourceTree = SOURCE_ROOT; };
+		9C3CC5B41A1ABADD00801889 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Categories.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5B51A1ABADD00801889 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Transactions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5B71A1ABADD00801889 /* RecentTransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = RecentTransactionsViewController.swift; path = Flow/RecentTransactionsViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5B81A1ABADD00801889 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = SelectCategoryViewController.swift; path = Flow/SelectCategoryViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5B91A1ABADD00801889 /* TransactionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TransactionsHeaderView.swift; path = Flow/TransactionsHeaderView.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5BA1A1ABADD00801889 /* TransactionsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TransactionsHeaderView.xib; path = Flow/TransactionsHeaderView.xib; sourceTree = SOURCE_ROOT; };
+		9C3CC5BB1A1ABADD00801889 /* TransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TransactionsViewController.swift; path = Flow/TransactionsViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5BC1A1ABADD00801889 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TransactionTableViewCell.swift; path = Flow/TransactionTableViewCell.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5D11A1ABB8600801889 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Config.swift; path = Flow/Config.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9C3CC5D31A1ABD3A00801889 /* FlowTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlowTests.swift; path = FlowTests/FlowTests.swift; sourceTree = SOURCE_ROOT; };
+		9C3CC5D41A1ABD3A00801889 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = FlowTests/Info.plist; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,8 +141,8 @@
 		9C0A312D1A0AEFBE00A94D9F = {
 			isa = PBXGroup;
 			children = (
-				9C0A31381A0AEFBE00A94D9F /* Peppermint */,
-				9C0A314E1A0AEFBE00A94D9F /* PeppermintTests */,
+				9C0A31381A0AEFBE00A94D9F /* Flow */,
+				9C0A314E1A0AEFBE00A94D9F /* FlowTests */,
 				9C0A31371A0AEFBE00A94D9F /* Products */,
 				60E0DA89D574702F6513F7FA /* Frameworks */,
 			);
@@ -153,75 +151,86 @@
 		9C0A31371A0AEFBE00A94D9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9C0A31361A0AEFBE00A94D9F /* Peppermint.app */,
-				9C0A314B1A0AEFBE00A94D9F /* PeppermintTests.xctest */,
+				9C0A31361A0AEFBE00A94D9F /* Flow.app */,
+				9C0A314B1A0AEFBE00A94D9F /* FlowTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9C0A31381A0AEFBE00A94D9F /* Peppermint */ = {
+		9C0A31381A0AEFBE00A94D9F /* Flow */ = {
 			isa = PBXGroup;
 			children = (
-				9C46BABC1A16ACA4008CDCF7 /* Models */,
-				9C0A313B1A0AEFBE00A94D9F /* AppDelegate.swift */,
-				9C0A313D1A0AEFBE00A94D9F /* TransactionsViewController.swift */,
-				9C0A31421A0AEFBE00A94D9F /* Images.xcassets */,
-				9C0A31441A0AEFBE00A94D9F /* LaunchScreen.xib */,
-				9C0A31391A0AEFBE00A94D9F /* Supporting Files */,
-				9C0055201A0C3738004E751A /* TransactionsHeaderView.swift */,
-				9C0055221A0C3CDC004E751A /* TransactionsHeaderView.xib */,
-				9C0055261A0C8999004E751A /* TransactionTableViewCell.swift */,
-				9CDF119D1A11901A005F6567 /* DashboardViewController.swift */,
-				9C5796031A13E0750089097A /* AddTransactionViewController.swift */,
-				9C5796051A13E0F50089097A /* AddTransactionViewController.xib */,
-				9C57960D1A142A750089097A /* RecentTransactionsViewController.swift */,
-				9C31DE841A157BD7004A1120 /* SelectCategoryViewController.swift */,
-				9C1B501D1A1A854500EF346D /* Peppermint.h */,
-				9CA701CE1A1AB61800AC2521 /* Config.swift */,
+				9C3CC5AC1A1ABADD00801889 /* Base.lproj */,
+				9C3CC5D11A1ABB8600801889 /* Config.swift */,
+				9C3CC5A91A1ABADD00801889 /* AddTransactionViewController.swift */,
+				9C3CC5AA1A1ABADD00801889 /* AddTransactionViewController.xib */,
+				9C3CC5AB1A1ABADD00801889 /* AppDelegate.swift */,
+				9C3CC5B01A1ABADD00801889 /* DashboardViewController.swift */,
+				9C3CC5B11A1ABADD00801889 /* Images.xcassets */,
+				9C3CC5B31A1ABADD00801889 /* Models */,
+				9C3CC5B71A1ABADD00801889 /* RecentTransactionsViewController.swift */,
+				9C3CC5B81A1ABADD00801889 /* SelectCategoryViewController.swift */,
+				9C3CC5B91A1ABADD00801889 /* TransactionsHeaderView.swift */,
+				9C3CC5BA1A1ABADD00801889 /* TransactionsHeaderView.xib */,
+				9C3CC5BB1A1ABADD00801889 /* TransactionsViewController.swift */,
+				9C3CC5BC1A1ABADD00801889 /* TransactionTableViewCell.swift */,
+				9C3CC5D71A1ABF6800801889 /* Supporting Files */,
 			);
+			name = Flow;
 			path = Peppermint;
 			sourceTree = "<group>";
 		};
-		9C0A31391A0AEFBE00A94D9F /* Supporting Files */ = {
+		9C0A314E1A0AEFBE00A94D9F /* FlowTests */ = {
 			isa = PBXGroup;
 			children = (
-				9C0A313A1A0AEFBE00A94D9F /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		9C0A314E1A0AEFBE00A94D9F /* PeppermintTests */ = {
-			isa = PBXGroup;
-			children = (
-				9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */,
+				9C3CC5D31A1ABD3A00801889 /* FlowTests.swift */,
 				9C0A314F1A0AEFBE00A94D9F /* Supporting Files */,
 			);
+			name = FlowTests;
 			path = PeppermintTests;
 			sourceTree = "<group>";
 		};
 		9C0A314F1A0AEFBE00A94D9F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9C0A31501A0AEFBE00A94D9F /* Info.plist */,
+				9C3CC5D41A1ABD3A00801889 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9C46BABC1A16ACA4008CDCF7 /* Models */ = {
+		9C3CC5AC1A1ABADD00801889 /* Base.lproj */ = {
 			isa = PBXGroup;
 			children = (
-				9C46BABF1A16ACE2008CDCF7 /* Transactions.swift */,
-				9C46BABD1A16ACC3008CDCF7 /* Categories.swift */,
+				9C3CC5AD1A1ABADD00801889 /* LaunchScreen.xib */,
+			);
+			name = Base.lproj;
+			path = Flow/Base.lproj;
+			sourceTree = SOURCE_ROOT;
+		};
+		9C3CC5B31A1ABADD00801889 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9C3CC5B41A1ABADD00801889 /* Categories.swift */,
+				9C3CC5B51A1ABADD00801889 /* Transactions.swift */,
 			);
 			name = Models;
+			path = Flow/Models;
+			sourceTree = SOURCE_ROOT;
+		};
+		9C3CC5D71A1ABF6800801889 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9C3CC5B21A1ABADD00801889 /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9C0A31351A0AEFBE00A94D9F /* Peppermint */ = {
+		9C0A31351A0AEFBE00A94D9F /* Flow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9C0A31551A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "Peppermint" */;
+			buildConfigurationList = 9C0A31551A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "Flow" */;
 			buildPhases = (
 				9C0A31321A0AEFBE00A94D9F /* Sources */,
 				9C0A31331A0AEFBE00A94D9F /* Frameworks */,
@@ -231,14 +240,14 @@
 			);
 			dependencies = (
 			);
-			name = Peppermint;
+			name = Flow;
 			productName = Peppermint;
-			productReference = 9C0A31361A0AEFBE00A94D9F /* Peppermint.app */;
+			productReference = 9C0A31361A0AEFBE00A94D9F /* Flow.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9C0A314A1A0AEFBE00A94D9F /* PeppermintTests */ = {
+		9C0A314A1A0AEFBE00A94D9F /* FlowTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9C0A31581A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "PeppermintTests" */;
+			buildConfigurationList = 9C0A31581A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "FlowTests" */;
 			buildPhases = (
 				9C0A31471A0AEFBE00A94D9F /* Sources */,
 				9C0A31481A0AEFBE00A94D9F /* Frameworks */,
@@ -249,9 +258,9 @@
 			dependencies = (
 				9C0A314D1A0AEFBE00A94D9F /* PBXTargetDependency */,
 			);
-			name = PeppermintTests;
+			name = FlowTests;
 			productName = PeppermintTests;
-			productReference = 9C0A314B1A0AEFBE00A94D9F /* PeppermintTests.xctest */;
+			productReference = 9C0A314B1A0AEFBE00A94D9F /* FlowTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -272,7 +281,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9C0A31311A0AEFBE00A94D9F /* Build configuration list for PBXProject "Peppermint" */;
+			buildConfigurationList = 9C0A31311A0AEFBE00A94D9F /* Build configuration list for PBXProject "Flow" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -285,8 +294,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9C0A31351A0AEFBE00A94D9F /* Peppermint */,
-				9C0A314A1A0AEFBE00A94D9F /* PeppermintTests */,
+				9C0A31351A0AEFBE00A94D9F /* Flow */,
+				9C0A314A1A0AEFBE00A94D9F /* FlowTests */,
 			);
 		};
 /* End PBXProject section */
@@ -296,10 +305,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C0A31461A0AEFBE00A94D9F /* LaunchScreen.xib in Resources */,
-				9C0055231A0C3CDC004E751A /* TransactionsHeaderView.xib in Resources */,
-				9C5796061A13E0F50089097A /* AddTransactionViewController.xib in Resources */,
-				9C0A31431A0AEFBE00A94D9F /* Images.xcassets in Resources */,
+				9C3CC5C31A1ABADD00801889 /* Images.xcassets in Resources */,
+				9C3CC5CA1A1ABADD00801889 /* TransactionsHeaderView.xib in Resources */,
+				9C3CC5BE1A1ABADD00801889 /* AddTransactionViewController.xib in Resources */,
+				9C3CC5C01A1ABADD00801889 /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,17 +326,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C0055211A0C3738004E751A /* TransactionsHeaderView.swift in Sources */,
-				9CDF119E1A11901A005F6567 /* DashboardViewController.swift in Sources */,
-				9C31DE851A157BD7004A1120 /* SelectCategoryViewController.swift in Sources */,
-				9C57960E1A142A750089097A /* RecentTransactionsViewController.swift in Sources */,
-				9CA701CF1A1AB61800AC2521 /* Config.swift in Sources */,
-				9C0A313E1A0AEFBE00A94D9F /* TransactionsViewController.swift in Sources */,
-				9C46BAC01A16ACE2008CDCF7 /* Transactions.swift in Sources */,
-				9C0A313C1A0AEFBE00A94D9F /* AppDelegate.swift in Sources */,
-				9C46BABE1A16ACC3008CDCF7 /* Categories.swift in Sources */,
-				9C0055271A0C8999004E751A /* TransactionTableViewCell.swift in Sources */,
-				9C5796041A13E0750089097A /* AddTransactionViewController.swift in Sources */,
+				9C3CC5C81A1ABADD00801889 /* SelectCategoryViewController.swift in Sources */,
+				9C3CC5CC1A1ABADD00801889 /* TransactionTableViewCell.swift in Sources */,
+				9C3CC5C21A1ABADD00801889 /* DashboardViewController.swift in Sources */,
+				9C3CC5C51A1ABADD00801889 /* Categories.swift in Sources */,
+				9C3CC5D21A1ABB8600801889 /* Config.swift in Sources */,
+				9C3CC5BD1A1ABADD00801889 /* AddTransactionViewController.swift in Sources */,
+				9C3CC5C61A1ABADD00801889 /* Transactions.swift in Sources */,
+				9C3CC5BF1A1ABADD00801889 /* AppDelegate.swift in Sources */,
+				9C3CC5C91A1ABADD00801889 /* TransactionsHeaderView.swift in Sources */,
+				9C3CC5CB1A1ABADD00801889 /* TransactionsViewController.swift in Sources */,
+				9C3CC5C71A1ABADD00801889 /* RecentTransactionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,7 +344,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C0A31521A0AEFBE00A94D9F /* PeppermintTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,16 +352,16 @@
 /* Begin PBXTargetDependency section */
 		9C0A314D1A0AEFBE00A94D9F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9C0A31351A0AEFBE00A94D9F /* Peppermint */;
+			target = 9C0A31351A0AEFBE00A94D9F /* Flow */;
 			targetProxy = 9C0A314C1A0AEFBE00A94D9F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9C0A31441A0AEFBE00A94D9F /* LaunchScreen.xib */ = {
+		9C3CC5AD1A1ABADD00801889 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9C0A31451A0AEFBE00A94D9F /* Base */,
+				9C3CC5AE1A1ABADD00801889 /* Base */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -452,9 +460,9 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = Peppermint/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Flow/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Flow;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -470,9 +478,9 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				INFOPLIST_FILE = Peppermint/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Flow/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Flow;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
@@ -489,9 +497,9 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = PeppermintTests/Info.plist;
+				INFOPLIST_FILE = Flow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FlowTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Peppermint.app/Peppermint";
 			};
 			name = Debug;
@@ -504,9 +512,9 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = PeppermintTests/Info.plist;
+				INFOPLIST_FILE = Flow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = FlowTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Peppermint.app/Peppermint";
 			};
 			name = Release;
@@ -514,7 +522,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9C0A31311A0AEFBE00A94D9F /* Build configuration list for PBXProject "Peppermint" */ = {
+		9C0A31311A0AEFBE00A94D9F /* Build configuration list for PBXProject "Flow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9C0A31531A0AEFBE00A94D9F /* Debug */,
@@ -523,7 +531,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9C0A31551A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "Peppermint" */ = {
+		9C0A31551A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "Flow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9C0A31561A0AEFBE00A94D9F /* Debug */,
@@ -532,7 +540,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9C0A31581A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "PeppermintTests" */ = {
+		9C0A31581A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "FlowTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9C0A31591A0AEFBE00A94D9F /* Debug */,

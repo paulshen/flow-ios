@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Peppermint
+//  Flow
 //
 //  Created by Paul Shen on 11/5/14.
 //  Copyright (c) 2014 PaulShen. All rights reserved.
