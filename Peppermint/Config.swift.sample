@@ -1,0 +1,14 @@
+//
+//  Config.swift
+//  Peppermint
+//
+//  Created by Paul Shen on 11/17/14.
+//  Copyright (c) 2014 PaulShen. All rights reserved.
+//
+
+import Foundation
+
+struct Config {
+  static let ParseApplicationID = ""
+  static let ParseClientKey = ""
+}
