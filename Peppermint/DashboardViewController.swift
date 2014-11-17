@@ -12,9 +12,7 @@ import UIKit
 class DashboardViewController: UIViewController {
   var wrapperView: UIView!
   
-  var addTransactionSection: UIView!
-  var addTransactionHeader: UILabel!
-  var descriptionButton: UITextView!
+  var recentTransactionVC: RecentTransactionsViewController!
   
   var addTransactionVC: AddTransactionViewController!
   var addTransactionView: UIView!
@@ -39,12 +37,12 @@ class DashboardViewController: UIViewController {
       NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20.0)
       ])
     
-    let recentTransactionVC = RecentTransactionsViewController(inMiniMode: true)
+    recentTransactionVC = RecentTransactionsViewController(inMiniMode: true)
     addChildViewController(recentTransactionVC)
     let recentTransactionsSection = recentTransactionVC.view
     wrapperView.addSubview(recentTransactionsSection)
     wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[recentTransactions]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["recentTransactions": recentTransactionsSection]))
-    wrapperView.addConstraint(NSLayoutConstraint(item: recentTransactionsSection, attribute: .Top, relatedBy: .Equal, toItem: imageView, attribute: .Bottom, multiplier: 1.0, constant: 100))
+    wrapperView.addConstraint(NSLayoutConstraint(item: recentTransactionsSection, attribute: .Top, relatedBy: .Equal, toItem: imageView, attribute: .Bottom, multiplier: 1.0, constant: 200))
     recentTransactionVC.didMoveToParentViewController(self)
     
     addTransactionVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
