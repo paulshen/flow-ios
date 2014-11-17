@@ -1,1 +1,0 @@
-../../../Parse/Parse.framework/Versions/Current/Headers/PFConfig.h

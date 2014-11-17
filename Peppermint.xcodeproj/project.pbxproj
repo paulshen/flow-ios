@@ -22,7 +22,6 @@
 		9C5796061A13E0F50089097A /* AddTransactionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C5796051A13E0F50089097A /* AddTransactionViewController.xib */; };
 		9C57960E1A142A750089097A /* RecentTransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C57960D1A142A750089097A /* RecentTransactionsViewController.swift */; };
 		9CDF119E1A11901A005F6567 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDF119D1A11901A005F6567 /* DashboardViewController.swift */; };
-		ECF494F42F004761A35C743C /* libPods-Peppermint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6934E30E4A819EBA7CFF81D5 /* libPods-Peppermint.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,9 +35,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0FCA69431278FD8DB7367210 /* Pods-Peppermint.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peppermint.release.xcconfig"; path = "Pods/Target Support Files/Pods-Peppermint/Pods-Peppermint.release.xcconfig"; sourceTree = "<group>"; };
-		57432FDC48ED367B7E6F075D /* Pods-Peppermint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Peppermint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Peppermint/Pods-Peppermint.debug.xcconfig"; sourceTree = "<group>"; };
-		6934E30E4A819EBA7CFF81D5 /* libPods-Peppermint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Peppermint.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0055201A0C3738004E751A /* TransactionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsHeaderView.swift; sourceTree = "<group>"; };
 		9C0055221A0C3CDC004E751A /* TransactionsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionsHeaderView.xib; sourceTree = "<group>"; };
 		9C0055261A0C8999004E751A /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
@@ -65,7 +61,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECF494F42F004761A35C743C /* libPods-Peppermint.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +77,6 @@
 		60E0DA89D574702F6513F7FA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6934E30E4A819EBA7CFF81D5 /* libPods-Peppermint.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -93,7 +87,6 @@
 				9C0A31381A0AEFBE00A94D9F /* Peppermint */,
 				9C0A314E1A0AEFBE00A94D9F /* PeppermintTests */,
 				9C0A31371A0AEFBE00A94D9F /* Products */,
-				C7091404EBCB3E4A4724ABB1 /* Pods */,
 				60E0DA89D574702F6513F7FA /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -162,15 +155,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		C7091404EBCB3E4A4724ABB1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				57432FDC48ED367B7E6F075D /* Pods-Peppermint.debug.xcconfig */,
-				0FCA69431278FD8DB7367210 /* Pods-Peppermint.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -178,11 +162,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9C0A31551A0AEFBE00A94D9F /* Build configuration list for PBXNativeTarget "Peppermint" */;
 			buildPhases = (
-				6F3AE10FE2CEFDFAD44C2C3A /* Check Pods Manifest.lock */,
 				9C0A31321A0AEFBE00A94D9F /* Sources */,
 				9C0A31331A0AEFBE00A94D9F /* Frameworks */,
 				9C0A31341A0AEFBE00A94D9F /* Resources */,
-				A6317B35DAD1D14100DC867E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -268,39 +250,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6F3AE10FE2CEFDFAD44C2C3A /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		A6317B35DAD1D14100DC867E /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Peppermint/Pods-Peppermint-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9C0A31321A0AEFBE00A94D9F /* Sources */ = {
@@ -433,10 +382,10 @@
 		};
 		9C0A31561A0AEFBE00A94D9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57432FDC48ED367B7E6F075D /* Pods-Peppermint.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Peppermint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -447,10 +396,10 @@
 		};
 		9C0A31571A0AEFBE00A94D9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0FCA69431278FD8DB7367210 /* Pods-Peppermint.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = Peppermint/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
