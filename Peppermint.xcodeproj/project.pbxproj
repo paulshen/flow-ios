@@ -75,6 +75,7 @@
 		9C0A314B1A0AEFBE00A94D9F /* PeppermintTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeppermintTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C0A31501A0AEFBE00A94D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C0A31511A0AEFBE00A94D9F /* PeppermintTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeppermintTests.swift; sourceTree = "<group>"; };
+		9C1B501D1A1A854500EF346D /* Peppermint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Peppermint.h; sourceTree = "<group>"; };
 		9C31DE841A157BD7004A1120 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		9C46BABD1A16ACC3008CDCF7 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Categories.swift; path = Models/Categories.swift; sourceTree = "<group>"; };
 		9C46BABF1A16ACE2008CDCF7 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transactions.swift; path = Models/Transactions.swift; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 				9C5796051A13E0F50089097A /* AddTransactionViewController.xib */,
 				9C57960D1A142A750089097A /* RecentTransactionsViewController.swift */,
 				9C31DE841A157BD7004A1120 /* SelectCategoryViewController.swift */,
+				9C1B501D1A1A854500EF346D /* Peppermint.h */,
 			);
 			path = Peppermint;
 			sourceTree = "<group>";

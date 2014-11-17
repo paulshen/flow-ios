@@ -39,7 +39,7 @@ class DashboardViewController: UIViewController {
       NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20.0)
       ])
     
-    let recentTransactionVC = RecentTransactionsViewController()
+    let recentTransactionVC = RecentTransactionsViewController(inMiniMode: true)
     addChildViewController(recentTransactionVC)
     let recentTransactionsSection = recentTransactionVC.view
     wrapperView.addSubview(recentTransactionsSection)

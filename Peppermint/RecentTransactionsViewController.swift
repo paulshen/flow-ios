@@ -15,12 +15,25 @@ class RecentTransactionsViewController: UIViewController {
   let kCellIdentifier = "TransactionCell"
   var transactions: [PFObject]?
   
+  var inMiniMode: Bool
   var tableViewHeightConstraint: NSLayoutConstraint!
+
+  init(inMiniMode: Bool) {
+    self.inMiniMode = inMiniMode
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
   
   override func loadView() {
     super.loadView()
     
-    view.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.backgroundColor = UIColor.whiteColor()
+    if inMiniMode {
+      view.setTranslatesAutoresizingMaskIntoConstraints(false)
+    }
     
     let recentTransactionsHeader = UILabel()
     recentTransactionsHeader.text = "RECENT TRANSACTIONS"
@@ -40,13 +53,19 @@ class RecentTransactionsViewController: UIViewController {
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.separatorColor = UIColor.clearColor()
     
+    let metrics = [
+      "topMargin": inMiniMode ? 0 : 30
+    ]
+    
     view.addSubview(tableView)
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView]))
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": tableView]))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-topMargin-[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: metrics, views: ["header": recentTransactionsHeader, "table": tableView]))
     
-    tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
-    tableViewHeightConstraint = NSLayoutConstraint(item: tableView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0)
-    view.addConstraint(tableViewHeightConstraint)
+    if inMiniMode {
+      tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+      tableViewHeightConstraint = NSLayoutConstraint(item: tableView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0)
+      view.addConstraint(tableViewHeightConstraint)
+    }
     
     Transactions.sharedInstance.fetchTransactionsWithCallback {
       transactions in
@@ -56,7 +75,7 @@ class RecentTransactionsViewController: UIViewController {
   }
 
   override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-    if keyPath == "contentSize" && object as? UITableView == tableView {
+    if inMiniMode && keyPath == "contentSize" && object as? UITableView == tableView {
       tableViewHeightConstraint.constant = tableView.contentSize.height
     }
   }
@@ -65,14 +84,23 @@ class RecentTransactionsViewController: UIViewController {
 extension RecentTransactionsViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let numTransactions = self.transactions?.count {
-      return min(numTransactions, 2)
+      if inMiniMode {
+        return min(numTransactions, 2) + 1
+      }
+      return numTransactions
     }
     return 0
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as TransactionTableViewCell
-    cell.body.text = (transactions![indexPath.row]["description"] as String)
+    
+    if inMiniMode && indexPath.row == self.tableView(tableView, numberOfRowsInSection: 0) - 1 {
+      cell.body.text = "View More"
+    } else {
+      cell.body.text = (transactions![indexPath.row]["description"] as String)
+    }
+    
     cell.updateConstraintsIfNeeded()
     return cell
   }
@@ -80,9 +108,11 @@ extension RecentTransactionsViewController: UITableViewDataSource {
 
 extension RecentTransactionsViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-  }
-  
-  func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return false
+    if inMiniMode && indexPath.row == self.tableView(tableView, numberOfRowsInSection: 0) - 1  {
+      let fullRecentVC = RecentTransactionsViewController(inMiniMode: false)
+      presentViewController(fullRecentVC, animated: true) { () -> Void in
+        
+      }
+    }
   }
 }

@@ -17,6 +17,8 @@ class TransactionTableViewCell: UITableViewCell {
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
+    self.selectionStyle = UITableViewCellSelectionStyle.None
+    
     body.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
     body.numberOfLines = 1
     body.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -33,6 +35,14 @@ class TransactionTableViewCell: UITableViewCell {
     
     let vConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[body]-10-[border(1)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
     contentView.addConstraints(vConstraint)
+  }
+  
+  override func setHighlighted(highlighted: Bool, animated: Bool) {
+    if highlighted {
+      self.body.textColor = UIColor(red: 0.949, green: 0.227, blue: 0.396, alpha: 1.0)
+    } else {
+      self.body.textColor = UIColor.blackColor()
+    }
   }
   
   required init(coder aDecoder: NSCoder) {
