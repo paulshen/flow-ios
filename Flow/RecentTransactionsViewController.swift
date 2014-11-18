@@ -137,18 +137,13 @@ extension RecentTransactionsViewController: UITableViewDelegate {
     let selectedTransaction = transactions![indexPath.row]
     
     // temp example
-    let transactionDetailVC = AddTransactionViewController()
-    transactionDetailVC.dismissCallback = {
-      self.dismissViewControllerAnimated(true, completion: nil)
-    }
+    let transactionDetailVC = TransactionDetailViewController(transaction: selectedTransaction)
     
     var selectedRowRect = CGRectOffset(tableView.rectForRowAtIndexPath(indexPath), 0, tableView.convertPoint(CGPointZero, toView: nil).y)
     animator = ViewTransactionDetailAnimator(rectToExpand: CGRectOffset(selectedRowRect, 0, -2))
     transactionDetailVC.transitioningDelegate = animator
     
-    presentViewController(transactionDetailVC, animated: true, completion: {
-      transactionDetailVC.showHiddenElementsWithDuration(0)
-    })
+    presentViewController(transactionDetailVC, animated: true, completion: nil)
   }
 }
 

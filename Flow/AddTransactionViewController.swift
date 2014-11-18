@@ -43,14 +43,13 @@ class AddTransactionViewController: UIViewController {
 
   var mainView: UIView!
   var wrapperScrollView: UIScrollView!
-  var tapRecognizer: UITapGestureRecognizer!
   
   override init() {
     super.init(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
   }
 
   required init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+    fatalError("init(coder:) has not been implemented")
   }
   
   override func viewDidLoad() {
@@ -72,7 +71,7 @@ class AddTransactionViewController: UIViewController {
     saveButton.layer.borderColor = UIColor.blackColor().CGColor
     saveButton.layer.borderWidth = 2
     
-    tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
+    let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
     view.addGestureRecognizer(tapRecognizer)
     
     mainView = view
