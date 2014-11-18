@@ -136,14 +136,26 @@ extension RecentTransactionsViewController: UITableViewDelegate {
     let selectedTransaction = transactions![indexPath.row]
     let transactionDetailVC = RecentTransactionsViewController(inMiniMode: false)
     var selectedRowRect = CGRectOffset(tableView.rectForRowAtIndexPath(indexPath), 0, tableView.convertPoint(CGPointZero, toView: nil).y)
-    animator = ViewTransactionDetailAnimator(rectToExpand: selectedRowRect)
+    animator = ViewTransactionDetailAnimator(rectToExpand: CGRectOffset(selectedRowRect, 0, -2))
     transactionDetailVC.transitioningDelegate = animator
     presentViewController(transactionDetailVC, animated: true, completion: nil)
   }
 }
 
 class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+  var isPresenting = true
+  var topExpander: UIView!
+  var bottomExpander: UIView!
+  var rectToExpand: CGRect!
+  var tableViewDelta: CGFloat!
+  
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    isPresenting = true
+    return self
+  }
+  
+  func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    isPresenting = false
     return self
   }
   
@@ -152,54 +164,87 @@ class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTran
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-    let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as UINavigationController
-    let dashboardVC = fromVC.viewControllers[0] as DashboardViewController
-    let fromRecentTransactionVC = dashboardVC.recentTransactionVC
-    let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as RecentTransactionsViewController
+    let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as UIViewController!
+    let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as UIViewController!
     
     let container = transitionContext.containerView()
     container.backgroundColor = UIColor.whiteColor()
     
-    let rectToExpand = fromRecentTransactionVC.viewMoreButton!.convertRect(fromRecentTransactionVC.viewMoreButton!.bounds, toView: container)
-    
-    let topExpanderHeight = rectToExpand.origin.y
-    let topExpander = UIView(frame: CGRectMake(0, 0, container.bounds.size.width, topExpanderHeight))
-    topExpander.clipsToBounds = true
-    topExpander.addSubview(fromVC.view.snapshotViewAfterScreenUpdates(false))
-    
-    let bottomExpanderTop = CGRectGetMaxY(rectToExpand)
-    let bottomExpanderHeight = container.bounds.size.height - bottomExpanderTop
-    let bottomExpander = UIView(frame: CGRectMake(0, bottomExpanderTop, container.bounds.size.width, bottomExpanderHeight))
-    let bottomExpanderSnapshot = fromVC.view.snapshotViewAfterScreenUpdates(false)
-    bottomExpanderSnapshot.frame.origin = CGPointMake(0, -bottomExpanderTop)
-    bottomExpander.clipsToBounds = true
-    bottomExpander.addSubview(bottomExpanderSnapshot)
-    
-    let toView = toVC.view
-    toView.alpha = 0
-    container.addSubview(toView)
-    
-    let fromTableViewOffset = fromRecentTransactionVC.tableView.convertPoint(CGPointZero, toView: container)
-    let targetTableViewOffset = toVC.tableView.convertPoint(CGPointZero, toView: container)
-    let tableViewDelta = fromTableViewOffset.y - targetTableViewOffset.y
-    
-    toView.frame.origin.y = tableViewDelta
-    
-    fromVC.view.removeFromSuperview()
-    container.addSubview(topExpander)
-    container.addSubview(bottomExpander)
-    
     let duration = transitionDuration(transitionContext)
-    UIView.animateWithDuration(duration, animations: { () -> Void in
-      topExpander.frame.origin.y = -tableViewDelta
-      bottomExpander.frame.origin.y = container.bounds.height
-      toView.frame.origin.y = 0
-      toView.alpha = 1
+    
+    if isPresenting {
+      let fromVC = fromVC as UINavigationController
+      let toVC = toVC as RecentTransactionsViewController
+      
+      let dashboardVC = fromVC.viewControllers[0] as DashboardViewController
+      let fromRecentTransactionVC = dashboardVC.recentTransactionVC
+      
+      rectToExpand = fromRecentTransactionVC.viewMoreButton!.convertRect(fromRecentTransactionVC.viewMoreButton!.bounds, toView: container)
+      
+      let topExpanderHeight = rectToExpand.origin.y
+      topExpander = UIView(frame: CGRectMake(0, 0, container.bounds.size.width, topExpanderHeight))
+      topExpander.clipsToBounds = true
+      topExpander.addSubview(fromVC.view.snapshotViewAfterScreenUpdates(false))
+      
+      let bottomExpanderTop = CGRectGetMaxY(rectToExpand)
+      let bottomExpanderHeight = container.bounds.size.height - bottomExpanderTop
+      bottomExpander = UIView(frame: CGRectMake(0, bottomExpanderTop, container.bounds.size.width, bottomExpanderHeight))
+      let bottomExpanderSnapshot = fromVC.view.snapshotViewAfterScreenUpdates(false)
+      bottomExpanderSnapshot.frame.origin = CGPointMake(0, -bottomExpanderTop)
+      bottomExpander.clipsToBounds = true
+      bottomExpander.addSubview(bottomExpanderSnapshot)
+      
+      let toView = toVC.view
+      toView.alpha = 0
+      container.addSubview(toView)
+      
+      let fromTableViewOffset = fromRecentTransactionVC.tableView.convertPoint(CGPointZero, toView: container)
+      let targetTableViewOffset = toVC.tableView.convertPoint(CGPointZero, toView: container)
+      tableViewDelta = fromTableViewOffset.y - targetTableViewOffset.y
+      
+      toView.frame.origin.y = tableViewDelta
+      
+      fromVC.view.removeFromSuperview()
+      container.addSubview(topExpander)
+      container.addSubview(bottomExpander)
+      
+      UIView.animateWithDuration(0.1, animations: { () -> Void in
+        fromVC.view.alpha = 0
       }, completion: { (finished) -> Void in
-        topExpander.removeFromSuperview()
-        bottomExpander.removeFromSuperview()
-        transitionContext.completeTransition(true)
-    })
+        UIView.animateWithDuration(duration - 0.1, animations: { () -> Void in
+          self.topExpander.frame.origin.y = -self.tableViewDelta
+          self.bottomExpander.frame.origin.y = container.bounds.height
+          toView.frame.origin.y = 0
+          toView.alpha = 1
+          }, completion: { (finished) -> Void in
+            self.topExpander.removeFromSuperview()
+            self.bottomExpander.removeFromSuperview()
+            transitionContext.completeTransition(true)
+        })
+      })
+    } else {
+      toVC.view.alpha = 0
+      
+      container.addSubview(toVC.view)
+      container.addSubview(fromVC.view)
+      container.addSubview(topExpander)
+      container.addSubview(bottomExpander)
+      
+      UIView.animateWithDuration(duration - 0.1, animations: { () -> Void in
+        fromVC.view.frame.origin.y -= self.topExpander.frame.origin.y
+        fromVC.view.alpha = 0
+        self.topExpander.frame.origin.y = 0
+        self.bottomExpander.frame.origin.y = CGRectGetMaxY(self.rectToExpand)
+      })
+      
+      UIView.animateWithDuration(0.2, delay: duration - 0.2, options: UIViewAnimationOptions(0), animations: { () -> Void in
+        toVC.view.alpha = 1
+        }, completion: { (finished) -> Void in
+          self.topExpander.removeFromSuperview()
+          self.bottomExpander.removeFromSuperview()
+          transitionContext.completeTransition(true)
+      })
+    }
   }
 }
 
