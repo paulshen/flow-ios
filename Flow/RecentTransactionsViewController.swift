@@ -18,6 +18,8 @@ class RecentTransactionsViewController: UIViewController {
   var inMiniMode: Bool
   var tableViewHeightConstraint: NSLayoutConstraint!
   var viewMoreButton: UIButton?
+  
+  var animator: UIViewControllerTransitioningDelegate?
 
   init(inMiniMode: Bool) {
     self.inMiniMode = inMiniMode
@@ -100,7 +102,8 @@ class RecentTransactionsViewController: UIViewController {
   
   func onViewMoreTap(sender: UIButton!) {
     let fullRecentVC = RecentTransactionsViewController(inMiniMode: false)
-    fullRecentVC.transitioningDelegate = self
+    animator = ViewMoreRecentTransactionsAnimator()
+    fullRecentVC.transitioningDelegate = animator
     presentViewController(fullRecentVC, animated: true, completion: nil)
   }
   
@@ -130,16 +133,20 @@ extension RecentTransactionsViewController: UITableViewDataSource {
 
 extension RecentTransactionsViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let selectedTransaction = transactions![indexPath.row]
+    let transactionDetailVC = RecentTransactionsViewController(inMiniMode: false)
+    var selectedRowRect = CGRectOffset(tableView.rectForRowAtIndexPath(indexPath), 0, tableView.convertPoint(CGPointZero, toView: nil).y)
+    animator = ViewTransactionDetailAnimator(rectToExpand: selectedRowRect)
+    transactionDetailVC.transitioningDelegate = animator
+    presentViewController(transactionDetailVC, animated: true, completion: nil)
   }
 }
 
-extension RecentTransactionsViewController: UIViewControllerTransitioningDelegate {
+class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return ViewMoreRecentTransactionsAnimator()
+    return self
   }
-}
-
-class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+  
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
     return 0.5
   }
@@ -193,5 +200,106 @@ class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTran
         bottomExpander.removeFromSuperview()
         transitionContext.completeTransition(true)
     })
+  }
+}
+
+class ViewTransactionDetailAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+  var rectToExpand: CGRect
+  var topExpander: UIView!
+  var bottomExpander: UIView!
+  var rectPlaceholder: UIView!
+  
+  var isPresenting = true
+
+  init(rectToExpand: CGRect) {
+    self.rectToExpand = rectToExpand
+  }
+  
+  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    isPresenting = true
+    return self
+  }
+  
+  func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    isPresenting = false
+    return self
+  }
+  
+  func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+    return 0.5
+  }
+  
+  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+    let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+    
+    let container = transitionContext.containerView()
+    container.backgroundColor = UIColor.whiteColor()
+    
+    let duration = transitionDuration(transitionContext)
+    let bottomExpanderTop = CGRectGetMaxY(rectToExpand)
+    
+    if isPresenting {
+      let topExpanderHeight = rectToExpand.origin.y
+      topExpander = UIView(frame: CGRectMake(0, 0, container.bounds.size.width, topExpanderHeight))
+      topExpander.clipsToBounds = true
+      topExpander.addSubview(fromVC.view.snapshotViewAfterScreenUpdates(false))
+      
+      let bottomExpanderHeight = container.bounds.size.height - bottomExpanderTop
+      bottomExpander = UIView(frame: CGRectMake(0, bottomExpanderTop, container.bounds.size.width, bottomExpanderHeight))
+      let bottomExpanderSnapshot = fromVC.view.snapshotViewAfterScreenUpdates(false)
+      bottomExpanderSnapshot.frame.origin.y = -bottomExpanderTop
+      bottomExpander.clipsToBounds = true
+      bottomExpander.addSubview(bottomExpanderSnapshot)
+      
+      rectPlaceholder = UIView(frame: rectToExpand)
+      let rectPlaceholderSnapshot = fromVC.view.snapshotViewAfterScreenUpdates(false)
+      rectPlaceholderSnapshot.frame.origin.y = -rectToExpand.origin.y
+      rectPlaceholder.clipsToBounds = true
+      rectPlaceholder.addSubview(rectPlaceholderSnapshot)
+      
+      let toView = toVC.view
+      toView.frame.origin.y = topExpanderHeight
+      toView.alpha = 0
+      container.addSubview(toView)
+      
+      fromVC.view.removeFromSuperview()
+      container.addSubview(topExpander)
+      container.addSubview(bottomExpander)
+      container.addSubview(rectPlaceholder)
+      
+      UIView.animateWithDuration(duration, animations: { () -> Void in
+        self.topExpander.frame.origin.y = -topExpanderHeight
+        self.rectPlaceholder.frame.origin.y = 0
+        self.bottomExpander.frame.origin.y = container.bounds.height
+        self.rectPlaceholder.alpha = 0
+        toView.frame.origin.y = 0
+        toView.alpha = 1
+        }, completion: { (finished) -> Void in
+          self.topExpander.removeFromSuperview()
+          self.bottomExpander.removeFromSuperview()
+          transitionContext.completeTransition(true)
+      })
+    } else {
+      container.addSubview(topExpander)
+      container.addSubview(bottomExpander)
+      container.addSubview(rectPlaceholder)
+      
+      let fromView = fromVC.view
+      
+      UIView.animateWithDuration(duration, animations: { () -> Void in
+        fromView.frame.origin.y -= self.topExpander.frame.origin.y
+        fromView.alpha = 0
+        self.topExpander.frame.origin.y = 0
+        self.rectPlaceholder.frame.origin.y = self.rectToExpand.origin.y
+        self.rectPlaceholder.alpha = 1
+        self.bottomExpander.frame.origin.y = bottomExpanderTop
+      }, completion: { (finished) -> Void in
+        self.topExpander.removeFromSuperview()
+        self.rectPlaceholder.removeFromSuperview()
+        self.bottomExpander.removeFromSuperview()
+        transitionContext.completeTransition(true)
+      })
+    }
   }
 }
