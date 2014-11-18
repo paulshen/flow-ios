@@ -82,7 +82,8 @@ class RecentTransactionsViewController: UIViewController {
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": tableView]))
       
       let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTapClose:"))
-      view.addGestureRecognizer(tapRecognizer)
+      recentTransactionsHeader.addGestureRecognizer(tapRecognizer)
+      recentTransactionsHeader.userInteractionEnabled = true
     }
     
     view.layoutIfNeeded()
@@ -134,11 +135,20 @@ extension RecentTransactionsViewController: UITableViewDataSource {
 extension RecentTransactionsViewController: UITableViewDelegate {
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let selectedTransaction = transactions![indexPath.row]
-    let transactionDetailVC = RecentTransactionsViewController(inMiniMode: false)
+    
+    // temp example
+    let transactionDetailVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
+    transactionDetailVC.dismissCallback = {
+      self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     var selectedRowRect = CGRectOffset(tableView.rectForRowAtIndexPath(indexPath), 0, tableView.convertPoint(CGPointZero, toView: nil).y)
     animator = ViewTransactionDetailAnimator(rectToExpand: CGRectOffset(selectedRowRect, 0, -2))
     transactionDetailVC.transitioningDelegate = animator
-    presentViewController(transactionDetailVC, animated: true, completion: nil)
+    
+    presentViewController(transactionDetailVC, animated: true, completion: {
+      transactionDetailVC.showHiddenElementsWithDuration(0)
+    })
   }
 }
 
