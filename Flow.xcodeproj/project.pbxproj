@@ -31,9 +31,6 @@
 		9C3CC5C61A1ABADD00801889 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B51A1ABADD00801889 /* Transactions.swift */; };
 		9C3CC5C71A1ABADD00801889 /* RecentTransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B71A1ABADD00801889 /* RecentTransactionsViewController.swift */; };
 		9C3CC5C81A1ABADD00801889 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B81A1ABADD00801889 /* SelectCategoryViewController.swift */; };
-		9C3CC5C91A1ABADD00801889 /* TransactionsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5B91A1ABADD00801889 /* TransactionsHeaderView.swift */; };
-		9C3CC5CA1A1ABADD00801889 /* TransactionsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3CC5BA1A1ABADD00801889 /* TransactionsHeaderView.xib */; };
-		9C3CC5CB1A1ABADD00801889 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5BB1A1ABADD00801889 /* TransactionsViewController.swift */; };
 		9C3CC5CC1A1ABADD00801889 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5BC1A1ABADD00801889 /* TransactionTableViewCell.swift */; };
 		9C3CC5D21A1ABB8600801889 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3CC5D11A1ABB8600801889 /* Config.swift */; };
 /* End PBXBuildFile section */
@@ -76,9 +73,6 @@
 		9C3CC5B51A1ABADD00801889 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Transactions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9C3CC5B71A1ABADD00801889 /* RecentTransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = RecentTransactionsViewController.swift; path = Flow/RecentTransactionsViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9C3CC5B81A1ABADD00801889 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = SelectCategoryViewController.swift; path = Flow/SelectCategoryViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		9C3CC5B91A1ABADD00801889 /* TransactionsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TransactionsHeaderView.swift; path = Flow/TransactionsHeaderView.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		9C3CC5BA1A1ABADD00801889 /* TransactionsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TransactionsHeaderView.xib; path = Flow/TransactionsHeaderView.xib; sourceTree = SOURCE_ROOT; };
-		9C3CC5BB1A1ABADD00801889 /* TransactionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TransactionsViewController.swift; path = Flow/TransactionsViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9C3CC5BC1A1ABADD00801889 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = TransactionTableViewCell.swift; path = Flow/TransactionTableViewCell.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9C3CC5D11A1ABB8600801889 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Config.swift; path = Flow/Config.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9C3CC5D31A1ABD3A00801889 /* FlowTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlowTests.swift; path = FlowTests/FlowTests.swift; sourceTree = SOURCE_ROOT; };
@@ -170,9 +164,6 @@
 				9C3CC5B31A1ABADD00801889 /* Models */,
 				9C3CC5B71A1ABADD00801889 /* RecentTransactionsViewController.swift */,
 				9C3CC5B81A1ABADD00801889 /* SelectCategoryViewController.swift */,
-				9C3CC5B91A1ABADD00801889 /* TransactionsHeaderView.swift */,
-				9C3CC5BA1A1ABADD00801889 /* TransactionsHeaderView.xib */,
-				9C3CC5BB1A1ABADD00801889 /* TransactionsViewController.swift */,
 				9C3CC5BC1A1ABADD00801889 /* TransactionTableViewCell.swift */,
 				9C3CC5D71A1ABF6800801889 /* Supporting Files */,
 			);
@@ -306,7 +297,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C3CC5C31A1ABADD00801889 /* Images.xcassets in Resources */,
-				9C3CC5CA1A1ABADD00801889 /* TransactionsHeaderView.xib in Resources */,
 				9C3CC5BE1A1ABADD00801889 /* AddTransactionViewController.xib in Resources */,
 				9C3CC5C01A1ABADD00801889 /* LaunchScreen.xib in Resources */,
 			);
@@ -334,8 +324,6 @@
 				9C3CC5BD1A1ABADD00801889 /* AddTransactionViewController.swift in Sources */,
 				9C3CC5C61A1ABADD00801889 /* Transactions.swift in Sources */,
 				9C3CC5BF1A1ABADD00801889 /* AppDelegate.swift in Sources */,
-				9C3CC5C91A1ABADD00801889 /* TransactionsHeaderView.swift in Sources */,
-				9C3CC5CB1A1ABADD00801889 /* TransactionsViewController.swift in Sources */,
 				9C3CC5C71A1ABADD00801889 /* RecentTransactionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
