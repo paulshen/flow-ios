@@ -137,7 +137,7 @@ extension RecentTransactionsViewController: UITableViewDelegate {
     let selectedTransaction = transactions![indexPath.row]
     
     // temp example
-    let transactionDetailVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
+    let transactionDetailVC = AddTransactionViewController()
     transactionDetailVC.dismissCallback = {
       self.dismissViewControllerAnimated(true, completion: nil)
     }

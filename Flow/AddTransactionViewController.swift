@@ -45,6 +45,14 @@ class AddTransactionViewController: UIViewController {
   var wrapperScrollView: UIScrollView!
   var tapRecognizer: UITapGestureRecognizer!
   
+  override init() {
+    super.init(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
+  }
+
+  required init(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad() {
     categoryButton.alpha = 0
     cancelButton.alpha = 0

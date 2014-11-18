@@ -45,7 +45,7 @@ class DashboardViewController: UIViewController {
     wrapperView.addConstraint(NSLayoutConstraint(item: recentTransactionsSection, attribute: .Top, relatedBy: .Equal, toItem: imageView, attribute: .Bottom, multiplier: 1.0, constant: 200))
     recentTransactionVC.didMoveToParentViewController(self)
     
-    addTransactionVC = AddTransactionViewController(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
+    addTransactionVC = AddTransactionViewController()
     let addTransactionNavVC = UINavigationController()
     addTransactionNavVC.navigationBarHidden = true
     addTransactionNavVC.addChildViewController(addTransactionVC)
