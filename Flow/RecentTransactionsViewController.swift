@@ -52,7 +52,7 @@ class RecentTransactionsViewController: UIViewController {
     tableView.registerClass(TransactionTableViewCell.self, forCellReuseIdentifier: kCellIdentifier)
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.estimatedRowHeight = 40.0
+    tableView.estimatedRowHeight = 45.5
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.separatorColor = UIColor.clearColor()
     
