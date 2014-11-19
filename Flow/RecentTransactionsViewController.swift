@@ -154,6 +154,7 @@ class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTran
   var topExpander: UIView!
   var bottomExpander: UIView!
   var rectToExpand: CGRect!
+  var miniTableViewOffset: CGPoint!
   var tableViewDelta: CGFloat!
   
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -205,9 +206,9 @@ class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTran
       toView.alpha = 0
       container.addSubview(toView)
       
-      let fromTableViewOffset = fromRecentTransactionVC.tableView.convertPoint(CGPointZero, toView: container)
+      miniTableViewOffset = fromRecentTransactionVC.tableView.convertPoint(CGPointZero, toView: container)
       let targetTableViewOffset = toVC.tableView.convertPoint(CGPointZero, toView: container)
-      tableViewDelta = fromTableViewOffset.y - targetTableViewOffset.y
+      tableViewDelta = miniTableViewOffset.y - targetTableViewOffset.y
       
       toView.frame.origin.y = tableViewDelta
       
@@ -230,7 +231,13 @@ class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTran
         })
       })
     } else {
+      let fromVC = fromVC as RecentTransactionsViewController
       toVC.view.alpha = 0
+      
+      // If the table view is not scrolled at the top, hide the rows from the topExpander
+      if fromVC.tableView.contentOffset != CGPointZero {
+        topExpander.frame.size.height = miniTableViewOffset.y
+      }
       
       container.addSubview(toVC.view)
       container.addSubview(fromVC.view)
