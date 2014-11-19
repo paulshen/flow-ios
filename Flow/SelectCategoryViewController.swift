@@ -36,6 +36,7 @@ class SelectCategoryViewController: UIViewController {
     searchController.searchResultsUpdater = self
     searchController.searchBar.frame = CGRectMake(0, 0, view.bounds.width, 44)
     searchController.dimsBackgroundDuringPresentation = false
+    searchController.hidesNavigationBarDuringPresentation = false
     view.addSubview(searchController.searchBar)
     
     tableView = UITableView(frame: CGRectMake(0, 44, view.bounds.width, view.bounds.height - 44), style: .Plain)
@@ -62,9 +63,9 @@ extension SelectCategoryViewController: UITableViewDelegate {
     if (searchController.active) {
       selectedCategory = filteredCategories[indexPath.row]
     }
-    categoryChangeCallback(selectedCategory)
     // Set searchController.active before callback for animation
     searchController.active = false
+    categoryChangeCallback(selectedCategory)
   }
 }
 

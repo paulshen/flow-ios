@@ -46,17 +46,13 @@ class DashboardViewController: UIViewController {
     recentTransactionVC.didMoveToParentViewController(self)
     
     addTransactionVC = AddTransactionViewController()
-    let addTransactionNavVC = UINavigationController()
-    addTransactionNavVC.navigationBarHidden = true
-    addTransactionNavVC.addChildViewController(addTransactionVC)
-    addChildViewController(addTransactionNavVC)
-    
-    addTransactionView = addTransactionNavVC.view
+    addChildViewController(addTransactionVC)
+    addTransactionView = addTransactionVC.view
     wrapperView.addSubview(addTransactionView)
     
     addTransactionView.frame = CGRectMake(0, view.bounds.height - 180, view.bounds.width, view.bounds.height)
     addTransactionView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-    addTransactionNavVC.didMoveToParentViewController(self)
+    addTransactionVC.didMoveToParentViewController(self)
     addTransactionVC.userInteractionEnabled = false
     
     addTransactionVC.dismissCallback = {
