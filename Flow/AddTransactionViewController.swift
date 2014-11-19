@@ -76,18 +76,19 @@ class AddTransactionViewController: UIViewController {
     
     mainView = view
     mainView.userInteractionEnabled = userInteractionEnabled
+    mainView.setTranslatesAutoresizingMaskIntoConstraints(false)
     
     automaticallyAdjustsScrollViewInsets = false
     wrapperScrollView = UIScrollView(frame: view.frame)
     wrapperScrollView.addSubview(mainView)
+    
+    let views = ["mainView": mainView]
+    wrapperScrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[mainView]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
+    wrapperScrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[mainView]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
+    wrapperScrollView.addConstraint(NSLayoutConstraint(item: mainView, attribute: .Width, relatedBy: .Equal, toItem: wrapperScrollView, attribute: .Width, multiplier: 1.0, constant: 0))
     view = wrapperScrollView
     
     registerForKeyboardNotifications()
-  }
-  
-  override func viewWillAppear(animated: Bool) {
-    wrapperScrollView.contentSize = view.bounds.size
-    mainView.frame = view.bounds
   }
   
   func showHiddenElementsWithDuration(duration: NSTimeInterval) {

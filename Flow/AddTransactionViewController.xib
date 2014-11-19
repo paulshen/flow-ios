@@ -75,39 +75,26 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="IF2-w2-89O" secondAttribute="bottom" constant="20" id="09r-dX-VHL"/>
                 <constraint firstItem="iTE-CM-iwR" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="1AB-E8-OBB"/>
                 <constraint firstAttribute="trailing" secondItem="gWL-8I-bE0" secondAttribute="trailing" constant="20" id="4ol-uu-k6i"/>
                 <constraint firstItem="WdS-z7-lTe" firstAttribute="top" secondItem="AEV-n6-3BT" secondAttribute="bottom" constant="20" id="99T-0s-dj1"/>
                 <constraint firstAttribute="trailing" secondItem="IF2-w2-89O" secondAttribute="trailing" constant="20" id="A1b-Uz-gkZ"/>
                 <constraint firstItem="Bts-WO-VSI" firstAttribute="leading" secondItem="WdS-z7-lTe" secondAttribute="leading" id="AA3-7x-zMY"/>
-                <constraint firstItem="IF2-w2-89O" firstAttribute="top" secondItem="0Y8-87-MDQ" secondAttribute="top" constant="25" id="CBl-fT-rBx"/>
                 <constraint firstItem="WdS-z7-lTe" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="Ewx-R3-cWz"/>
                 <constraint firstAttribute="trailing" secondItem="WdS-z7-lTe" secondAttribute="trailing" constant="20" id="Fhb-R0-3Gk"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="iTE-CM-iwR" secondAttribute="bottom" constant="20" id="KxZ-hM-1d6"/>
                 <constraint firstItem="IF2-w2-89O" firstAttribute="top" secondItem="AEV-n6-3BT" secondAttribute="top" constant="-6" id="Mcf-2X-bzA"/>
                 <constraint firstItem="gWL-8I-bE0" firstAttribute="top" secondItem="sQn-Je-LFD" secondAttribute="bottom" constant="80" id="NpO-8P-fyD"/>
-                <constraint firstItem="IF2-w2-89O" firstAttribute="top" secondItem="iTE-CM-iwR" secondAttribute="bottom" constant="20" id="PG4-xt-Qws"/>
                 <constraint firstItem="sQn-Je-LFD" firstAttribute="top" secondItem="WdS-z7-lTe" secondAttribute="bottom" constant="10" id="PGs-u1-pxW"/>
-                <constraint firstItem="gWL-8I-bE0" firstAttribute="top" secondItem="WdS-z7-lTe" secondAttribute="bottom" constant="130" id="QnG-Kl-ToJ"/>
                 <constraint firstItem="AEV-n6-3BT" firstAttribute="top" secondItem="0Y8-87-MDQ" secondAttribute="top" constant="40" id="Tao-vN-R6J"/>
                 <constraint firstAttribute="trailing" secondItem="iTE-CM-iwR" secondAttribute="trailing" constant="20" id="TmS-lz-KGi"/>
                 <constraint firstItem="gWL-8I-bE0" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="Zrb-Me-tWd"/>
                 <constraint firstItem="Bts-WO-VSI" firstAttribute="top" secondItem="WdS-z7-lTe" secondAttribute="top" id="aL8-DD-vgs"/>
                 <constraint firstItem="iTE-CM-iwR" firstAttribute="top" secondItem="gWL-8I-bE0" secondAttribute="bottom" constant="30" id="dFK-xM-dT3"/>
-                <constraint firstItem="IF2-w2-89O" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="g6F-iZ-lXY"/>
                 <constraint firstItem="AEV-n6-3BT" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="hWk-YJ-t5m"/>
                 <constraint firstItem="sQn-Je-LFD" firstAttribute="leading" secondItem="0Y8-87-MDQ" secondAttribute="leading" constant="20" id="o2B-mc-Umd"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="09r-dX-VHL"/>
-                    <exclude reference="CBl-fT-rBx"/>
-                    <exclude reference="PG4-xt-Qws"/>
-                    <exclude reference="g6F-iZ-lXY"/>
-                    <exclude reference="QnG-Kl-ToJ"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="430.5" y="399.5"/>
         </view>
     </objects>

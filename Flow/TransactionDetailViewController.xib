@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNR-YP-PfZ">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNR-YP-PfZ">
                     <rect key="frame" x="20" y="140" width="142" height="55"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
                     <state key="normal" title="Category">
@@ -68,6 +68,7 @@
                 <constraint firstAttribute="trailing" secondItem="MfW-3M-ZCr" secondAttribute="trailing" constant="20" id="dU3-gC-Us5"/>
                 <constraint firstAttribute="trailing" secondItem="W4T-28-oj4" secondAttribute="trailing" constant="20" id="e5Y-PB-Rhq"/>
                 <constraint firstItem="RlE-kI-0m4" firstAttribute="top" secondItem="5Cd-yb-Mic" secondAttribute="top" constant="20" id="jJ2-Sm-CIW"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MfW-3M-ZCr" secondAttribute="bottom" constant="20" id="oQ0-Fz-c5s"/>
                 <constraint firstItem="MfW-3M-ZCr" firstAttribute="top" secondItem="UNR-YP-PfZ" secondAttribute="bottom" constant="100" id="p9x-I0-5cK"/>
                 <constraint firstItem="W4T-28-oj4" firstAttribute="top" secondItem="5Cd-yb-Mic" secondAttribute="top" constant="60" id="t5z-E4-mbW"/>
                 <constraint firstItem="UNR-YP-PfZ" firstAttribute="top" secondItem="W4T-28-oj4" secondAttribute="bottom" constant="20" id="zKy-od-pyq"/>
