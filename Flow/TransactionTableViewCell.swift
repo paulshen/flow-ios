@@ -12,6 +12,7 @@ import UIKit
 class TransactionTableViewCell: UITableViewCell {
   
   var body = UILabel()
+  var price = UILabel()
   var border = UIView()
   
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -19,22 +20,29 @@ class TransactionTableViewCell: UITableViewCell {
     
     self.selectionStyle = UITableViewCellSelectionStyle.None
     
-    body.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+    body.font = UIFont(name: "HelveticaNeue-Light", size: 20)
     body.numberOfLines = 1
     body.setTranslatesAutoresizingMaskIntoConstraints(false)
     contentView.addSubview(body)
+    
+    price.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+    price.textColor = UIColor.grayColor()
+    price.numberOfLines = 1
+    price.setTranslatesAutoresizingMaskIntoConstraints(false)
+    contentView.addSubview(price)
     
     border.backgroundColor = UIColor.blackColor()
     border.setTranslatesAutoresizingMaskIntoConstraints(false)
     contentView.addSubview(border)
     
-    let views = ["body": body, "border": border]
+    let views = ["body": body, "price": price, "border": border]
     
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[body]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
+    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[body]-(>=8)-[price]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
     contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[border]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
     
     let vConstraint = NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[body]-10-[border(1)]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views)
     contentView.addConstraints(vConstraint)
+    contentView.addConstraint(NSLayoutConstraint(item: price, attribute: .Top, relatedBy: .Equal, toItem: body, attribute: .Top, multiplier: 1.0, constant: 0))
   }
   
   override func setHighlighted(highlighted: Bool, animated: Bool) {

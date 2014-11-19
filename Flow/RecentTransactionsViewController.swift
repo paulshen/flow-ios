@@ -126,7 +126,9 @@ extension RecentTransactionsViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as TransactionTableViewCell
-    cell.body.text = (transactions![indexPath.row]["description"] as String)
+    let transaction = transactions![indexPath.row]
+    cell.body.text = (transaction["description"] as String)
+    cell.price.text = NSString(format: "$%.2f", transaction["amount"] as Double)
     cell.updateConstraintsIfNeeded()
     return cell
   }
