@@ -67,8 +67,7 @@ class AddTransactionViewController: UIViewController {
     cancelButton.addTarget(self, action: Selector("onCancelButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
     
     saveButton.contentEdgeInsets = UIEdgeInsetsMake(12, 0, 12, 0)
-    saveButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-    saveButton.layer.borderColor = UIColor.blackColor().CGColor
+    saveButton.layer.borderColor = UIColor.whiteColor().CGColor
     saveButton.layer.borderWidth = 2
     
     let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
@@ -80,6 +79,7 @@ class AddTransactionViewController: UIViewController {
     
     automaticallyAdjustsScrollViewInsets = false
     wrapperScrollView = UIScrollView(frame: view.frame)
+    wrapperScrollView.backgroundColor = mainView.backgroundColor
     wrapperScrollView.addSubview(mainView)
     
     let views = ["mainView": mainView]
