@@ -36,6 +36,7 @@ class AddTransactionViewController: UIViewController {
   var userInteractionEnabled: Bool = true {
     didSet {
       mainView?.userInteractionEnabled = userInteractionEnabled
+      descriptionInput?.userInteractionEnabled = userInteractionEnabled
     }
   }
   
@@ -78,12 +79,13 @@ class AddTransactionViewController: UIViewController {
   
   func transitionToFullViewWithDuration(duration: NSTimeInterval) {
     UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64((duration - 0.25) * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+      self.descriptionInput.becomeFirstResponder()
+      return
+    }
     UIView.animateWithDuration(duration, animations: { () -> Void in
       self.categoryButton.alpha = 1
       self.cancelButton.alpha = 1
-      }, completion: { (finished) in
-        self.descriptionInput.becomeFirstResponder()
-        return
     })
   }
   
