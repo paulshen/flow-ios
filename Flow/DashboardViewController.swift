@@ -11,6 +11,7 @@ import UIKit
 
 class DashboardViewController: UIViewController {
   var wrapperView: UIView!
+  var wrapperScrollView: UIScrollView!
   
   var recentTransactionVC: RecentTransactionsViewController!
   
@@ -18,6 +19,8 @@ class DashboardViewController: UIViewController {
   var addTransactionView: UIView!
   var addTransactionTapRecognizer: UITapGestureRecognizer!
   var addTransactionSwipeRecognizer: UISwipeGestureRecognizer!
+  
+  var isShowingAddTransaction = false
   
   override func loadView() {
     super.loadView()
@@ -51,7 +54,6 @@ class DashboardViewController: UIViewController {
     wrapperView.addSubview(addTransactionView)
     
     addTransactionView.frame = CGRectMake(0, view.bounds.height - 180, view.bounds.width, view.bounds.height)
-    addTransactionView.autoresizingMask = UIViewAutoresizing.FlexibleWidth
     addTransactionVC.didMoveToParentViewController(self)
     addTransactionVC.userInteractionEnabled = false
     
@@ -68,7 +70,16 @@ class DashboardViewController: UIViewController {
     wrapperView.addGestureRecognizer(addTransactionSwipeRecognizer)
     
     wrapperView.frame.size.height = CGRectGetMaxY(addTransactionView.frame)
-    view.addSubview(wrapperView)
+    
+    wrapperScrollView = UIScrollView(frame: view.frame)
+    wrapperScrollView.addSubview(wrapperView)
+    wrapperScrollView.contentSize = wrapperView.frame.size
+    wrapperScrollView.scrollEnabled = false
+    wrapperScrollView.alwaysBounceVertical = true
+    wrapperScrollView.delegate = self
+    automaticallyAdjustsScrollViewInsets = false
+    
+    view.addSubview(wrapperScrollView)
   }
   
   override func didReceiveMemoryWarning() {
@@ -79,12 +90,17 @@ class DashboardViewController: UIViewController {
   func onAddTransactionTap(sender: UIGestureRecognizer!) {
     addTransactionVC.transitionToFullViewWithDuration(0.5)
     UIView.animateWithDuration(0.5, animations: { () -> Void in
-      let delta = self.addTransactionView.frame.origin.y
-      self.wrapperView.frame.origin.y -= delta
+      self.wrapperScrollView.contentOffset.y = self.addTransactionView.frame.origin.y
     }) { (finished) -> Void in
+      self.wrapperScrollView.contentInset.top = -self.addTransactionView.frame.origin.y
+      self.wrapperScrollView.contentSize.height = self.addTransactionView.frame.height
+      self.wrapperScrollView.scrollEnabled = true
+      
       self.addTransactionTapRecognizer.enabled = false
       self.addTransactionSwipeRecognizer.enabled = false
       self.addTransactionVC.userInteractionEnabled = true
+      
+      self.isShowingAddTransaction = true
     }
   }
   
@@ -96,11 +112,26 @@ class DashboardViewController: UIViewController {
     view.endEditing(true)
     addTransactionVC.transitionToPeekViewWithDuration(0.5)
     UIView.animateWithDuration(0.5, animations: { () -> Void in
-      self.wrapperView.frame.origin.y = 0
+//      self.wrapperView.frame.origin.y = 0
+      self.wrapperScrollView.contentOffset.y = 0
       }) { (finished) -> Void in
+        self.wrapperScrollView.contentInset.top = 0
+        self.wrapperScrollView.contentSize.height = self.wrapperView.frame.height
+        self.wrapperScrollView.scrollEnabled = false
+        
         self.addTransactionTapRecognizer.enabled = true
         self.addTransactionSwipeRecognizer.enabled = true
         self.addTransactionVC.userInteractionEnabled = false
+        
+        self.isShowingAddTransaction = false
+    }
+  }
+}
+
+extension DashboardViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    if isShowingAddTransaction && scrollView.contentOffset.y < addTransactionView.frame.origin.y - 30 {
+      closeAddTransactionView()
     }
   }
 }

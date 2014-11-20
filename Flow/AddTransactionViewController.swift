@@ -100,7 +100,7 @@ class AddTransactionViewController: UIViewController {
       self.categoryButton.alpha = 1
       self.cancelButton.alpha = 1
       }, completion: { (finished) in
-        self.wrapperScrollView.scrollEnabled = true
+//        self.wrapperScrollView.scrollEnabled = true
         self.descriptionInput.becomeFirstResponder()
         return
     })
