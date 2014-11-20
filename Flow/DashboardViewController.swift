@@ -135,9 +135,12 @@ class DashboardViewController: UIViewController {
 }
 
 extension DashboardViewController: UIScrollViewDelegate {
-  func scrollViewDidScroll(scrollView: UIScrollView) {
+  func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
     if isShowingAddTransaction && scrollView.contentOffset.y < addTransactionView.frame.origin.y - 50 {
-      closeAddTransactionView()
+      // Need async or the scroll view will snap to wrong position
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        self.closeAddTransactionView()
+      })
     }
   }
 }

@@ -120,8 +120,8 @@ extension TransactionDetailViewController: UITextViewDelegate, UITextFieldDelega
 }
 
 extension TransactionDetailViewController: UIScrollViewDelegate {
-  func scrollViewDidScroll(scrollView: UIScrollView) {
-    if scrollView.contentOffset.y < -30 {
+  func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    if scrollView.contentOffset.y < -50 {
       presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
   }
