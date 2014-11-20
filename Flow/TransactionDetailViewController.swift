@@ -11,7 +11,6 @@ import Parse
 import UIKit
 
 class TransactionDetailViewController: UIViewController {
-  @IBOutlet weak var closeButton: UIButton!
   @IBOutlet weak var descriptionPlaceholder: UILabel!
   @IBOutlet weak var descriptionInput: UITextView!
   @IBOutlet weak var categoryButton: UIButton!
@@ -56,7 +55,6 @@ class TransactionDetailViewController: UIViewController {
     }
     
 //    categoryButton.addTarget(self, action: Selector("onCategoryButtonPressed:"), forControlEvents: UIControlEvents.TouchUpInside)
-    closeButton.addTarget(self, action: Selector("onClose:"), forControlEvents: UIControlEvents.TouchUpInside)
     
     let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
     view.addGestureRecognizer(tapRecognizer)
@@ -64,6 +62,8 @@ class TransactionDetailViewController: UIViewController {
     mainView = view
     automaticallyAdjustsScrollViewInsets = false
     wrapperScrollView = UIScrollView(frame: view.frame)
+    wrapperScrollView.alwaysBounceVertical = true
+    wrapperScrollView.delegate = self
     wrapperScrollView.addSubview(mainView)
     
     let views = ["mainView": mainView]
@@ -75,10 +75,6 @@ class TransactionDetailViewController: UIViewController {
   
   func onTap(sender: UITapGestureRecognizer) {
     view.endEditing(true)
-  }
-  
-  func onClose(sender: UIButton!) {
-    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
   }
 }
 
@@ -119,6 +115,14 @@ extension TransactionDetailViewController: UITextViewDelegate, UITextFieldDelega
         priceInput.text = "$"
         priceInputFocused = true
       }
+    }
+  }
+}
+
+extension TransactionDetailViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    if scrollView.contentOffset.y < -30 {
+      presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
   }
 }

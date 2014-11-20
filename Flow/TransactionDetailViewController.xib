@@ -7,7 +7,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionDetailViewController" customModule="Flow" customModuleProvider="target">
             <connections>
                 <outlet property="categoryButton" destination="UNR-YP-PfZ" id="sYP-6F-1Gj"/>
-                <outlet property="closeButton" destination="RlE-kI-0m4" id="Tni-X2-29C"/>
                 <outlet property="descriptionInput" destination="W4T-28-oj4" id="Ksh-uo-wLf"/>
                 <outlet property="descriptionPlaceholder" destination="APx-HF-fj0" id="6mX-it-Bx0"/>
                 <outlet property="priceInput" destination="MfW-3M-ZCr" id="OLO-xL-6XE"/>
@@ -49,13 +48,6 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlE-kI-0m4">
-                    <rect key="frame" x="303" y="20" width="52" height="30"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                    <state key="normal" title="CLOSE">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -64,10 +56,8 @@
                 <constraint firstItem="APx-HF-fj0" firstAttribute="top" secondItem="W4T-28-oj4" secondAttribute="top" id="FIJ-Nn-KAD"/>
                 <constraint firstItem="W4T-28-oj4" firstAttribute="leading" secondItem="5Cd-yb-Mic" secondAttribute="leading" constant="20" id="MYp-eV-L1p"/>
                 <constraint firstItem="MfW-3M-ZCr" firstAttribute="leading" secondItem="5Cd-yb-Mic" secondAttribute="leading" constant="20" id="PBj-4U-Tzc"/>
-                <constraint firstAttribute="trailing" secondItem="RlE-kI-0m4" secondAttribute="trailing" constant="20" id="bNL-rC-K6I"/>
                 <constraint firstAttribute="trailing" secondItem="MfW-3M-ZCr" secondAttribute="trailing" constant="20" id="dU3-gC-Us5"/>
                 <constraint firstAttribute="trailing" secondItem="W4T-28-oj4" secondAttribute="trailing" constant="20" id="e5Y-PB-Rhq"/>
-                <constraint firstItem="RlE-kI-0m4" firstAttribute="top" secondItem="5Cd-yb-Mic" secondAttribute="top" constant="20" id="jJ2-Sm-CIW"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MfW-3M-ZCr" secondAttribute="bottom" constant="20" id="oQ0-Fz-c5s"/>
                 <constraint firstItem="MfW-3M-ZCr" firstAttribute="top" secondItem="UNR-YP-PfZ" secondAttribute="bottom" constant="100" id="p9x-I0-5cK"/>
                 <constraint firstItem="W4T-28-oj4" firstAttribute="top" secondItem="5Cd-yb-Mic" secondAttribute="top" constant="60" id="t5z-E4-mbW"/>
