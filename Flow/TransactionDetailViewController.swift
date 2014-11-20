@@ -17,7 +17,6 @@ class TransactionDetailViewController: UIViewController {
   @IBOutlet weak var priceInput: UITextField!
   
   var transaction: PFObject!
-  var priceInputFocused = false
   
   var category: PFObject? {
     didSet {
@@ -45,7 +44,6 @@ class TransactionDetailViewController: UIViewController {
     descriptionInput.text = transaction["description"] as String
     
     priceInput.tag = 2
-    priceInput.delegate = self
     priceInput.text = NSString(format: "$%.2f", transaction["amount"] as Double)
     
     if let tempCategory = transaction["category"] as? PFObject {
@@ -107,15 +105,6 @@ extension TransactionDetailViewController: UITextViewDelegate, UITextFieldDelega
       textField.resignFirstResponder()
     }
     return false
-  }
-  
-  func textFieldDidBeginEditing(textField: UITextField) {
-    if textField == priceInput {
-      if !priceInputFocused {
-        priceInput.text = "$"
-        priceInputFocused = true
-      }
-    }
   }
 }
 
