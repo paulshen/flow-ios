@@ -19,9 +19,12 @@ class AddTransactionViewController: UIViewController {
   @IBOutlet weak var saveButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var descriptionPlaceholder: UILabel!
+  @IBOutlet weak var dateInput: UITextField!
   
   var kbSize: CGSize!
   var priceInputFocused = false
+  var datePicker = UIDatePicker()
+  var dateFormatter = NSDateFormatter()
   
   var category: PFObject? {
     didSet {
@@ -37,6 +40,7 @@ class AddTransactionViewController: UIViewController {
     didSet {
       mainView?.userInteractionEnabled = userInteractionEnabled
       descriptionInput?.userInteractionEnabled = userInteractionEnabled
+      dateInput?.userInteractionEnabled = userInteractionEnabled
     }
   }
   
@@ -55,6 +59,8 @@ class AddTransactionViewController: UIViewController {
   override func viewDidLoad() {
     categoryButton.alpha = 0
     cancelButton.alpha = 0
+    
+    initializeDateInput()
     
     descriptionInput.textContainerInset = UIEdgeInsetsZero
     descriptionInput.tag = 1
@@ -75,6 +81,21 @@ class AddTransactionViewController: UIViewController {
     view.userInteractionEnabled = userInteractionEnabled
     
     registerForKeyboardNotifications()
+  }
+  
+  func initializeDateInput() {
+    datePicker.datePickerMode = UIDatePickerMode.Date
+    datePicker.date = NSDate()
+    datePicker.addTarget(self, action: Selector("onDateInputChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+    dateFormatter.dateFormat = "MM/dd/yyyy"
+    dateInput.text = dateFormatter.stringFromDate(datePicker.date)
+    dateInput.inputView = datePicker
+    let dateInputToolbar = UIToolbar()
+    dateInputToolbar.items = [
+      UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil),
+      UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: Selector("onDateInputDonePressed:"))]
+    dateInputToolbar.sizeToFit()
+    dateInput.inputAccessoryView = dateInputToolbar
   }
   
   func transitionToFullViewWithDuration(duration: NSTimeInterval) {
@@ -99,6 +120,9 @@ class AddTransactionViewController: UIViewController {
       self.cancelButton.alpha = 0
       }, completion: { (finished) in
         self.category = nil
+        self.priceInput.text = "$0.00"
+        self.datePicker.date = NSDate()
+        self.dateInput.text = self.dateFormatter.stringFromDate(self.datePicker.date)
     })
   }
   
@@ -134,7 +158,7 @@ class AddTransactionViewController: UIViewController {
     transaction["amount"] = NSString(string: priceInput.text.stringByReplacingOccurrencesOfString("$", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)).doubleValue
     let dateFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit | NSCalendarUnit.DayCalendarUnit
     let calendar = NSCalendar.currentCalendar()
-    let dateComponents = calendar.components(dateFlags, fromDate: NSDate())
+    let dateComponents = calendar.components(dateFlags, fromDate: datePicker.date)
     dateComponents.timeZone = NSTimeZone(abbreviation: "UTC")
     transaction["date"] = calendar.dateFromComponents(dateComponents)
     if let category = category {
@@ -150,6 +174,14 @@ class AddTransactionViewController: UIViewController {
   
   func onCancelButtonPressed(sender: UIButton!) {
     dismissCallback?()
+  }
+  
+  func onDateInputChanged(sender: UIDatePicker!) {
+    dateInput.text = dateFormatter.stringFromDate(datePicker.date)
+  }
+  
+  func onDateInputDonePressed(sender: UIBarButtonItem!) {
+    dateInput.resignFirstResponder()
   }
 }
 
@@ -191,5 +223,15 @@ extension AddTransactionViewController: UITextViewDelegate, UITextFieldDelegate 
         priceInputFocused = true
       }
     }
+  }
+}
+
+class UITextFieldCursorless: UITextField {
+  override func caretRectForPosition(position: UITextPosition!) -> CGRect {
+    return CGRectZero
+  }
+  
+  override func editingRectForBounds(bounds: CGRect) -> CGRect {
+    return CGRectInset(bounds, 0, 0.5)
   }
 }
