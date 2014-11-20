@@ -42,7 +42,6 @@ class AddTransactionViewController: UIViewController {
   var dismissCallback: (() -> Void)?
 
   var mainView: UIView!
-  var wrapperScrollView: UIScrollView!
   
   override init() {
     super.init(nibName: "AddTransactionViewController", bundle: NSBundle.mainBundle())
@@ -72,24 +71,7 @@ class AddTransactionViewController: UIViewController {
     
     let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTap:"))
     view.addGestureRecognizer(tapRecognizer)
-    
-    mainView = view
-    mainView.userInteractionEnabled = userInteractionEnabled
-    mainView.setTranslatesAutoresizingMaskIntoConstraints(false)
-    
-    automaticallyAdjustsScrollViewInsets = false
-    wrapperScrollView = UIScrollView(frame: view.frame)
-    wrapperScrollView.scrollEnabled = false
-    wrapperScrollView.alwaysBounceVertical = true
-    wrapperScrollView.delegate = self
-    wrapperScrollView.addSubview(mainView)
-    
-    let views = ["mainView": mainView]
-    wrapperScrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[mainView]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
-    wrapperScrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[mainView]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
-    wrapperScrollView.addConstraint(NSLayoutConstraint(item: mainView, attribute: .Width, relatedBy: .Equal, toItem: wrapperScrollView, attribute: .Width, multiplier: 1.0, constant: 0))
-    wrapperScrollView.addConstraint(NSLayoutConstraint(item: mainView, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: wrapperScrollView, attribute: .Height, multiplier: 1.0, constant: 0))
-    view = wrapperScrollView
+    view.userInteractionEnabled = userInteractionEnabled
     
     registerForKeyboardNotifications()
   }
@@ -100,7 +82,6 @@ class AddTransactionViewController: UIViewController {
       self.categoryButton.alpha = 1
       self.cancelButton.alpha = 1
       }, completion: { (finished) in
-//        self.wrapperScrollView.scrollEnabled = true
         self.descriptionInput.becomeFirstResponder()
         return
     })
@@ -109,7 +90,6 @@ class AddTransactionViewController: UIViewController {
   func transitionToPeekViewWithDuration(duration: NSTimeInterval) {
     descriptionInput.text = ""
     descriptionPlaceholder.hidden = false
-    wrapperScrollView.scrollEnabled = false
     
     UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
     UIView.animateWithDuration(duration, animations: { () -> Void in
@@ -128,14 +108,9 @@ class AddTransactionViewController: UIViewController {
   func keyboardWillShow(notification: NSNotification) {
     let info = notification.userInfo!
     kbSize = info[UIKeyboardFrameBeginUserInfoKey]!.CGRectValue().size
-    
-    let contentInsets = UIEdgeInsetsMake(0, 0, kbSize.height, 0)
-    wrapperScrollView.contentInset = contentInsets
   }
   
   func keyboardWillBeHidden(notification: NSNotification) {
-    wrapperScrollView.contentInset = UIEdgeInsetsZero
-    wrapperScrollView.scrollIndicatorInsets = UIEdgeInsetsZero
   }
   
   func onTap(sender: UITapGestureRecognizer) {
@@ -213,17 +188,6 @@ extension AddTransactionViewController: UITextViewDelegate, UITextFieldDelegate 
         priceInput.text = "$"
         priceInputFocused = true
       }
-      
-      // Scroll so that the save button is visible
-      self.wrapperScrollView.setContentOffset(CGPointMake(0, CGRectGetMaxY(saveButton.frame) - (view.bounds.height - kbSize.height) + 20), animated: true)
-    }
-  }
-}
-
-extension AddTransactionViewController: UIScrollViewDelegate {
-  func scrollViewDidScroll(scrollView: UIScrollView) {
-    if scrollView.contentOffset.y < -30 {
-      dismissCallback?()
     }
   }
 }

@@ -26,6 +26,7 @@ class DashboardViewController: UIViewController {
     super.loadView()
     
     wrapperView = UIView(frame: view.bounds)
+    wrapperView.setTranslatesAutoresizingMaskIntoConstraints(false)
     
     let image = UIImage(named: "logo")
     let imageView = UIImageView(image: image)
@@ -51,9 +52,13 @@ class DashboardViewController: UIViewController {
     addTransactionVC = AddTransactionViewController()
     addChildViewController(addTransactionVC)
     addTransactionView = addTransactionVC.view
+    addTransactionView.setTranslatesAutoresizingMaskIntoConstraints(false)
     wrapperView.addSubview(addTransactionView)
     
-    addTransactionView.frame = CGRectMake(0, view.bounds.height - 180, view.bounds.width, view.bounds.height)
+    wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[addTransaction]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["addTransaction": addTransactionView]))
+    wrapperView.addConstraint(NSLayoutConstraint(item: addTransactionView, attribute: .Top, relatedBy: .Equal, toItem: wrapperView, attribute: .Top, multiplier: 1.0, constant: view.bounds.height - 180))
+    wrapperView.addConstraint(NSLayoutConstraint(item: addTransactionView, attribute: .Bottom, relatedBy: .Equal, toItem: wrapperView, attribute: .Bottom, multiplier: 1.0, constant: 0))
+    
     addTransactionVC.didMoveToParentViewController(self)
     addTransactionVC.userInteractionEnabled = false
     
@@ -73,13 +78,17 @@ class DashboardViewController: UIViewController {
     
     wrapperScrollView = UIScrollView(frame: view.frame)
     wrapperScrollView.addSubview(wrapperView)
-    wrapperScrollView.contentSize = wrapperView.frame.size
     wrapperScrollView.scrollEnabled = false
     wrapperScrollView.alwaysBounceVertical = true
     wrapperScrollView.delegate = self
     automaticallyAdjustsScrollViewInsets = false
     
+    wrapperScrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[main]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["main": wrapperView]))
+    wrapperScrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[main]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["main": wrapperView]))
+    
     view.addSubview(wrapperScrollView)
+    view.addConstraint(NSLayoutConstraint(item: wrapperView, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 1.0, constant: 0))
+    view.addConstraint(NSLayoutConstraint(item: addTransactionView, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: view, attribute: .Height, multiplier: 1.0, constant: 0))
   }
   
   override func didReceiveMemoryWarning() {
@@ -93,7 +102,6 @@ class DashboardViewController: UIViewController {
       self.wrapperScrollView.contentOffset.y = self.addTransactionView.frame.origin.y
     }) { (finished) -> Void in
       self.wrapperScrollView.contentInset.top = -self.addTransactionView.frame.origin.y
-      self.wrapperScrollView.contentSize.height = self.addTransactionView.frame.height
       self.wrapperScrollView.scrollEnabled = true
       
       self.addTransactionTapRecognizer.enabled = false
@@ -110,13 +118,11 @@ class DashboardViewController: UIViewController {
   
   func closeAddTransactionView() {
     view.endEditing(true)
+    wrapperScrollView.contentInset.top = 0
     addTransactionVC.transitionToPeekViewWithDuration(0.5)
     UIView.animateWithDuration(0.5, animations: { () -> Void in
-//      self.wrapperView.frame.origin.y = 0
       self.wrapperScrollView.contentOffset.y = 0
       }) { (finished) -> Void in
-        self.wrapperScrollView.contentInset.top = 0
-        self.wrapperScrollView.contentSize.height = self.wrapperView.frame.height
         self.wrapperScrollView.scrollEnabled = false
         
         self.addTransactionTapRecognizer.enabled = true
@@ -130,7 +136,7 @@ class DashboardViewController: UIViewController {
 
 extension DashboardViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(scrollView: UIScrollView) {
-    if isShowingAddTransaction && scrollView.contentOffset.y < addTransactionView.frame.origin.y - 30 {
+    if isShowingAddTransaction && scrollView.contentOffset.y < addTransactionView.frame.origin.y - 50 {
       closeAddTransactionView()
     }
   }
