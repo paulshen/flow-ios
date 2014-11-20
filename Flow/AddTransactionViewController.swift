@@ -79,13 +79,16 @@ class AddTransactionViewController: UIViewController {
     
     automaticallyAdjustsScrollViewInsets = false
     wrapperScrollView = UIScrollView(frame: view.frame)
-    wrapperScrollView.backgroundColor = mainView.backgroundColor
+    wrapperScrollView.scrollEnabled = false
+    wrapperScrollView.alwaysBounceVertical = true
+    wrapperScrollView.delegate = self
     wrapperScrollView.addSubview(mainView)
     
     let views = ["mainView": mainView]
     wrapperScrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[mainView]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
     wrapperScrollView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[mainView]|", options: NSLayoutFormatOptions(0), metrics: nil, views: views))
     wrapperScrollView.addConstraint(NSLayoutConstraint(item: mainView, attribute: .Width, relatedBy: .Equal, toItem: wrapperScrollView, attribute: .Width, multiplier: 1.0, constant: 0))
+    wrapperScrollView.addConstraint(NSLayoutConstraint(item: mainView, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: wrapperScrollView, attribute: .Height, multiplier: 1.0, constant: 0))
     view = wrapperScrollView
     
     registerForKeyboardNotifications()
@@ -97,6 +100,7 @@ class AddTransactionViewController: UIViewController {
       self.categoryButton.alpha = 1
       self.cancelButton.alpha = 1
       }, completion: { (finished) in
+        self.wrapperScrollView.scrollEnabled = true
         self.descriptionInput.becomeFirstResponder()
         return
     })
@@ -105,6 +109,7 @@ class AddTransactionViewController: UIViewController {
   func transitionToPeekViewWithDuration(duration: NSTimeInterval) {
     descriptionInput.text = ""
     descriptionPlaceholder.hidden = false
+    wrapperScrollView.scrollEnabled = false
     
     UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
     UIView.animateWithDuration(duration, animations: { () -> Void in
@@ -211,6 +216,14 @@ extension AddTransactionViewController: UITextViewDelegate, UITextFieldDelegate 
       
       // Scroll so that the save button is visible
       self.wrapperScrollView.setContentOffset(CGPointMake(0, CGRectGetMaxY(saveButton.frame) - (view.bounds.height - kbSize.height) + 20), animated: true)
+    }
+  }
+}
+
+extension AddTransactionViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    if scrollView.contentOffset.y < -30 {
+      dismissCallback?()
     }
   }
 }
