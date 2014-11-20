@@ -91,17 +91,27 @@ class AddTransactionViewController: UIViewController {
     registerForKeyboardNotifications()
   }
   
-  func showHiddenElementsWithDuration(duration: NSTimeInterval) {
+  func transitionToFullViewWithDuration(duration: NSTimeInterval) {
+    UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
     UIView.animateWithDuration(duration, animations: { () -> Void in
       self.categoryButton.alpha = 1
       self.cancelButton.alpha = 1
+      }, completion: { (finished) in
+        self.descriptionInput.becomeFirstResponder()
+        return
     })
   }
   
-  func hideHiddenElementsWithDuration(duration: NSTimeInterval) {
+  func transitionToPeekViewWithDuration(duration: NSTimeInterval) {
+    descriptionInput.text = ""
+    descriptionPlaceholder.hidden = false
+    
+    UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
     UIView.animateWithDuration(duration, animations: { () -> Void in
       self.categoryButton.alpha = 0
       self.cancelButton.alpha = 0
+      }, completion: { (finished) in
+        self.category = nil
     })
   }
   
@@ -157,8 +167,6 @@ class AddTransactionViewController: UIViewController {
   }
   
   func onCancelButtonPressed(sender: UIButton!) {
-    descriptionInput.text = ""
-    descriptionPlaceholder.hidden = false
     dismissCallback?()
   }
 }
