@@ -95,34 +95,76 @@ class DashboardViewController: UIViewController {
   
   func loadAnalyticsView() -> UIView {
     let analyticsView = UIView()
-    let totalSpendLabel = UILabel()
+    let scrollView = UIScrollView()
+    scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    scrollView.pagingEnabled = true
+    scrollView.showsHorizontalScrollIndicator = false
+    var monthViews = [UIView]()
     
-    totalSpendLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 84)
-    totalSpendLabel.textColor = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
-    totalSpendLabel.text = "$0"
     PFCloud.callFunctionInBackground("dashboarddata", withParameters: [:]) { (results, error) -> Void in
       let results = results as [String: AnyObject]
       let sortedYears = Array(results.keys).sorted({ (a, b) -> Bool in
         return a.toInt() < b.toInt()
       })
       for year in sortedYears {
-        let monthData = results[year] as [String: NSNumber]
+        let monthData = results[year] as [String: Double]
         let sortedMonths = Array(monthData.keys).sorted({ (a, b) -> Bool in
           return a.toInt() < b.toInt()
         })
         for month in sortedMonths {
-          if let amount: NSNumber = monthData[month] {
-            totalSpendLabel.text = String(format: "$%d", Int(amount))
+          if let amount: Double = monthData[month] {
+            monthViews.append(self.loadAnalyticsMonthSummaryView(month.toInt()!, amount: amount))
           }
         }
       }
+      
+      let viewWidth = analyticsView.frame.width
+      for (index, view) in enumerate(monthViews) {
+        scrollView.addSubview(view)
+        scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal, toItem: scrollView, attribute: .Top, multiplier: 1.0, constant: 0))
+        scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: .Leading, relatedBy: .Equal, toItem: scrollView, attribute: .Leading, multiplier: 1.0, constant: CGFloat(index) * viewWidth))
+        analyticsView.addConstraint(NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: analyticsView, attribute: .Width, multiplier: 1.0, constant: 0))
+        analyticsView.addConstraint(NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: analyticsView, attribute: .Height, multiplier: 1.0, constant: 0))
+      }
+      if monthViews.count > 0 {
+        let lastView = monthViews.last!
+        scrollView.addConstraint(NSLayoutConstraint(item: lastView, attribute: .Trailing, relatedBy: .Equal, toItem: scrollView, attribute: .Trailing, multiplier: 1.0, constant: 0))
+        scrollView.layoutIfNeeded()
+        scrollView.contentOffset = lastView.frame.origin
+      }
     }
     
-    totalSpendLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
-    analyticsView.addSubview(totalSpendLabel)
-    analyticsView.addConstraint(NSLayoutConstraint(item: totalSpendLabel, attribute: .CenterX, relatedBy: .Equal, toItem: analyticsView, attribute: .CenterX, multiplier: 1.0, constant: 0))
-    analyticsView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[spend]-30-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["spend": totalSpendLabel]))
+    analyticsView.addSubview(scrollView)
+    analyticsView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[scroll]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["scroll": scrollView]))
+    analyticsView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[scroll]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["scroll": scrollView]))
+    
     return analyticsView
+  }
+  
+  func loadAnalyticsMonthSummaryView(month: Int, amount: Double) -> UIView {
+    let view = UIView()
+    let monthLabel = UILabel()
+    let amountLabel = UILabel()
+    let monthFormatter = NSDateFormatter()
+    
+    monthLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
+    monthLabel.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
+    monthLabel.attributedText = NSAttributedString(string: (monthFormatter.monthSymbols[month] as String).uppercaseString, attributes: [NSKernAttributeName: 2.0])
+    
+    amountLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 84)
+    amountLabel.textColor = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
+    amountLabel.attributedText = NSAttributedString(string: String(format: "$%d", Int(amount)), attributes: [NSKernAttributeName: 3.0])
+    
+    view.setTranslatesAutoresizingMaskIntoConstraints(false)
+    monthLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+    amountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.addSubview(monthLabel)
+    view.addSubview(amountLabel)
+    view.addConstraint(NSLayoutConstraint(item: monthLabel, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1.0, constant: 0))
+    view.addConstraint(NSLayoutConstraint(item: amountLabel, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1.0, constant: 0))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[month]-(-10)-[amount]-30-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["month": monthLabel, "amount": amountLabel]))
+    
+    return view
   }
   
   override func didReceiveMemoryWarning() {
