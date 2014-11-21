@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Parse
 import UIKit
 
 class DashboardViewController: UIViewController {
@@ -34,20 +35,21 @@ class DashboardViewController: UIViewController {
     imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
     wrapperView.backgroundColor = UIColor.whiteColor()
     wrapperView.addSubview(imageView)
+    wrapperView.addConstraint(NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: wrapperView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
     
-    wrapperView.addConstraints([
-      NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: wrapperView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0),
-      NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: wrapperView, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 30),
-      NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20.0)
-      ])
+    let analyticsView = loadAnalyticsView()
+    analyticsView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    wrapperView.addSubview(analyticsView)
+    wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[analytics]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["analytics": analyticsView]))
     
     recentTransactionVC = RecentTransactionsViewController(inMiniMode: true)
     addChildViewController(recentTransactionVC)
     let recentTransactionsSection = recentTransactionVC.view
     wrapperView.addSubview(recentTransactionsSection)
     wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[recentTransactions]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["recentTransactions": recentTransactionsSection]))
-    wrapperView.addConstraint(NSLayoutConstraint(item: recentTransactionsSection, attribute: .Top, relatedBy: .Equal, toItem: imageView, attribute: .Bottom, multiplier: 1.0, constant: 200))
     recentTransactionVC.didMoveToParentViewController(self)
+    
+    wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[logo(20)]-20-[analytics]-20-[recent]", options: NSLayoutFormatOptions(0), metrics: nil, views: ["logo": imageView, "analytics": analyticsView, "recent": recentTransactionsSection]))
     
     addTransactionVC = AddTransactionViewController()
     addChildViewController(addTransactionVC)
@@ -89,6 +91,24 @@ class DashboardViewController: UIViewController {
     view.addSubview(wrapperScrollView)
     view.addConstraint(NSLayoutConstraint(item: wrapperView, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 1.0, constant: 0))
     view.addConstraint(NSLayoutConstraint(item: addTransactionView, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: view, attribute: .Height, multiplier: 1.0, constant: 0))
+  }
+  
+  func loadAnalyticsView() -> UIView {
+    let analyticsView = UIView()
+    let totalSpendLabel = UILabel()
+    
+    totalSpendLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 84)
+    totalSpendLabel.textColor = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
+    totalSpendLabel.text = "$0"
+    PFCloud.callFunctionInBackground("totalspend", withParameters: [:]) { (results, error) -> Void in
+      totalSpendLabel.text = String(format: "$%d", Int(results as Double))
+    }
+    
+    totalSpendLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+    analyticsView.addSubview(totalSpendLabel)
+    analyticsView.addConstraint(NSLayoutConstraint(item: totalSpendLabel, attribute: .CenterX, relatedBy: .Equal, toItem: analyticsView, attribute: .CenterX, multiplier: 1.0, constant: 0))
+    analyticsView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[spend]-30-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["spend": totalSpendLabel]))
+    return analyticsView
   }
   
   override func didReceiveMemoryWarning() {
