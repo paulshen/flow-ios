@@ -76,6 +76,7 @@ class RecentTransactionsViewController: UIViewController {
         view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[header]-10-[table]-10-[button]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": tableView, "button": viewMoreButton]))
       }
       
+      tableView.scrollEnabled = false
       tableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
       tableViewHeightConstraint = NSLayoutConstraint(item: tableView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0)
       view.addConstraint(tableViewHeightConstraint)
