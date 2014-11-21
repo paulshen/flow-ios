@@ -97,11 +97,25 @@ class DashboardViewController: UIViewController {
     let analyticsView = UIView()
     let totalSpendLabel = UILabel()
     
-    totalSpendLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 84)
+    totalSpendLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 84)
     totalSpendLabel.textColor = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
     totalSpendLabel.text = "$0"
-    PFCloud.callFunctionInBackground("totalspend", withParameters: [:]) { (results, error) -> Void in
-      totalSpendLabel.text = String(format: "$%d", Int(results as Double))
+    PFCloud.callFunctionInBackground("dashboarddata", withParameters: [:]) { (results, error) -> Void in
+      let results = results as [String: AnyObject]
+      let sortedYears = Array(results.keys).sorted({ (a, b) -> Bool in
+        return a.toInt() < b.toInt()
+      })
+      for year in sortedYears {
+        let monthData = results[year] as [String: NSNumber]
+        let sortedMonths = Array(monthData.keys).sorted({ (a, b) -> Bool in
+          return a.toInt() < b.toInt()
+        })
+        for month in sortedMonths {
+          if let amount: NSNumber = monthData[month] {
+            totalSpendLabel.text = String(format: "$%d", Int(amount))
+          }
+        }
+      }
     }
     
     totalSpendLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
