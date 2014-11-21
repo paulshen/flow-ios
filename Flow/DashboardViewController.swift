@@ -162,7 +162,7 @@ class DashboardViewController: UIViewController {
     view.addSubview(amountLabel)
     view.addConstraint(NSLayoutConstraint(item: monthLabel, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1.0, constant: 0))
     view.addConstraint(NSLayoutConstraint(item: amountLabel, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1.0, constant: 0))
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[month]-(-10)-[amount]-30-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["month": monthLabel, "amount": amountLabel]))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-20-[month]-(-10)-[amount]-30-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["month": monthLabel, "amount": amountLabel]))
     
     return view
   }
