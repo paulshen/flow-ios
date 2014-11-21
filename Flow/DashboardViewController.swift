@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Parse
 import UIKit
 
 class DashboardViewController: UIViewController {
@@ -34,20 +35,21 @@ class DashboardViewController: UIViewController {
     imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
     wrapperView.backgroundColor = UIColor.whiteColor()
     wrapperView.addSubview(imageView)
+    wrapperView.addConstraint(NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: wrapperView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
     
-    wrapperView.addConstraints([
-      NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: wrapperView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0),
-      NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: wrapperView, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 30),
-      NSLayoutConstraint(item: imageView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 20.0)
-      ])
+    let analyticsView = loadAnalyticsView()
+    analyticsView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    wrapperView.addSubview(analyticsView)
+    wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[analytics]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["analytics": analyticsView]))
     
     recentTransactionVC = RecentTransactionsViewController(inMiniMode: true)
     addChildViewController(recentTransactionVC)
     let recentTransactionsSection = recentTransactionVC.view
     wrapperView.addSubview(recentTransactionsSection)
     wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[recentTransactions]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["recentTransactions": recentTransactionsSection]))
-    wrapperView.addConstraint(NSLayoutConstraint(item: recentTransactionsSection, attribute: .Top, relatedBy: .Equal, toItem: imageView, attribute: .Bottom, multiplier: 1.0, constant: 200))
     recentTransactionVC.didMoveToParentViewController(self)
+    
+    wrapperView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[logo(20)]-20-[analytics]-20-[recent]", options: NSLayoutFormatOptions(0), metrics: nil, views: ["logo": imageView, "analytics": analyticsView, "recent": recentTransactionsSection]))
     
     addTransactionVC = AddTransactionViewController()
     addChildViewController(addTransactionVC)
@@ -89,6 +91,80 @@ class DashboardViewController: UIViewController {
     view.addSubview(wrapperScrollView)
     view.addConstraint(NSLayoutConstraint(item: wrapperView, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 1.0, constant: 0))
     view.addConstraint(NSLayoutConstraint(item: addTransactionView, attribute: .Height, relatedBy: .GreaterThanOrEqual, toItem: view, attribute: .Height, multiplier: 1.0, constant: 0))
+  }
+  
+  func loadAnalyticsView() -> UIView {
+    let analyticsView = UIView()
+    let scrollView = UIScrollView()
+    scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    scrollView.pagingEnabled = true
+    scrollView.showsHorizontalScrollIndicator = false
+    var monthViews = [UIView]()
+    
+    PFCloud.callFunctionInBackground("dashboarddata", withParameters: [:]) { (results, error) -> Void in
+      let results = results as [String: AnyObject]
+      let sortedYears = Array(results.keys).sorted({ (a, b) -> Bool in
+        return a.toInt() < b.toInt()
+      })
+      for year in sortedYears {
+        let monthData = results[year] as [String: Double]
+        let sortedMonths = Array(monthData.keys).sorted({ (a, b) -> Bool in
+          return a.toInt() < b.toInt()
+        })
+        for month in sortedMonths {
+          if let amount: Double = monthData[month] {
+            monthViews.append(self.loadAnalyticsMonthSummaryView(month.toInt()!, amount: amount))
+          }
+        }
+      }
+      
+      let viewWidth = analyticsView.frame.width
+      for (index, view) in enumerate(monthViews) {
+        scrollView.addSubview(view)
+        scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal, toItem: scrollView, attribute: .Top, multiplier: 1.0, constant: 0))
+        scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: .Leading, relatedBy: .Equal, toItem: scrollView, attribute: .Leading, multiplier: 1.0, constant: CGFloat(index) * viewWidth))
+        analyticsView.addConstraint(NSLayoutConstraint(item: view, attribute: .Width, relatedBy: .Equal, toItem: analyticsView, attribute: .Width, multiplier: 1.0, constant: 0))
+        analyticsView.addConstraint(NSLayoutConstraint(item: view, attribute: .Height, relatedBy: .Equal, toItem: analyticsView, attribute: .Height, multiplier: 1.0, constant: 0))
+      }
+      if monthViews.count > 0 {
+        let lastView = monthViews.last!
+        scrollView.addConstraint(NSLayoutConstraint(item: lastView, attribute: .Trailing, relatedBy: .Equal, toItem: scrollView, attribute: .Trailing, multiplier: 1.0, constant: 0))
+        scrollView.layoutIfNeeded()
+        scrollView.contentOffset = lastView.frame.origin
+      }
+    }
+    
+    analyticsView.addSubview(scrollView)
+    analyticsView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[scroll]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["scroll": scrollView]))
+    analyticsView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[scroll]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["scroll": scrollView]))
+    
+    return analyticsView
+  }
+  
+  func loadAnalyticsMonthSummaryView(month: Int, amount: Double) -> UIView {
+    let view = UIView()
+    let monthLabel = UILabel()
+    let amountLabel = UILabel()
+    let monthFormatter = NSDateFormatter()
+    
+    monthLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 14)
+    monthLabel.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
+    monthLabel.attributedText = NSAttributedString(string: (monthFormatter.monthSymbols[month] as String).uppercaseString, attributes: [NSKernAttributeName: 2.0])
+    
+    amountLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 84)
+    amountLabel.textColor = UIColor(red: 0.4, green: 0.4, blue: 0.4, alpha: 1.0)
+    amountLabel.attributedText = NSAttributedString(string: String(format: "$%d", Int(amount)), attributes: [NSKernAttributeName: 3.0])
+    
+    view.setTranslatesAutoresizingMaskIntoConstraints(false)
+    monthLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+    amountLabel.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.addSubview(monthLabel)
+    view.addSubview(amountLabel)
+    view.addConstraint(NSLayoutConstraint(item: monthLabel, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1.0, constant: 0))
+    view.addConstraint(NSLayoutConstraint(item: amountLabel, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1.0, constant: 0))
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-10-[month]-(-10)-[amount]-30-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["month": monthLabel, "amount": amountLabel]))
+    
+    return view
   }
   
   override func didReceiveMemoryWarning() {
