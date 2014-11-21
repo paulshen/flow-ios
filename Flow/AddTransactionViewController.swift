@@ -99,7 +99,7 @@ class AddTransactionViewController: UIViewController {
   }
   
   func transitionToFullViewWithDuration(duration: NSTimeInterval) {
-    UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
+    UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64((duration - 0.25) * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
       self.descriptionInput.becomeFirstResponder()
       return
@@ -114,7 +114,7 @@ class AddTransactionViewController: UIViewController {
     descriptionInput.text = ""
     descriptionPlaceholder.hidden = false
     
-    UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.Default, animated: true)
+    UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Fade)
     UIView.animateWithDuration(duration, animations: { () -> Void in
       self.categoryButton.alpha = 0
       self.cancelButton.alpha = 0

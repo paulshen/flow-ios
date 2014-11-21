@@ -71,6 +71,14 @@ class TransactionDetailViewController: UIViewController {
     view = wrapperScrollView
   }
   
+  override func viewWillAppear(animated: Bool) {
+    UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Fade)
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Fade)
+  }
+  
   func onTap(sender: UITapGestureRecognizer) {
     view.endEditing(true)
   }
