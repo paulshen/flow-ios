@@ -11,6 +11,7 @@ import Parse
 import UIKit
 
 class RecentTransactionsViewController: UIViewController {
+  var recentTransactionsHeader: UILabel!
   var tableView: UITableView!
   let kCellIdentifier = "TransactionCell"
   var transactions: [PFObject]?
@@ -38,15 +39,6 @@ class RecentTransactionsViewController: UIViewController {
       view.setTranslatesAutoresizingMaskIntoConstraints(false)
     }
     
-    let recentTransactionsHeader = UILabel()
-    recentTransactionsHeader.text = "RECENT TRANSACTIONS"
-    recentTransactionsHeader.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-    recentTransactionsHeader.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
-    recentTransactionsHeader.setTranslatesAutoresizingMaskIntoConstraints(false)
-    view.addSubview(recentTransactionsHeader)
-    
-    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[header]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader]))
-    
     tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Plain)
     tableView.setTranslatesAutoresizingMaskIntoConstraints(false)
     tableView.registerClass(TransactionTableViewCell.self, forCellReuseIdentifier: kCellIdentifier)
@@ -58,6 +50,15 @@ class RecentTransactionsViewController: UIViewController {
     
     view.addSubview(tableView)
     view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["table": tableView]))
+    
+    recentTransactionsHeader = UILabel()
+    recentTransactionsHeader.text = "RECENT TRANSACTIONS"
+    recentTransactionsHeader.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+    recentTransactionsHeader.textColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+    recentTransactionsHeader.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.addSubview(recentTransactionsHeader)
+    
+    view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-20-[header]-20-|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader]))
     
     if inMiniMode {
       viewMoreButton = UIButton()
@@ -80,9 +81,6 @@ class RecentTransactionsViewController: UIViewController {
       view.addConstraint(tableViewHeightConstraint)
     } else {
       view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": tableView]))
-      
-      let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("onTapClose:"))
-      recentTransactionsHeader.addGestureRecognizer(tapRecognizer)
       recentTransactionsHeader.userInteractionEnabled = true
     }
     
@@ -106,10 +104,6 @@ class RecentTransactionsViewController: UIViewController {
     animator = ViewMoreRecentTransactionsAnimator()
     fullRecentVC.transitioningDelegate = animator
     presentViewController(fullRecentVC, animated: true, completion: nil)
-  }
-  
-  func onTapClose(sender: UISwipeGestureRecognizer!) {
-    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
   }
 }
 
@@ -146,6 +140,19 @@ extension RecentTransactionsViewController: UITableViewDelegate {
     transactionDetailVC.transitioningDelegate = animator
     
     presentViewController(transactionDetailVC, animated: true, completion: nil)
+  }
+  
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    if !inMiniMode && scrollView.contentOffset.y < 0 {
+      recentTransactionsHeader.frame.origin.y = 30 - scrollView.contentOffset.y
+    }
+  }
+  
+  func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    if !inMiniMode && scrollView.contentOffset.y < -50 {
+      targetContentOffset.memory = scrollView.contentOffset
+      presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
   }
 }
 
@@ -235,8 +242,10 @@ class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTran
       toVC.view.alpha = 0
       
       // If the table view is not scrolled at the top, hide the rows from the topExpander
-      if fromVC.tableView.contentOffset != CGPointZero {
+      if fromVC.tableView.contentOffset.y > 0 {
         topExpander.frame.size.height = miniTableViewOffset.y
+      } else {
+        topExpander.frame.origin.y -= fromVC.tableView.contentOffset.y
       }
       
       container.addSubview(toVC.view)
