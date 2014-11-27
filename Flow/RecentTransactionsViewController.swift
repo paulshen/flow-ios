@@ -17,6 +17,7 @@ class RecentTransactionsViewController: UIViewController {
   var transactions: [PFObject]?
   
   var inMiniMode: Bool
+  var headerConstraint: NSLayoutConstraint!
   var tableViewHeightConstraint: NSLayoutConstraint!
   var viewMoreButton: UIButton?
   
@@ -81,7 +82,11 @@ class RecentTransactionsViewController: UIViewController {
       tableViewHeightConstraint = NSLayoutConstraint(item: tableView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0)
       view.addConstraint(tableViewHeightConstraint)
     } else {
-      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-30-[header]-10-[table]|", options: NSLayoutFormatOptions(0), metrics: nil, views: ["header": recentTransactionsHeader, "table": tableView]))
+      recentTransactionsHeader.sizeToFit()
+      view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(headerHeight)-[table]|", options: NSLayoutFormatOptions(0), metrics: [
+        "headerHeight": recentTransactionsHeader.frame.height + 40], views: ["header": recentTransactionsHeader, "table": tableView]))
+      headerConstraint = NSLayoutConstraint(item: recentTransactionsHeader, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: 30)
+      view.addConstraint(headerConstraint)
       recentTransactionsHeader.userInteractionEnabled = true
     }
     
@@ -145,7 +150,7 @@ extension RecentTransactionsViewController: UITableViewDelegate {
   
   func scrollViewDidScroll(scrollView: UIScrollView) {
     if !inMiniMode && scrollView.contentOffset.y < 0 {
-      recentTransactionsHeader.frame.origin.y = 30 - scrollView.contentOffset.y
+      headerConstraint.constant = 30 - scrollView.contentOffset.y
     }
   }
   
@@ -248,7 +253,7 @@ class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTran
       } else {
         topExpander.frame.origin.y -= fromVC.tableView.contentOffset.y
       }
-      
+      topExpander.alpha = 0
       container.addSubview(toVC.view)
       container.addSubview(fromVC.view)
       container.addSubview(topExpander)
@@ -258,12 +263,14 @@ class ViewMoreRecentTransactionsAnimator: NSObject, UIViewControllerAnimatedTran
         fromVC.view.frame.origin.y -= self.topExpander.frame.origin.y
         fromVC.view.alpha = 0
         self.topExpander.frame.origin.y = 0
+        self.topExpander.alpha = 1
         self.bottomExpander.frame.origin.y = CGRectGetMaxY(self.rectToExpand)
       })
       
       UIView.animateWithDuration(0.2, delay: duration - 0.2, options: UIViewAnimationOptions(0), animations: { () -> Void in
         toVC.view.alpha = 1
         }, completion: { (finished) -> Void in
+          container.addSubview(toVC.view)
           self.topExpander.removeFromSuperview()
           self.bottomExpander.removeFromSuperview()
           transitionContext.completeTransition(true)
