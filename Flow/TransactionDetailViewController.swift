@@ -27,7 +27,7 @@ class TransactionDetailViewController: UIViewController {
       if let category = category {
         categoryButton.setTitle((category["name"] as String), forState: UIControlState.Normal)
       } else {
-        categoryButton.setTitle("Category", forState: UIControlState.Normal)
+        categoryButton.setTitle("", forState: UIControlState.Normal)
       }
     }
   }
@@ -50,6 +50,7 @@ class TransactionDetailViewController: UIViewController {
     priceInput.text = NSString(format: "$%.2f", transaction["amount"] as Double)
     initializeDateInput()
     
+    category = nil
     if let tempCategory = transaction["category"] as? PFObject {
       tempCategory.fetchIfNeededInBackgroundWithBlock({ (category, error) -> Void in
         self.category = category
