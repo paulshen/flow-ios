@@ -7,8 +7,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TransactionDetailViewController" customModule="Flow" customModuleProvider="target">
             <connections>
                 <outlet property="categoryButton" destination="UNR-YP-PfZ" id="sYP-6F-1Gj"/>
+                <outlet property="dateInput" destination="rDb-LK-4Mc" id="l5g-2C-3ES"/>
                 <outlet property="descriptionInput" destination="W4T-28-oj4" id="Ksh-uo-wLf"/>
                 <outlet property="descriptionPlaceholder" destination="APx-HF-fj0" id="6mX-it-Bx0"/>
+                <outlet property="editButton" destination="BP8-WP-zz6" id="Kvu-kM-wre"/>
                 <outlet property="priceInput" destination="MfW-3M-ZCr" id="OLO-xL-6XE"/>
                 <outlet property="view" destination="5Cd-yb-Mic" id="Tcp-Ru-NiA"/>
             </connections>
@@ -48,14 +50,34 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BP8-WP-zz6">
+                    <rect key="frame" x="20" y="406" width="335" height="36"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                    <state key="normal" title="EDIT">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="11/20/2014" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="rDb-LK-4Mc" customClass="UITextFieldCursorless" customModule="Flow" customModuleProvider="target">
+                    <rect key="frame" x="20" y="250" width="88" height="20"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="UNR-YP-PfZ" firstAttribute="leading" secondItem="5Cd-yb-Mic" secondAttribute="leading" constant="20" id="5W9-5r-aLa"/>
                 <constraint firstItem="APx-HF-fj0" firstAttribute="leading" secondItem="5Cd-yb-Mic" secondAttribute="leading" constant="20" id="CNy-gl-tbH"/>
+                <constraint firstItem="rDb-LK-4Mc" firstAttribute="leading" secondItem="5Cd-yb-Mic" secondAttribute="leading" constant="20" id="DS3-je-TJg"/>
+                <constraint firstItem="BP8-WP-zz6" firstAttribute="leading" secondItem="5Cd-yb-Mic" secondAttribute="leading" constant="20" id="ECP-GT-cxR"/>
                 <constraint firstItem="APx-HF-fj0" firstAttribute="top" secondItem="W4T-28-oj4" secondAttribute="top" id="FIJ-Nn-KAD"/>
                 <constraint firstItem="W4T-28-oj4" firstAttribute="leading" secondItem="5Cd-yb-Mic" secondAttribute="leading" constant="20" id="MYp-eV-L1p"/>
+                <constraint firstItem="MfW-3M-ZCr" firstAttribute="top" secondItem="rDb-LK-4Mc" secondAttribute="bottom" constant="5" id="Mey-C1-xj9"/>
                 <constraint firstItem="MfW-3M-ZCr" firstAttribute="leading" secondItem="5Cd-yb-Mic" secondAttribute="leading" constant="20" id="PBj-4U-Tzc"/>
+                <constraint firstItem="BP8-WP-zz6" firstAttribute="top" secondItem="MfW-3M-ZCr" secondAttribute="bottom" constant="30" id="PiP-TT-eNW"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BP8-WP-zz6" secondAttribute="bottom" constant="20" id="V6p-y1-575"/>
+                <constraint firstAttribute="trailing" secondItem="BP8-WP-zz6" secondAttribute="trailing" constant="20" id="bnX-eC-hfC"/>
                 <constraint firstAttribute="trailing" secondItem="MfW-3M-ZCr" secondAttribute="trailing" constant="20" id="dU3-gC-Us5"/>
                 <constraint firstAttribute="trailing" secondItem="W4T-28-oj4" secondAttribute="trailing" constant="20" id="e5Y-PB-Rhq"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MfW-3M-ZCr" secondAttribute="bottom" constant="20" id="oQ0-Fz-c5s"/>
@@ -64,7 +86,7 @@
                 <constraint firstItem="UNR-YP-PfZ" firstAttribute="top" secondItem="W4T-28-oj4" secondAttribute="bottom" constant="20" id="zKy-od-pyq"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-            <point key="canvasLocation" x="273" y="314"/>
+            <point key="canvasLocation" x="272.5" y="313.5"/>
         </view>
     </objects>
 </document>
