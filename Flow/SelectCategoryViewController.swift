@@ -82,9 +82,9 @@ extension SelectCategoryViewController: UITableViewDataSource {
     let cell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as UITableViewCell
     
     if (searchController.active) {
-      cell.textLabel.text = (filteredCategories[indexPath.row]["name"] as String)
+      cell.textLabel!.text = (filteredCategories[indexPath.row]["name"] as String)
     } else {
-      cell.textLabel.text = (categories![indexPath.row]["name"] as String)
+      cell.textLabel!.text = (categories![indexPath.row]["name"] as String)
     }
     return cell
   }
